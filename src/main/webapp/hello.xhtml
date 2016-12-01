@@ -12,11 +12,13 @@
 	<h:outputScript library="js" name="calendar-setup.js" />
 	<h:outputScript library="js" name="jalali.js" />
 	<h:outputScript library="js" name="calendar-fa.js" />
+	<h:outputScript library="js" name="oruji.js" />
 </h:head>
 <h:body>
 
 	<h3>JSF 2.0 Hello World Example - hello.xhtml</h3>
 	<h:form id="myform">
+		Date: 
 		<h:inputText value="#{helloBean.date}" id="date_input_2"></h:inputText>
 		<img id="date_btn_2" src="resources/cal.png" style="vertical-align: top;" />
 					<script type="text/javascript">
@@ -30,9 +32,13 @@
 					weekNumbers    : false
 				});
 			</script>
+			Price: 
 		<h:inputText value="#{helloBean.price}"></h:inputText>
+		Trans No: 
 		<h:inputText value="#{helloBean.transNo}"></h:inputText>
+		Destination:
 		<h:inputText value="#{helloBean.dest}"></h:inputText>
+		description: 
 		<h:inputText value="#{helloBean.description}"></h:inputText>
 		<h:commandButton value="save" action="#{helloBean.save}"></h:commandButton>
 	</h:form>
@@ -48,7 +54,9 @@
  			
  			<h:column>
  				<f:facet name="header">Price</f:facet>
- 				#{o.price}
+ 				<h:outputText value="#{o.price}" >      
+			    	<f:convertNumber type="currency" locale="en-US" minFractionDigits="0" maxFractionDigits="0" />
+				</h:outputText>
  			</h:column>
 
  			<h:column>

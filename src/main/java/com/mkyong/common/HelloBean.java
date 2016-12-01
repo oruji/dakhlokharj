@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +21,7 @@ public class HelloBean implements Serializable {
 	private static final String FILENAME = "C:\\Users\\oruji\\Desktop\\me\\dakhlokharj\\1395";
 
 	private String date;
-	private String time;
-	private String price;
+	private BigDecimal price;
 	private String transNo;
 	private String dest;
 	private String description;
@@ -35,19 +35,11 @@ public class HelloBean implements Serializable {
 		this.date = date;
 	}
 
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
-	}
-
-	public String getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
@@ -79,16 +71,19 @@ public class HelloBean implements Serializable {
 		if (transList == null) {
 			transList = new ArrayList<HelloBean>();
 
-			for (String row : readFile().split(";")) {
-				String[] columns = row.split(",");
-				HelloBean myBean = new HelloBean();
-				myBean.setDate(columns[0]);
-				myBean.setTime(columns[1]);
-				myBean.setPrice(columns[2]);
-				myBean.setTransNo(columns[3]);
-				myBean.setDest(columns[4]);
-				myBean.setDescription(columns[5]);
-				transList.add(myBean);
+			try {
+				for (String row : readFile().split(";")) {
+					String[] columns = row.split(",");
+					HelloBean myBean = new HelloBean();
+					myBean.setDate(columns[0]);
+					myBean.setPrice(new BigDecimal(columns[1]));
+					myBean.setTransNo(columns[2]);
+					myBean.setDest(columns[3]);
+					myBean.setDescription(columns[4]);
+					transList.add(myBean);
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
 		}
 		return transList;
@@ -186,6 +181,6 @@ public class HelloBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return date + "," + time + "," + price + "," + transNo + "," + dest + "," + description + ";";
+		return date + "," + price + "," + transNo + "," + dest + "," + description + ";";
 	}
 }
