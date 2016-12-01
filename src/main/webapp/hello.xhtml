@@ -19,7 +19,7 @@
 	<h3>JSF 2.0 Hello World Example - hello.xhtml</h3>
 	<h:form id="myform">
 		Date: 
-		<h:inputText value="#{helloBean.date}" id="date_input_2"></h:inputText>
+		<h:inputText value="#{helloBean.date}" id="date_input_2" required="true" />
 		<img id="date_btn_2" src="resources/cal.png" style="vertical-align: top;" />
 					<script type="text/javascript">
 				Calendar.setup({
@@ -33,17 +33,24 @@
 				});
 			</script>
 			Price: 
-		<h:inputText value="#{helloBean.price}"></h:inputText>
+		<h:inputText value="#{helloBean.price}" required="true" />
 		Trans No: 
-		<h:inputText value="#{helloBean.transNo}"></h:inputText>
+		<h:inputText value="#{helloBean.transNo}" required="true" />
 		Destination:
-		<h:inputText value="#{helloBean.dest}"></h:inputText>
+		<h:inputText value="#{helloBean.dest}" required="true" />
 		description: 
-		<h:inputText value="#{helloBean.description}"></h:inputText>
+		<h:inputText value="#{helloBean.description}" required="true" />
 		<h:commandButton value="save" action="#{helloBean.save}"></h:commandButton>
 	</h:form>
 	
 		<h:dataTable value="#{helloBean.transList}" var="o">
+
+ 			<h:column>
+ 				<!-- column header -->
+ 				<f:facet name="header">ID</f:facet>
+ 				<!-- row record -->
+ 				#{o.id}
+ 			</h:column>
 
  			<h:column>
  				<!-- column header -->

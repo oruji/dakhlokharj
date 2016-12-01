@@ -20,12 +20,21 @@ public class HelloBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final String FILENAME = "C:\\Users\\oruji\\Desktop\\me\\dakhlokharj\\1395";
 
+	private int id;
 	private String date;
 	private BigDecimal price;
 	private String transNo;
 	private String dest;
 	private String description;
 	private List<HelloBean> transList;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getDate() {
 		return date;
@@ -36,6 +45,8 @@ public class HelloBean implements Serializable {
 	}
 
 	public BigDecimal getPrice() {
+		if (price == null)
+			price = new BigDecimal(0);
 		return price;
 	}
 
@@ -66,15 +77,19 @@ public class HelloBean implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+	
 	public List<HelloBean> getTransList() {
 		if (transList == null) {
 			transList = new ArrayList<HelloBean>();
 
 			try {
-				for (String row : readFile().split(";")) {
-					String[] columns = row.split(",");
+				
+				String[] row = readFile().split(";");
+				
+				for (int i = 1; i <= row.length; i++) {
 					HelloBean myBean = new HelloBean();
+					myBean.setId(i);
+					String[] columns = row[i].split(",");
 					myBean.setDate(columns[0]);
 					myBean.setPrice(new BigDecimal(columns[1]));
 					myBean.setTransNo(columns[2]);
@@ -82,8 +97,9 @@ public class HelloBean implements Serializable {
 					myBean.setDescription(columns[4]);
 					transList.add(myBean);
 				}
+				
 			} catch (Exception e) {
-				// TODO: handle exception
+				System.out.println(e.getMessage());
 			}
 		}
 		return transList;
