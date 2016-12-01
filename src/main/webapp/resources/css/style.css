@@ -2,3 +2,7 @@ table {
 	margin-right: auto;
 	margin-left: auto;
 }
+
+th {
+	width: 150px;
+}
