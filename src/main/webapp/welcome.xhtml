@@ -6,10 +6,56 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 
 <h:head>
-	<title>JSF 2.0 Hello World</title>
+	<h:outputStylesheet library="css" name="style.css"  />
 </h:head>
 <h:body bgcolor="white">
-	<h3>JSF 2.0 Hello World Example - welcome.xhtml</h3>
-	<h4>Welcome #{helloBean.name}</h4>
+	<h:form id="myform">
+		 <h:commandButton action="index?faces-redirect=true" value="Main Page" />
+		<h:dataTable value="#{transactionBean.transList}" var="o">
+ 			<h:column>
+ 				<f:facet name="header">ID</f:facet>
+ 				#{o.id}
+ 			</h:column>
+
+ 			<h:column>
+ 				<f:facet name="header">Date</f:facet>
+ 				<h:inputText value="#{o.date}" size="10" rendered="#{o.editable}" />
+    			<h:outputText value="#{o.date}" rendered="#{not o.editable}" />
+ 			</h:column>
+ 			
+ 			<h:column>
+ 				<f:facet name="header">Price</f:facet>
+ 				<h:inputText value="#{o.price}" size="10" rendered="#{o.editable}" />
+ 				<h:outputText value="#{o.price}" rendered="#{not o.editable}">      
+			    	<f:convertNumber type="currency" locale="en-US" minFractionDigits="0" maxFractionDigits="0" />
+				</h:outputText>
+ 			</h:column>
+
+ 			<h:column>
+ 				<f:facet name="header">trans No</f:facet>
+ 				<h:inputText value="#{o.transNo}" size="10" rendered="#{o.editable}" />
+    			<h:outputText value="#{o.transNo}" rendered="#{not o.editable}" />
+ 				
+ 			</h:column>
+ 			<h:column>
+ 				<f:facet name="header">destination</f:facet>
+ 				<h:inputText value="#{o.dest}" size="10" rendered="#{o.editable}" />
+    			<h:outputText value="#{o.dest}" rendered="#{not o.editable}" />
+ 				
+ 			</h:column>
+ 			<h:column>
+ 				<f:facet name="header">description</f:facet>
+ 				<h:inputText value="#{o.description}" size="10" rendered="#{o.editable}" />
+    			<h:outputText value="#{o.description}" rendered="#{not o.editable}" />
+ 			</h:column>
+ 			
+ 			<h:column>
+			    <f:facet name="header">Action</f:facet>
+			    <h:commandButton value="delete" action="#{transactionBean.deleteAction(o)}" />
+			    <h:commandButton value="Edit" action="#{transactionBean.editAction(o)}" rendered="#{not o.editable}" />
+			    <h:commandButton value="Save" action="#{transactionBean.saveEdit(o)}" rendered="#{o.editable}" />
+			</h:column>
+ 		</h:dataTable>
+	</h:form>
 </h:body>
 </html>
