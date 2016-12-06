@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -75,6 +78,14 @@ public class TransactionBean implements Serializable {
 			System.out.println(e.getMessage());
 		}
 
+//		Collections.reverse(beanList);
+		
+//		Collections.sort(beanList, new Comparator<TransactionBean>() {
+//			  public int compare(TransactionBean o1, TransactionBean o2) {
+//			      return o1.transNo.compareTo(o2.transNo);
+//			  }
+//			});
+		
 		return beanList;
 	}
 
