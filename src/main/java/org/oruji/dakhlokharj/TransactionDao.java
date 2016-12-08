@@ -16,15 +16,11 @@ public class TransactionDao {
 	}
 
 	public TransactionModel transCreate(TransactionModel trans) {
-		// begin transaction
 		em.getTransaction().begin();
 		if (!em.contains(trans)) {
-			// persist object - add to entity manager
 			em.persist(trans);
-			// flush em - save to DB
 			em.flush();
 		}
-		// commit transaction at all
 		em.getTransaction().commit();
 
 		return trans;
@@ -36,11 +32,22 @@ public class TransactionDao {
 	}
 
 	public TransactionModel transUpdate(TransactionModel trans) {
-		return em.merge(trans);
+		em.getTransaction().begin();
+		if (!em.contains(trans)) {
+			em.merge(trans);
+			em.flush();
+		}
+		em.getTransaction().commit();
+		return trans;
 	}
 
 	public TransactionModel transDelete(TransactionModel trans) {
-		em.remove(em.find(TransactionModel.class, trans.getId()));
+		em.getTransaction().begin();
+		if (!em.contains(trans)) {
+			em.remove(em.find(TransactionModel.class, trans.getId()));
+			em.flush();
+		}
+		em.getTransaction().commit();
 		return trans;
 	}
 }

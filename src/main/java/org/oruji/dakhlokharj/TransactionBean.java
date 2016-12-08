@@ -22,7 +22,7 @@ public class TransactionBean implements Serializable {
 	}
 
 	public String deleteAction(TransactionModel bean) {
-
+		new TransactionDao().transDelete(bean);
 		transList = null;
 		return null;
 	}
