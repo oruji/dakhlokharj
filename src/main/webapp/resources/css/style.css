@@ -1,3 +1,7 @@
+body {
+	text-align: center
+}
+
 table {
 	margin-right: auto;
 	margin-left: auto;
@@ -6,4 +10,11 @@ table {
 
 th {
 	width: 150px;
+}
+
+input {
+	width: 70px
+}
+.date {
+	width: 120px
 }

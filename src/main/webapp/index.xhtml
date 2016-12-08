@@ -17,7 +17,7 @@
 <h:body>
 	<h:form id="myform">
 		Date: 
-		<h:inputText value="#{transactionBean.transaction.transDate}" id="date_input_2" required="true">
+		<h:inputText value="#{transactionBean.transaction.transDate}" id="date_input_2" required="true" class="date">
 			<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
 		</h:inputText>
 		<img id="date_btn_2" src="resources/cal.png" style="vertical-align: top;" />
@@ -68,7 +68,7 @@
 
  			<h:column>
  				<f:facet name="header">Date</f:facet>
- 				<h:inputText value="#{o.transDate}" rendered="#{o.editable}">
+ 				<h:inputText value="#{o.transDate}" rendered="#{o.editable}" class="date">
  				<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
  				</h:inputText>
     			<h:outputText value="#{o.transDate}" converter="org.oruji.dakhlokharj.DateConverter" rendered="#{not o.editable}" />
