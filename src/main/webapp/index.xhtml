@@ -57,45 +57,55 @@
 
  			<h:column>
  				<f:facet name="header">Date</f:facet>
-    			<h:outputText value="#{o.transDate}" converter="org.oruji.dakhlokharj.DateConverter" />
+ 				<h:inputText value="#{o.transDate}" rendered="#{o.editable}">
+ 				<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
+ 				</h:inputText>
+    			<h:outputText value="#{o.transDate}" converter="org.oruji.dakhlokharj.DateConverter" rendered="#{not o.editable}" />
  			</h:column>
  			
  			<h:column>
  				<f:facet name="header">Price</f:facet>
- 				<h:outputText value="#{o.transCur}">      
+ 				<h:inputText value="#{o.transCur}" rendered="#{o.editable}" />
+ 				<h:outputText value="#{o.transCur}" rendered="#{not o.editable}">      
 			    	<f:convertNumber type="currency" locale="en-US" minFractionDigits="0" maxFractionDigits="0" />
 				</h:outputText>
  			</h:column>
 
  			<h:column>
  				<f:facet name="header">to</f:facet>
-    			<h:outputText value="#{o.transTo}" />
+ 				<h:inputText value="#{o.transTo}" rendered="#{o.editable}" />
+    			<h:outputText value="#{o.transTo}" rendered="#{not o.editable}" />
  			</h:column>
 
  			<h:column>
  				<f:facet name="header">pay no</f:facet>
-    			<h:outputText value="#{o.payNo}" />
+ 				<h:inputText value="#{o.payNo}" rendered="#{o.editable}" />
+    			<h:outputText value="#{o.payNo}" rendered="#{not o.editable}" />
  			</h:column>
 
  			<h:column>
  				<f:facet name="header">trans No</f:facet>
-    			<h:outputText value="#{o.transNo}" />
+ 				<h:inputText value="#{o.transNo}" rendered="#{o.editable}" />
+    			<h:outputText value="#{o.transNo}" rendered="#{not o.editable}" />
  			</h:column>
  			
  			<h:column>
  				<f:facet name="header">type</f:facet>
-    			<h:outputText value="#{o.transType}" />
+ 				<h:inputText value="#{o.transType}" rendered="#{o.editable}" />
+    			<h:outputText value="#{o.transType}" rendered="#{not o.editable}" />
  			</h:column>
  			
  			<h:column>
  				<f:facet name="header">description</f:facet>
-    			<h:outputText value="#{o.transDesc}" />
+ 				<h:inputText value="#{o.transDesc}" rendered="#{o.editable}" />
+    			<h:outputText value="#{o.transDesc}" rendered="#{not o.editable}" />
  			</h:column>
  			
  			<h:column>
 			    <f:facet name="header">Action</f:facet>
-			    <h:commandButton value="delete" action="#{transactionBean.deleteAction(o)}" />
-			    <h:commandButton value="Edit" action="#{transactionBean.editAction(o)}" />
+			    <h:commandButton value="delete" action="#{transactionBean.deleteAction(o)}" rendered="#{not o.editable}" />
+			    <h:commandButton value="Edit" action="#{transactionBean.editAction(o)}" rendered="#{not o.editable}" />
+			    <h:commandButton value="save" action="#{transactionBean.saveEdit(o)}" rendered="#{o.editable}" />
 			</h:column>
  		</h:dataTable>
 	</h:form>

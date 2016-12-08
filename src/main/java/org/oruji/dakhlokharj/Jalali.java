@@ -261,7 +261,7 @@ public class Jalali {
 	public static String toJalali(DateTime date) {
 		Jalali jcal = new Jalali();
 		jcal.GregorianToPersian(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth());
-		return jcal.toString() + " " + date.getHourOfDay() + ":" + date.getMinuteOfDay();
+		return jcal.toString() + " " + date.getHourOfDay() + ":" + date.getMinuteOfHour();
 
 	}
 

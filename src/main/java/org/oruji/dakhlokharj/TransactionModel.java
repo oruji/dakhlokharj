@@ -13,6 +13,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @NamedQueries({ @NamedQuery(name = "TransactionModel.findAll", query = "SELECT t from TransactionModel t") })
@@ -31,6 +32,8 @@ public class TransactionModel implements Serializable {
 	private String transNo;
 	private Integer transType;
 	private String transDesc;
+	@Transient
+	private boolean editable = false;
 
 	public Long getId() {
 		return id;
@@ -94,6 +97,14 @@ public class TransactionModel implements Serializable {
 
 	public void setTransDesc(String transDesc) {
 		this.transDesc = transDesc;
+	}
+
+	public boolean isEditable() {
+		return editable;
+	}
+
+	public void setEditable(boolean editable) {
+		this.editable = editable;
 	}
 
 	@Override

@@ -13,8 +13,6 @@ public class TransactionBean implements Serializable {
 
 	private TransactionModel transaction;
 	private List<TransactionModel> transList = null;
-	private boolean editable;
-	private String date;
 
 	public void save() {
 		new TransactionDao().transCreate(getTransaction());
@@ -28,23 +26,18 @@ public class TransactionBean implements Serializable {
 	}
 
 	public String editAction(TransactionModel bean) {
+		bean.setEditable(true);
 		return null;
 	}
 
 	public String saveEdit(TransactionModel bean) {
+		new TransactionDao().transUpdate(bean);
+		bean.setEditable(false);
 		return null;
 	}
 
 	public void readAction() {
 		setTransList(new TransactionDao().transRead());
-	}
-
-	public boolean isEditable() {
-		return editable;
-	}
-
-	public void setEditable(boolean editable) {
-		this.editable = editable;
 	}
 
 	public TransactionModel getTransaction() {
@@ -65,13 +58,5 @@ public class TransactionBean implements Serializable {
 
 	public void setTransList(List<TransactionModel> transList) {
 		this.transList = transList;
-	}
-
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
 	}
 }
