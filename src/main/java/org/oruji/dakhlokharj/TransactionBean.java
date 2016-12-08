@@ -14,14 +14,17 @@ public class TransactionBean implements Serializable {
 	private TransactionModel transaction;
 	private List<TransactionModel> transList = null;
 
-	public void save() {
+	public String save() {
 		new TransactionDao().transCreate(getTransaction());
 		transList = null;
+		transaction = null;
+		return null;
 	}
 
 	public String deleteAction(TransactionModel bean) {
 		new TransactionDao().transDelete(bean);
 		transList = null;
+		transaction = null;
 		return null;
 	}
 
@@ -33,6 +36,9 @@ public class TransactionBean implements Serializable {
 	public String saveEdit(TransactionModel bean) {
 		new TransactionDao().transUpdate(bean);
 		bean.setEditable(false);
+		transList = null;
+		transaction = null;
+
 		return null;
 	}
 

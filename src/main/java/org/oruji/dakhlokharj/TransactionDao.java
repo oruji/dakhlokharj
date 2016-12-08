@@ -7,8 +7,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class TransactionDao {
-	private EntityManager em = getEntityManager();;
-
 	protected EntityManager getEntityManager() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("dakhlokharj");
 		EntityManager ecm = emf.createEntityManager();
@@ -16,6 +14,7 @@ public class TransactionDao {
 	}
 
 	public TransactionModel transCreate(TransactionModel trans) {
+		EntityManager em = getEntityManager();
 		em.getTransaction().begin();
 		if (!em.contains(trans)) {
 			em.persist(trans);
@@ -28,10 +27,12 @@ public class TransactionDao {
 
 	@SuppressWarnings("unchecked")
 	public List<TransactionModel> transRead() {
+		EntityManager em = getEntityManager();
 		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findAll").getResultList();
 	}
 
 	public TransactionModel transUpdate(TransactionModel trans) {
+		EntityManager em = getEntityManager();
 		em.getTransaction().begin();
 		if (!em.contains(trans)) {
 			em.merge(trans);
@@ -42,6 +43,7 @@ public class TransactionDao {
 	}
 
 	public TransactionModel transDelete(TransactionModel trans) {
+		EntityManager em = getEntityManager();
 		em.getTransaction().begin();
 		if (!em.contains(trans)) {
 			em.remove(em.find(TransactionModel.class, trans.getId()));
