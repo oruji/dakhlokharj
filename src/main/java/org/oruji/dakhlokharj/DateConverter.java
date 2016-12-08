@@ -5,6 +5,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+import org.joda.time.DateTime;
+
 @FacesConverter("org.oruji.dakhlokharj.DateConverter")
 public class DateConverter implements Converter {
 
@@ -15,8 +17,6 @@ public class DateConverter implements Converter {
 
 	@Override
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) {
-		System.out.println(arg2);
-		return null;
+		return Jalali.toJalali(new DateTime(arg2));
 	}
-
 }
