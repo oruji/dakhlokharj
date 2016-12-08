@@ -42,6 +42,13 @@ public class TransactionBean implements Serializable {
 		return null;
 	}
 
+	public String cancel(TransactionModel bean) {
+		bean.setEditable(false);
+		transList = null;
+		transaction = null;
+		return null;
+	}
+
 	public void readAction() {
 		setTransList(new TransactionDao().transRead());
 	}

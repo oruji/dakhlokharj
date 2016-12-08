@@ -33,9 +33,13 @@ public class TypeConverter implements Converter {
 		case 7:
 			return "شارژ ساختمان";
 		case 8:
-			return "واریز";
+			return "دستی";
 		case 9:
 			return "خرید";
+		case 10:
+			return "غذا";
+		case 11:
+			return "میوه";
 		case 99:
 			return "دیگر";
 		default:
