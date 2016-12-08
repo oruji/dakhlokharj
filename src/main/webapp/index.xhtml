@@ -102,18 +102,18 @@
  			
  			<h:column>
  				<f:facet name="header">type</f:facet>
-			<h:selectOneMenu value="#{transactionBean.transaction.transType}" rendered="#{o.editable}">
-   			<f:selectItem itemValue="1" itemLabel="قبض موبایل امین" />
-   			<f:selectItem itemValue="2" itemLabel="قبض موبایل فاطمه" />
-   			<f:selectItem itemValue="3" itemLabel="قبض برق" />
-   			<f:selectItem itemValue="4" itemLabel="قبض گاز" />
-   			<f:selectItem itemValue="5" itemLabel="قبض تلفن" />
-   			<f:selectItem itemValue="6" itemLabel="قبض آب" />
-   			<f:selectItem itemValue="7" itemLabel="شارژ ساختمان" />
-   			<f:selectItem itemValue="8" itemLabel="واریز" />
-   			<f:selectItem itemValue="9" itemLabel="خرید" />
-   			<f:selectItem itemValue="9" itemLabel="دیگر" />
-   		</h:selectOneMenu>
+				<h:selectOneMenu value="#{o.transType}" rendered="#{o.editable}">
+		   			<f:selectItem itemValue="1" itemLabel="قبض موبایل امین" />
+		   			<f:selectItem itemValue="2" itemLabel="قبض موبایل فاطمه" />
+		   			<f:selectItem itemValue="3" itemLabel="قبض برق" />
+		   			<f:selectItem itemValue="4" itemLabel="قبض گاز" />
+		   			<f:selectItem itemValue="5" itemLabel="قبض تلفن" />
+		   			<f:selectItem itemValue="6" itemLabel="قبض آب" />
+		   			<f:selectItem itemValue="7" itemLabel="شارژ ساختمان" />
+		   			<f:selectItem itemValue="8" itemLabel="واریز" />
+		   			<f:selectItem itemValue="9" itemLabel="خرید" />
+		   			<f:selectItem itemValue="9" itemLabel="دیگر" />
+		   		</h:selectOneMenu>
     			<h:outputText value="#{o.transType}" rendered="#{not o.editable}" />
  			</h:column>
  			
