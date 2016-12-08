@@ -17,23 +17,21 @@ public class TransactionBean implements Serializable {
 	private String date;
 
 	public void save() {
-		transaction.setTransDate(Jalali.toGregorian(date).toDate());
 		new TransactionDao().transCreate(getTransaction());
 		transList = null;
 	}
 
-	public String deleteAction(TransactionBean bean) {
+	public String deleteAction(TransactionModel bean) {
+
 		transList = null;
 		return null;
 	}
 
-	public String editAction(TransactionBean bean) {
-		bean.setEditable(true);
+	public String editAction(TransactionModel bean) {
 		return null;
 	}
 
-	public String saveEdit(TransactionBean bean) {
-		bean.setEditable(false);
+	public String saveEdit(TransactionModel bean) {
 		return null;
 	}
 
