@@ -32,10 +32,14 @@
 		</script>
 		Price: 
 		<h:inputText value="#{transactionBean.price}" required="true" />
-		Trans No: 
-		<h:inputText value="#{transactionBean.transNo}" required="true" />
 		Destination:
 		<h:inputText value="#{transactionBean.dest}" required="true" />
+		pay no:
+		<h:inputText value="#{transactionBean.payNo}" required="true" />
+				Trans No: 
+		<h:inputText value="#{transactionBean.transNo}" required="true" />
+		type:
+		<h:inputText value="#{transactionBean.type}" required="true" />
 		description: 
 		<h:inputText value="#{transactionBean.description}" required="true" />
 		<h:commandButton value="save" action="#{transactionBean.save}" />

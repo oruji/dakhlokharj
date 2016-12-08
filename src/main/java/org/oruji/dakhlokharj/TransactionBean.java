@@ -8,9 +8,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -26,16 +23,27 @@ public class TransactionBean implements Serializable {
 	private int id;
 	private String date;
 	private BigDecimal price;
-	private String transNo;
 	private String dest;
+	private String payNo;
+	private String transNo;
+	private int type;
 	private String description;
 	private List<TransactionBean> transList = null;
 	private boolean editable;
 
 	public void save() {
-		getTransList().add(this);
-		writeCsv();
-		transList = null;
+		TransactionModel trans = new TransactionModel();
+		trans.setTransDate(Jalali.toGregorian(date).toDate());
+		trans.setTransCur(price);
+		trans.setTransTo(dest);
+		trans.setPayNo(payNo);
+		trans.setTransNo(transNo);
+		trans.setTransType(type);
+		trans.setTransDesc(description);
+		new TransactionDao().transCreate(trans);
+		// getTransList().add(this);
+		// writeCsv();
+		// transList = null;
 	}
 
 	public String deleteAction(TransactionBean bean) {
@@ -49,7 +57,7 @@ public class TransactionBean implements Serializable {
 		bean.setEditable(true);
 		return null;
 	}
-	
+
 	public String saveEdit(TransactionBean bean) {
 		writeCsv();
 		bean.setEditable(false);
@@ -78,14 +86,14 @@ public class TransactionBean implements Serializable {
 			System.out.println(e.getMessage());
 		}
 
-//		Collections.reverse(beanList);
-		
-//		Collections.sort(beanList, new Comparator<TransactionBean>() {
-//			  public int compare(TransactionBean o1, TransactionBean o2) {
-//			      return o1.transNo.compareTo(o2.transNo);
-//			  }
-//			});
-		
+		// Collections.reverse(beanList);
+
+		// Collections.sort(beanList, new Comparator<TransactionBean>() {
+		// public int compare(TransactionBean o1, TransactionBean o2) {
+		// return o1.transNo.compareTo(o2.transNo);
+		// }
+		// });
+
 		return beanList;
 	}
 
@@ -233,6 +241,22 @@ public class TransactionBean implements Serializable {
 
 	public void setEditable(boolean editable) {
 		this.editable = editable;
+	}
+
+	public String getPayNo() {
+		return payNo;
+	}
+
+	public void setPayNo(String payNo) {
+		this.payNo = payNo;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 
 	@Override
