@@ -5,11 +5,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 
 public class TransactionDao {
-	@PersistenceContext(unitName = "dakhlokharj")
-	private EntityManager em;
+	private EntityManager em = getEntityManager();;
 
 	protected EntityManager getEntityManager() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("dakhlokharj");
@@ -18,8 +16,6 @@ public class TransactionDao {
 	}
 
 	public TransactionModel transCreate(TransactionModel trans) {
-		EntityManager em = getEntityManager();
-
 		// begin transaction
 		em.getTransaction().begin();
 		if (!em.contains(trans)) {

@@ -31,17 +31,17 @@
 			});
 		</script>
 		Price: 
-		<h:inputText value="#{transactionBean.price}" required="true" />
+		<h:inputText value="#{transactionBean.transaction.transCur}" required="true" />
 		Destination:
-		<h:inputText value="#{transactionBean.dest}" required="true" />
+		<h:inputText value="#{transactionBean.transaction.transTo}" required="true" />
 		pay no:
-		<h:inputText value="#{transactionBean.payNo}" required="true" />
+		<h:inputText value="#{transactionBean.transaction.payNo}" required="true" />
 				Trans No: 
-		<h:inputText value="#{transactionBean.transNo}" required="true" />
+		<h:inputText value="#{transactionBean.transaction.transNo}" required="true" />
 		type:
-		<h:inputText value="#{transactionBean.type}" required="true" />
+		<h:inputText value="#{transactionBean.transaction.transType}" required="true" />
 		description: 
-		<h:inputText value="#{transactionBean.description}" required="true" />
+		<h:inputText value="#{transactionBean.transaction.transDesc}" required="true" />
 		<h:commandButton value="save" action="#{transactionBean.save}" />
 	</h:form>
 	<br />
@@ -55,41 +55,45 @@
 
  			<h:column>
  				<f:facet name="header">Date</f:facet>
- 				<h:inputText value="#{o.date}" size="10" rendered="#{o.editable}" />
-    			<h:outputText value="#{o.date}" rendered="#{not o.editable}" />
+    			<h:outputText value="#{o.transDate}" />
  			</h:column>
  			
  			<h:column>
  				<f:facet name="header">Price</f:facet>
- 				<h:inputText value="#{o.price}" size="10" rendered="#{o.editable}" />
- 				<h:outputText value="#{o.price}" rendered="#{not o.editable}">      
+ 				<h:outputText value="#{o.transCur}">      
 			    	<f:convertNumber type="currency" locale="en-US" minFractionDigits="0" maxFractionDigits="0" />
 				</h:outputText>
  			</h:column>
 
  			<h:column>
- 				<f:facet name="header">trans No</f:facet>
- 				<h:inputText value="#{o.transNo}" size="10" rendered="#{o.editable}" />
-    			<h:outputText value="#{o.transNo}" rendered="#{not o.editable}" />
- 				
+ 				<f:facet name="header">to</f:facet>
+    			<h:outputText value="#{o.transTo}" />
  			</h:column>
+
  			<h:column>
- 				<f:facet name="header">destination</f:facet>
- 				<h:inputText value="#{o.dest}" size="10" rendered="#{o.editable}" />
-    			<h:outputText value="#{o.dest}" rendered="#{not o.editable}" />
- 				
+ 				<f:facet name="header">pay no</f:facet>
+    			<h:outputText value="#{o.payNo}" />
  			</h:column>
+
+ 			<h:column>
+ 				<f:facet name="header">trans No</f:facet>
+    			<h:outputText value="#{o.transNo}" />
+ 			</h:column>
+ 			
+ 			<h:column>
+ 				<f:facet name="header">type</f:facet>
+    			<h:outputText value="#{o.transType}" />
+ 			</h:column>
+ 			
  			<h:column>
  				<f:facet name="header">description</f:facet>
- 				<h:inputText value="#{o.description}" size="10" rendered="#{o.editable}" />
-    			<h:outputText value="#{o.description}" rendered="#{not o.editable}" />
+    			<h:outputText value="#{o.transDesc}" />
  			</h:column>
  			
  			<h:column>
 			    <f:facet name="header">Action</f:facet>
 			    <h:commandButton value="delete" action="#{transactionBean.deleteAction(o)}" />
-			    <h:commandButton value="Edit" action="#{transactionBean.editAction(o)}" rendered="#{not o.editable}" />
-			    <h:commandButton value="Save" action="#{transactionBean.saveEdit(o)}" rendered="#{o.editable}" />
+			    <h:commandButton value="Edit" action="#{transactionBean.editAction(o)}" />
 			</h:column>
  		</h:dataTable>
 	</h:form>
