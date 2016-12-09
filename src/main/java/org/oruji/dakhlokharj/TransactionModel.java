@@ -16,7 +16,10 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
-@NamedQueries({ @NamedQuery(name = "TransactionModel.findAll", query = "SELECT t from TransactionModel t order by t.transDate desc") })
+@NamedQueries({
+	@NamedQuery(name = "TransactionModel.findAll", query = "SELECT t from TransactionModel t order by t.transDate desc"), 
+	@NamedQuery(name = "TransactionModel.findByType", query = "SELECT t from TransactionModel t where t.transType = :transType order by t.transDate desc")
+})
 public class TransactionModel implements Serializable {
 	private static final long serialVersionUID = -4819996652263837857L;
 	@Id

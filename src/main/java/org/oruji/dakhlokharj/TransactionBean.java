@@ -13,6 +13,7 @@ public class TransactionBean implements Serializable {
 
 	private TransactionModel transaction;
 	private List<TransactionModel> transList = null;
+	private Integer typeSearch = 0;
 
 	public String save() {
 		new TransactionDao().transCreate(getTransaction());
@@ -50,9 +51,18 @@ public class TransactionBean implements Serializable {
 	}
 
 	public void readAction() {
-		setTransList(new TransactionDao().transRead());
+		if (typeSearch == 0) 
+			setTransList(new TransactionDao().transRead());
+		else 
+			setTransList(new TransactionDao().transRead(typeSearch));
+		
 	}
 
+	public String typeSearchAction() {
+		transList = null;
+		return null;
+	}
+	
 	public TransactionModel getTransaction() {
 		if (transaction == null)
 			transaction = new TransactionModel();
@@ -71,5 +81,13 @@ public class TransactionBean implements Serializable {
 
 	public void setTransList(List<TransactionModel> transList) {
 		this.transList = transList;
+	}
+
+	public Integer getTypeSearch() {
+		return typeSearch;
+	}
+
+	public void setTypeSearch(Integer typeSearch) {
+		this.typeSearch = typeSearch;
 	}
 }

@@ -89,6 +89,23 @@
 	<br />
 	<br />
 	<h:form>
+		<h:selectOneMenu value="#{transactionBean.typeSearch}" valueChangeListener="#{transactionBean.typeSearchAction()}" onchange="submit()">
+			<f:selectItem itemValue="0" itemLabel="همه" />
+   			<f:selectItem itemValue="1" itemLabel="قبض موبایل امین" />
+   			<f:selectItem itemValue="2" itemLabel="قبض موبایل فاطمه" />
+   			<f:selectItem itemValue="3" itemLabel="قبض برق" />
+   			<f:selectItem itemValue="4" itemLabel="قبض گاز" />
+   			<f:selectItem itemValue="5" itemLabel="قبض تلفن" />
+   			<f:selectItem itemValue="6" itemLabel="قبض آب" />
+   			<f:selectItem itemValue="7" itemLabel="شارژ ساختمان" />
+   			<f:selectItem itemValue="8" itemLabel="دستی" />
+   			<f:selectItem itemValue="9" itemLabel="خرید" />
+   			<f:selectItem itemValue="10" itemLabel="غذا" />
+   			<f:selectItem itemValue="11" itemLabel="میوه" />
+   			<f:selectItem itemValue="12" itemLabel="هدیه" />
+   			<f:selectItem itemValue="13" itemLabel="بیمه" />		   			
+   			<f:selectItem itemValue="99" itemLabel="دیگر" />
+	   		</h:selectOneMenu>
 		<h:dataTable value="#{transactionBean.transList}" var="o">
  			<h:column>
  				<f:facet name="header">تاریخ</f:facet>

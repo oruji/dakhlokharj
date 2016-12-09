@@ -30,6 +30,12 @@ public class TransactionDao {
 		EntityManager em = getEntityManager();
 		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findAll").getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<TransactionModel> transRead(Integer typeSearch) {
+		EntityManager em = getEntityManager();
+		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByType").setParameter("transType", typeSearch).getResultList();
+	}
 
 	public TransactionModel transUpdate(TransactionModel trans) {
 		EntityManager em = getEntityManager();
