@@ -1,5 +1,6 @@
 body {
-	text-align: center
+	direction: rtl;
+	text-align: center;
 }
 
 table {
@@ -13,7 +14,7 @@ th {
 }
 
 input {
-	width: 70px
+	width: 100px
 }
 .date {
 	width: 120px

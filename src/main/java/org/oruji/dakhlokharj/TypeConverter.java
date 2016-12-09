@@ -40,6 +40,10 @@ public class TypeConverter implements Converter {
 			return "غذا";
 		case 11:
 			return "میوه";
+		case 12:
+			return "هدیه";
+		case 13:
+			return "بیمه";			
 		case 99:
 			return "دیگر";
 		default:

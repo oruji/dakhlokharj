@@ -27,9 +27,9 @@ public class TransactionModel implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date transDate;
 	private BigDecimal transCur;
-	private String transTo;
-	private String payNo;
-	private String transNo;
+	private String transTo = "0";
+	private String payNo = "0";
+	private String transNo ="0";
 	private Integer transType;
 	private String transDesc;
 	@Transient

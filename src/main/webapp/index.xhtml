@@ -16,56 +16,80 @@
 </h:head>
 <h:body>
 	<h:form id="myform">
-		Date: 
-		<h:inputText value="#{transactionBean.transaction.transDate}" id="date_input_2" required="true" class="date">
-			<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
-		</h:inputText>
-		<img id="date_btn_2" src="resources/cal.png" style="vertical-align: top;" />
-		<script type="text/javascript">
-			Calendar.setup({
-				inputField     :    "myform:date_input_2",   // id of the input field
-				button         :    "date_btn_2",   // trigger for the calendar (button ID)
-	       		ifFormat       :    "%Y-%m-%d %H:%M",       // format of the input field
-	       		showsTime      :    true,
-       			dateType	   :	'jalali',
-       			timeFormat     :    "24",
-				weekNumbers    : false
-			});
-		</script>
-		Price: 
-		<h:inputText value="#{transactionBean.transaction.transCur}" required="true" />
-		Destination:
-		<h:inputText value="#{transactionBean.transaction.transTo}" required="true" />
-		pay no:
-		<h:inputText value="#{transactionBean.transaction.payNo}" required="true" />
-				Trans No: 
-		<h:inputText value="#{transactionBean.transaction.transNo}" required="true" />
-		type:
-		<h:selectOneMenu value="#{transactionBean.transaction.transType}" required="true">
-   			<f:selectItem itemValue="1" itemLabel="قبض موبایل امین" />
-   			<f:selectItem itemValue="2" itemLabel="قبض موبایل فاطمه" />
-   			<f:selectItem itemValue="3" itemLabel="قبض برق" />
-   			<f:selectItem itemValue="4" itemLabel="قبض گاز" />
-   			<f:selectItem itemValue="5" itemLabel="قبض تلفن" />
-   			<f:selectItem itemValue="6" itemLabel="قبض آب" />
-   			<f:selectItem itemValue="7" itemLabel="شارژ ساختمان" />
-   			<f:selectItem itemValue="8" itemLabel="واریز" />
-   			<f:selectItem itemValue="9" itemLabel="خرید" />
-   			<f:selectItem itemValue="9" itemLabel="دیگر" />
-   		</h:selectOneMenu>
-		description: 
-		<h:inputText value="#{transactionBean.transaction.transDesc}" required="true" />
-		<h:commandButton value="save" action="#{transactionBean.save}" />
+		<h:dataTable value="" var="" id="mytable">
+ 			<h:column>
+ 				<f:facet name="header">تاریخ</f:facet>
+				<h:inputText value="#{transactionBean.transaction.transDate}" id="date_input_2" required="true" class="date">
+					<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
+				</h:inputText>
+				<img id="date_btn_2" src="resources/cal.png" style="vertical-align: top;" />
+				<script type="text/javascript">
+					Calendar.setup({
+						inputField     :    "myform:mytable:0:date_input_2",   // id of the input field
+						button         :    "date_btn_2",   // trigger for the calendar (button ID)
+			       		ifFormat       :    "%Y-%m-%d %H:%M",       // format of the input field
+			       		showsTime      :    true,
+		       			dateType	   :	'jalali',
+		       			timeFormat     :    "24",
+						weekNumbers    : false
+					});
+				</script>
+ 			</h:column>
+ 			
+ 			<h:column>
+ 				<f:facet name="header">مبلغ</f:facet>
+				<h:inputText value="#{transactionBean.transaction.transCur}" required="true" />
+ 			</h:column>
+ 			
+ 			<h:column>
+ 				<f:facet name="header">نوع برداشت</f:facet>
+				<h:selectOneMenu value="#{transactionBean.transaction.transType}" required="true">
+		   			<f:selectItem itemValue="1" itemLabel="قبض موبایل امین" />
+		   			<f:selectItem itemValue="2" itemLabel="قبض موبایل فاطمه" />
+		   			<f:selectItem itemValue="3" itemLabel="قبض برق" />
+		   			<f:selectItem itemValue="4" itemLabel="قبض گاز" />
+		   			<f:selectItem itemValue="5" itemLabel="قبض تلفن" />
+		   			<f:selectItem itemValue="6" itemLabel="قبض آب" />
+		   			<f:selectItem itemValue="7" itemLabel="شارژ ساختمان" />
+		   			<f:selectItem itemValue="8" itemLabel="دستی" />
+		   			<f:selectItem itemValue="9" itemLabel="خرید" />
+		   			<f:selectItem itemValue="10" itemLabel="غذا" />
+		   			<f:selectItem itemValue="11" itemLabel="میوه" />
+		   			<f:selectItem itemValue="12" itemLabel="هدیه" />
+		   			<f:selectItem itemValue="13" itemLabel="بیمه" />
+		   			<f:selectItem itemValue="99" itemLabel="دیگر" />
+		   		</h:selectOneMenu>
+ 			</h:column>
+ 			
+ 			<h:column>
+ 				<f:facet name="header">توضیحات</f:facet>
+				<h:inputText value="#{transactionBean.transaction.transDesc}" required="true" />
+ 			</h:column>
+ 			 			<h:column>
+ 				<f:facet name="header">به / شناسه قبض</f:facet>
+				<h:inputText value="#{transactionBean.transaction.transTo}" required="true" />
+ 			</h:column>
+
+ 			<h:column>
+ 				<f:facet name="header">شناسه پرداخت</f:facet>
+				<h:inputText value="#{transactionBean.transaction.payNo}" required="true" />
+ 			</h:column>
+
+ 			<h:column>
+ 				<f:facet name="header">شماره تراکنش</f:facet>
+				<h:inputText value="#{transactionBean.transaction.transNo}" required="true" />
+ 			</h:column>
+ 			
+ 			<h:column>
+			    <f:facet name="header">عملیات</f:facet>
+				<h:commandButton value="save" action="#{transactionBean.save}" />
+			</h:column>
+ 		</h:dataTable>
 	</h:form>
 	<br />
 	<br />
 	<h:form>
 		<h:dataTable value="#{transactionBean.transList}" var="o">
- 			<h:column>
- 				<f:facet name="header">ID</f:facet>
- 				#{o.id}
- 			</h:column>
-
  			<h:column>
  				<f:facet name="header">تاریخ</f:facet>
  				<h:inputText value="#{o.transDate}" rendered="#{o.editable}" class="date">
@@ -80,6 +104,33 @@
  				<h:outputText value="#{o.transCur}" rendered="#{not o.editable}">      
 			    	<f:convertNumber type="currency" locale="en-US" minFractionDigits="0" maxFractionDigits="0" />
 				</h:outputText>
+ 			</h:column>
+ 			
+ 			<h:column>
+ 				<f:facet name="header">نوع برداشت</f:facet>
+				<h:selectOneMenu value="#{o.transType}" rendered="#{o.editable}">
+		   			<f:selectItem itemValue="1" itemLabel="قبض موبایل امین" />
+		   			<f:selectItem itemValue="2" itemLabel="قبض موبایل فاطمه" />
+		   			<f:selectItem itemValue="3" itemLabel="قبض برق" />
+		   			<f:selectItem itemValue="4" itemLabel="قبض گاز" />
+		   			<f:selectItem itemValue="5" itemLabel="قبض تلفن" />
+		   			<f:selectItem itemValue="6" itemLabel="قبض آب" />
+		   			<f:selectItem itemValue="7" itemLabel="شارژ ساختمان" />
+		   			<f:selectItem itemValue="8" itemLabel="دستی" />
+		   			<f:selectItem itemValue="9" itemLabel="خرید" />
+		   			<f:selectItem itemValue="10" itemLabel="غذا" />
+		   			<f:selectItem itemValue="11" itemLabel="میوه" />
+		   			<f:selectItem itemValue="12" itemLabel="هدیه" />
+		   			<f:selectItem itemValue="13" itemLabel="بیمه" />		   			
+		   			<f:selectItem itemValue="99" itemLabel="دیگر" />
+		   		</h:selectOneMenu>
+    			<h:outputText value="#{o.transType}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.TypeConverter" />
+ 			</h:column>
+ 			
+ 			<h:column>
+ 				<f:facet name="header">توضیحات</f:facet>
+ 				<h:inputText value="#{o.transDesc}" rendered="#{o.editable}" />
+    			<h:outputText value="#{o.transDesc}" rendered="#{not o.editable}" />
  			</h:column>
 
  			<h:column>
@@ -99,34 +150,9 @@
  				<h:inputText value="#{o.transNo}" rendered="#{o.editable}" />
     			<h:outputText value="#{o.transNo}" rendered="#{not o.editable}" />
  			</h:column>
- 			
+
  			<h:column>
- 				<f:facet name="header">نوع برداشت</f:facet>
-				<h:selectOneMenu value="#{o.transType}" rendered="#{o.editable}">
-		   			<f:selectItem itemValue="1" itemLabel="قبض موبایل امین" />
-		   			<f:selectItem itemValue="2" itemLabel="قبض موبایل فاطمه" />
-		   			<f:selectItem itemValue="3" itemLabel="قبض برق" />
-		   			<f:selectItem itemValue="4" itemLabel="قبض گاز" />
-		   			<f:selectItem itemValue="5" itemLabel="قبض تلفن" />
-		   			<f:selectItem itemValue="6" itemLabel="قبض آب" />
-		   			<f:selectItem itemValue="7" itemLabel="شارژ ساختمان" />
-		   			<f:selectItem itemValue="8" itemLabel="دستی" />
-		   			<f:selectItem itemValue="9" itemLabel="خرید" />
-		   			<f:selectItem itemValue="10" itemLabel="غذا" />
-		   			<f:selectItem itemValue="11" itemLabel="میوه" />
-		   			<f:selectItem itemValue="99" itemLabel="دیگر" />
-		   		</h:selectOneMenu>
-    			<h:outputText value="#{o.transType}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.TypeConverter" />
- 			</h:column>
- 			
- 			<h:column>
- 				<f:facet name="header">توضیحات</f:facet>
- 				<h:inputText value="#{o.transDesc}" rendered="#{o.editable}" />
-    			<h:outputText value="#{o.transDesc}" rendered="#{not o.editable}" />
- 			</h:column>
- 			
- 			<h:column>
-			    <f:facet name="header">Action</f:facet>
+			    <f:facet name="header">عملیات</f:facet>
 			    <h:commandButton value="delete" action="#{transactionBean.deleteAction(o)}" rendered="#{not o.editable}" />
 			    <h:commandButton value="Edit" action="#{transactionBean.editAction(o)}" rendered="#{not o.editable}" />
 			    <h:commandButton value="save" action="#{transactionBean.saveEdit(o)}" rendered="#{o.editable}" />
