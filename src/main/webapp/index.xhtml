@@ -38,7 +38,9 @@
  			
  			<h:column>
  				<f:facet name="header">مبلغ</f:facet>
-				<h:inputText value="#{transactionBean.transaction.transCur}" required="true" />
+				<h:inputText value="#{transactionBean.transaction.transCur}" required="true">
+					<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
+				</h:inputText>
  			</h:column>
  			
  			<h:column>
@@ -67,17 +69,23 @@
  			</h:column>
  			 			<h:column>
  				<f:facet name="header">به / شناسه قبض</f:facet>
-				<h:inputText value="#{transactionBean.transaction.transTo}" required="true" />
+				<h:inputText value="#{transactionBean.transaction.transTo}" required="true">
+					<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
+				</h:inputText>
  			</h:column>
 
  			<h:column>
  				<f:facet name="header">شناسه پرداخت</f:facet>
-				<h:inputText value="#{transactionBean.transaction.payNo}" required="true" />
+				<h:inputText value="#{transactionBean.transaction.payNo}" required="true">
+					<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
+				</h:inputText>
  			</h:column>
 
  			<h:column>
  				<f:facet name="header">شماره تراکنش</f:facet>
-				<h:inputText value="#{transactionBean.transaction.transNo}" required="true" />
+				<h:inputText value="#{transactionBean.transaction.transNo}" required="true">
+					<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
+				</h:inputText>
  			</h:column>
  			
  			<h:column>
@@ -157,7 +165,9 @@
  			
  			<h:column>
  				<f:facet name="header">مبلغ</f:facet>
- 				<h:inputText value="#{o.transCur}" rendered="#{o.editable}" />
+ 				<h:inputText value="#{o.transCur}" rendered="#{o.editable}">
+ 					<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
+ 				</h:inputText>
  				<h:outputText value="#{o.transCur}" rendered="#{not o.editable}">      
 			    	<f:convertNumber type="currency" locale="en-US" minFractionDigits="0" maxFractionDigits="0" />
 				</h:outputText>
@@ -192,7 +202,9 @@
 
  			<h:column>
  				<f:facet name="header">به / شناسه قبض</f:facet>
- 				<h:inputText value="#{o.transTo}" rendered="#{o.editable}" />
+ 				<h:inputText value="#{o.transTo}" rendered="#{o.editable}">
+ 					<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
+ 				</h:inputText>
     			<h:outputText value="#{o.transTo}" rendered="#{not o.editable}" />
  			</h:column>
 
@@ -204,7 +216,9 @@
 
  			<h:column>
  				<f:facet name="header">شماره تراکنش</f:facet>
- 				<h:inputText value="#{o.transNo}" rendered="#{o.editable}" />
+ 				<h:inputText value="#{o.transNo}" rendered="#{o.editable}">
+ 					<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
+ 				</h:inputText>
     			<h:outputText value="#{o.transNo}" rendered="#{not o.editable}" />
  			</h:column>
 
