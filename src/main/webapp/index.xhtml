@@ -142,6 +142,8 @@
 	   	<h:outputText value="#{transactionBean.totalMoney}" class="bold">
 	   		<f:convertNumber type="currency" locale="en-US" minFractionDigits="0" maxFractionDigits="0" />
 	   	</h:outputText>
+	   	<h:commandButton value="export" action="#{transactionBean.exportAction()}"/>
+	   	<h:commandButton value="import" action="#{transactionBean.importAction()}"/>
    		<br />
 		<br />
 		<h:dataTable value="#{transactionBean.transList}" var="o">

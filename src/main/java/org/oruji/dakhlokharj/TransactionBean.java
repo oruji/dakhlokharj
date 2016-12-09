@@ -1,17 +1,26 @@
 package org.oruji.dakhlokharj;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.joda.time.DateTime;
+
 @ManagedBean
 @SessionScoped
 public class TransactionBean implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private static final String FILENAME = "C:\\Users\\oruji\\Desktop\\me\\dakhlokharj\\1395";
 
 	private TransactionModel transaction;
 	private List<TransactionModel> transList = null;
@@ -154,5 +163,140 @@ public class TransactionBean implements Serializable {
 
 	public void setTotalMoney(BigDecimal totalMoney) {
 		this.totalMoney = totalMoney;
+	}
+
+	public String exportAction() {
+		BufferedWriter bw = null;
+		FileWriter fw = null;
+
+		try {
+			fw = new FileWriter(FILENAME);
+			bw = new BufferedWriter(fw);
+			bw.write(format());
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		} finally {
+
+			try {
+
+				if (bw != null)
+					bw.close();
+
+				if (fw != null)
+					fw.close();
+
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		transList = null;
+		totalMoney = null;
+
+		return null;
+	}
+
+	public String importAction() {
+		TransactionDao td = new TransactionDao();
+
+		for (TransactionModel model : unFormat(readFile())) {
+			td.transCreate(model);
+		}
+
+		transList = null;
+		totalMoney = null;
+		return "";
+	}
+
+	private String readFile() {
+
+		BufferedReader br = null;
+		FileReader fr = null;
+
+		try {
+			fr = new FileReader(FILENAME);
+			br = new BufferedReader(fr);
+
+			String sCurrentLine;
+			StringBuilder myStr = new StringBuilder();
+
+			br = new BufferedReader(new FileReader(FILENAME));
+
+			while ((sCurrentLine = br.readLine()) != null) {
+				myStr.append(sCurrentLine);
+			}
+
+			return myStr.toString();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		} finally {
+			try {
+
+				if (br != null)
+					br.close();
+
+				if (fr != null)
+					fr.close();
+
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		return "";
+	}
+
+	public List<TransactionModel> unFormat(String myStr) {
+		List<TransactionModel> beanList = new ArrayList<TransactionModel>();
+		try {
+
+			String[] row = readFile().split(";");
+
+			for (int i = 0; i < row.length; i++) {
+				TransactionModel model = new TransactionModel();
+				String[] columns = row[i].split(",");
+				model.setTransDate(Jalali.toGregorian(columns[0]).toDate());
+				model.setTransCur(new BigDecimal(columns[1]));
+				model.setTransType(Integer.parseInt(columns[2]));
+				model.setTransDesc(columns[3].replaceAll("\\{col\\}", ",").replaceAll("\\{row\\}", ";"));
+				model.setPayNo(columns[4].replaceAll("\\{col\\}", ",").replaceAll("\\{row\\}", ";"));
+				model.setTransNo(columns[5].replaceAll("\\{col\\}", ",").replaceAll("\\{row\\}", ";"));
+				model.setTransTo(columns[6].replaceAll("\\{col\\}", ",").replaceAll("\\{row\\}", ";"));
+
+				beanList.add(model);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return beanList;
+	}
+
+	public String format() {
+		StringBuilder myStr = new StringBuilder();
+
+		for (TransactionModel model : getTransList()) {
+			myStr.append(Jalali.toJalali(new DateTime(model.getTransDate())));
+			myStr.append(",");
+			myStr.append(model.getTransCur());
+			myStr.append(",");
+			myStr.append(model.getTransType());
+			myStr.append(",");
+			myStr.append(model.getTransDesc().replaceAll(",", "{col}").replaceAll(";", "{row}"));
+			myStr.append(",");
+			myStr.append(model.getPayNo().replaceAll(",", "{col}").replaceAll(";", "{row}"));
+			myStr.append(",");
+			myStr.append(model.getTransNo().replaceAll(",", "{col}").replaceAll(";", "{row}"));
+			myStr.append(",");
+			myStr.append(model.getTransTo().replaceAll(",", "{col}").replaceAll(";", "{row}"));
+			myStr.append(";");
+		}
+
+		return myStr.toString();
 	}
 }
