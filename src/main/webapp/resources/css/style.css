@@ -20,10 +20,15 @@ th {
 input {
 	width: 100px
 }
+
 .date {
 	width: 120px
 }
 
 .bold {
 	font-weight: bold;
+}
+
+.myLeft {
+	direction: ltr;
 }
