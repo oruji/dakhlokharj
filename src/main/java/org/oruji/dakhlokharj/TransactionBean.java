@@ -1,6 +1,7 @@
 package org.oruji.dakhlokharj;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -15,6 +16,8 @@ public class TransactionBean implements Serializable {
 	private List<TransactionModel> transList = null;
 	private Integer typeSearch = 0;
 	private String description = "";
+	private Date fromDate = null;
+	private Date toDate = null;
 
 	public String save() {
 		new TransactionDao().transCreate(getTransaction());
@@ -54,15 +57,30 @@ public class TransactionBean implements Serializable {
 	public void readAction() {
 		if (description.isEmpty() || description == null)
 			description = "";
+		
+		if(fromDate == null || toDate == null) {
+			fromDate = null;
+			toDate = null;
+		}
 			
-		if (typeSearch == 0 && description == "")
+			
+		if (typeSearch == 0 && description == "" && fromDate == null)
 			setTransList(new TransactionDao().transRead());
-		else if (typeSearch != 0 && description != "")
-			setTransList(new TransactionDao().transRead(typeSearch, description));
-		else if (typeSearch != 0 && description == "")
+		else if (typeSearch != 0 && description != "" && fromDate != null)
+			setTransList(new TransactionDao().transRead(typeSearch, description, fromDate, toDate));
+		else if (typeSearch != 0 && description == "" && fromDate == null)
 			setTransList(new TransactionDao().transRead(typeSearch));
-		else if (typeSearch == 0 && description != "")
+		else if (typeSearch != 0 && description != "" && fromDate == null)
+			setTransList(new TransactionDao().transRead(typeSearch, description));
+		else if (typeSearch == 0 && description != "" && fromDate == null)
 			setTransList(new TransactionDao().transRead(description));
+		else if (typeSearch == 0 && description == "" && fromDate != null)
+			setTransList(new TransactionDao().transRead(fromDate, toDate));
+		else if (typeSearch != 0 && description == "" && fromDate != null)
+			setTransList(new TransactionDao().transRead(typeSearch, fromDate, toDate));
+		else if (typeSearch == 0 && description != "" && fromDate != null)
+			setTransList(new TransactionDao().transRead(description, fromDate, toDate));
+		
 		
 	}
 
@@ -107,4 +125,19 @@ public class TransactionBean implements Serializable {
 		this.description = description;
 	}
 
+	public Date getFromDate() {
+		return fromDate;
+	}
+
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
+
+	public Date getToDate() {
+		return toDate;
+	}
+
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
+	}
 }

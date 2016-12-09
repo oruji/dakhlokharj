@@ -1,5 +1,6 @@
 package org.oruji.dakhlokharj;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -32,23 +33,56 @@ public class TransactionDao {
 	}
 
 	@SuppressWarnings("unchecked")
+	public List<TransactionModel> transRead(Integer typeSearch, String description, Date fromDate, Date toDate) {
+		EntityManager em = getEntityManager();
+		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByTypeDescDate")
+				.setParameter("transType", typeSearch).setParameter("transDesc", "%" + description + "%")
+				.setParameter("fromDate", fromDate).setParameter("toDate", toDate).getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
 	public List<TransactionModel> transRead(Integer typeSearch, String description) {
 		EntityManager em = getEntityManager();
 		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByTypeDesc")
-				.setParameter("transType", typeSearch).setParameter("transDesc", "%" + description + "%").getResultList();
+				.setParameter("transType", typeSearch).setParameter("transDesc", "%" + description + "%")
+				.getResultList();
 	}
+
 	@SuppressWarnings("unchecked")
 	public List<TransactionModel> transRead(Integer typeSearch) {
 		EntityManager em = getEntityManager();
 		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByType")
 				.setParameter("transType", typeSearch).getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<TransactionModel> transRead(String description) {
 		EntityManager em = getEntityManager();
 		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByDesc")
 				.setParameter("transDesc", "%" + description + "%").getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<TransactionModel> transRead(Date fromDate, Date toDate) {
+		EntityManager em = getEntityManager();
+		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByDate")
+				.setParameter("fromDate", fromDate).setParameter("toDate", toDate).getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<TransactionModel> transRead(Integer typeSearch, Date fromDate, Date toDate) {
+		EntityManager em = getEntityManager();
+		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByTypeDate")
+				.setParameter("transType", typeSearch).setParameter("fromDate", fromDate).setParameter("toDate", toDate)
+				.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<TransactionModel> transRead(String description, Date fromDate, Date toDate) {
+		EntityManager em = getEntityManager();
+		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByDescDate")
+				.setParameter("transDesc", "%" + description + "%").setParameter("fromDate", fromDate)
+				.setParameter("toDate", toDate).getResultList();
 	}
 
 	public TransactionModel transUpdate(TransactionModel trans) {

@@ -88,7 +88,37 @@
 	</h:form>
 	<br />
 	<br />
-	<h:form>
+	<h:form id="myform2">
+		<h:inputText value="#{transactionBean.fromDate}" id="date_input_22" class="date">
+			<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
+		</h:inputText>
+		<img id="date_btn_22" src="resources/cal.png" style="vertical-align: top;" />
+		<script type="text/javascript">
+			Calendar.setup({
+				inputField     :    "myform2:date_input_22",   // id of the input field
+				button         :    "date_btn_22",   // trigger for the calendar (button ID)
+	       		ifFormat       :    "%Y-%m-%d %H:%M",       // format of the input field
+	       		showsTime      :    true,
+	      			dateType	   :	'jalali',
+	      			timeFormat     :    "24",
+				weekNumbers    : false
+			});
+		</script>
+		<h:inputText value="#{transactionBean.toDate}" id="date_input_23" class="date">
+			<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
+		</h:inputText>
+		<img id="date_btn_23" src="resources/cal.png" style="vertical-align: top;" />
+		<script type="text/javascript">
+			Calendar.setup({
+				inputField     :    "myform2:date_input_23",   // id of the input field
+				button         :    "date_btn_23",   // trigger for the calendar (button ID)
+	       		ifFormat       :    "%Y-%m-%d %H:%M",       // format of the input field
+	       		showsTime      :    true,
+       			dateType	   :	'jalali',
+       			timeFormat     :    "24",
+				weekNumbers    : false
+			});
+		</script>
 		<h:selectOneMenu value="#{transactionBean.typeSearch}" >
 			<f:selectItem itemValue="0" itemLabel="همه" />
    			<f:selectItem itemValue="1" itemLabel="قبض موبایل امین" />

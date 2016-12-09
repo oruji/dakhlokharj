@@ -12,6 +12,8 @@ public class DateConverter implements Converter {
 
 	@Override
 	public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2) {
+		if (arg2 == "" || arg2.isEmpty() || arg2 == null)
+			return "";
 		return Jalali.toGregorian(arg2).toDate();
 	}
 
