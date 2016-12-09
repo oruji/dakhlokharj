@@ -19,3 +19,7 @@ input {
 .date {
 	width: 120px
 }
+
+.bold {
+	font-weight: bold;
+}

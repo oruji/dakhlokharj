@@ -138,6 +138,12 @@
    		</h:selectOneMenu>
    		<h:inputText value="#{transactionBean.description}" />
 	   	<h:commandButton value="search" action="#{transactionBean.searchAction()}"/>
+	   	مبلغ کل: 
+	   	<h:outputText value="#{transactionBean.totalMoney}" class="bold">
+	   		<f:convertNumber type="currency" locale="en-US" minFractionDigits="0" maxFractionDigits="0" />
+	   	</h:outputText>
+   		<br />
+		<br />
 		<h:dataTable value="#{transactionBean.transList}" var="o">
  			<h:column>
  				<f:facet name="header">تاریخ</f:facet>

@@ -1,6 +1,7 @@
 package org.oruji.dakhlokharj;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class TransactionBean implements Serializable {
 	private String description = "";
 	private Date fromDate = null;
 	private Date toDate = null;
+	private BigDecimal totalMoney;
 
 	public String save() {
 		new TransactionDao().transCreate(getTransaction());
@@ -57,13 +59,12 @@ public class TransactionBean implements Serializable {
 	public void readAction() {
 		if (description.isEmpty() || description == null)
 			description = "";
-		
-		if(fromDate == null || toDate == null) {
+
+		if (fromDate == null || toDate == null) {
 			fromDate = null;
 			toDate = null;
 		}
-			
-			
+
 		if (typeSearch == 0 && description == "" && fromDate == null)
 			setTransList(new TransactionDao().transRead());
 		else if (typeSearch != 0 && description != "" && fromDate != null)
@@ -80,12 +81,12 @@ public class TransactionBean implements Serializable {
 			setTransList(new TransactionDao().transRead(typeSearch, fromDate, toDate));
 		else if (typeSearch == 0 && description != "" && fromDate != null)
 			setTransList(new TransactionDao().transRead(description, fromDate, toDate));
-		
-		
+
 	}
 
 	public String searchAction() {
 		transList = null;
+		totalMoney = null;
 		return null;
 	}
 
@@ -139,5 +140,19 @@ public class TransactionBean implements Serializable {
 
 	public void setToDate(Date toDate) {
 		this.toDate = toDate;
+	}
+
+	public BigDecimal getTotalMoney() {
+		if (totalMoney == null) {
+			long mySum = 0;
+			for (TransactionModel model : getTransList())
+				mySum += model.getTransCur().longValue();
+			totalMoney = new BigDecimal(mySum);
+		}
+		return totalMoney;
+	}
+
+	public void setTotalMoney(BigDecimal totalMoney) {
+		this.totalMoney = totalMoney;
 	}
 }
