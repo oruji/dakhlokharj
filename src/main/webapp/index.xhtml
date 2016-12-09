@@ -82,7 +82,7 @@
  			
  			<h:column>
 			    <f:facet name="header">عملیات</f:facet>
-				<h:commandButton value="save" action="#{transactionBean.save}" />
+				<h:commandButton value="save" action="#{transactionBean.saveAction}" />
 			</h:column>
  		</h:dataTable>
 	</h:form>
@@ -212,8 +212,8 @@
 			    <f:facet name="header">عملیات</f:facet>
 			    <h:commandButton value="delete" action="#{transactionBean.deleteAction(o)}" rendered="#{not o.editable}" onclick="return confirm('Are you sure to DELETE?!!!')" />
 			    <h:commandButton value="Edit" action="#{transactionBean.editAction(o)}" rendered="#{not o.editable}" />
-			    <h:commandButton value="save" action="#{transactionBean.saveEdit(o)}" rendered="#{o.editable}" />
-			    <h:commandButton value="cancel" action="#{transactionBean.cancel(o)}" rendered="#{o.editable}" />
+			    <h:commandButton value="save" action="#{transactionBean.saveEditAction(o)}" rendered="#{o.editable}" />
+			    <h:commandButton value="cancel" action="#{transactionBean.cancelAction(o)}" rendered="#{o.editable}" />
 			</h:column>
  		</h:dataTable>
 	</h:form>

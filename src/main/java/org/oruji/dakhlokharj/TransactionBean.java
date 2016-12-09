@@ -30,42 +30,52 @@ public class TransactionBean implements Serializable {
 	private Date toDate = null;
 	private BigDecimal totalMoney;
 
-	public String save() {
+	public String saveAction() {
 		new TransactionDao().transCreate(getTransaction());
+		
 		transList = null;
 		transaction = null;
-		return null;
+		totalMoney = null;
+
+		return "index.xhtml?faces-redirect=true";
 	}
 
 	public String deleteAction(TransactionModel bean) {
 		new TransactionDao().transDelete(bean);
+		
 		transList = null;
 		transaction = null;
-		return null;
+		totalMoney = null;
+
+		return "index.xhtml?faces-redirect=true";
 	}
 
 	public String editAction(TransactionModel bean) {
 		bean.setEditable(true);
-		return null;
+
+		return "index.xhtml?faces-redirect=true";
 	}
 
-	public String saveEdit(TransactionModel bean) {
+	public String saveEditAction(TransactionModel bean) {
 		new TransactionDao().transUpdate(bean);
 		bean.setEditable(false);
+		
 		transList = null;
 		transaction = null;
+		totalMoney = null;
 
-		return null;
+		return "index.xhtml?faces-redirect=true";
 	}
 
-	public String cancel(TransactionModel bean) {
+	public String cancelAction(TransactionModel bean) {
 		bean.setEditable(false);
 		transList = null;
 		transaction = null;
-		return null;
+
+		return "index.xhtml?faces-redirect=true";
 	}
 
-	public void readAction() {
+	public String readAction() {
 		if (description.isEmpty() || description == null)
 			description = "";
 
@@ -91,12 +101,60 @@ public class TransactionBean implements Serializable {
 		else if (typeSearch == 0 && description != "" && fromDate != null)
 			setTransList(new TransactionDao().transRead(description, fromDate, toDate));
 
+		return "index.xhtml?faces-redirect=true";
 	}
 
 	public String searchAction() {
 		transList = null;
 		totalMoney = null;
-		return null;
+
+		return "index.xhtml?faces-redirect=true";
+	}
+
+	public String exportAction() {
+		BufferedWriter bw = null;
+		FileWriter fw = null;
+
+		try {
+			fw = new FileWriter(FILENAME);
+			bw = new BufferedWriter(fw);
+			bw.write(format());
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		} finally {
+
+			try {
+
+				if (bw != null)
+					bw.close();
+
+				if (fw != null)
+					fw.close();
+
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		transList = null;
+		totalMoney = null;
+
+		return "index.xhtml?faces-redirect=true";
+	}
+
+	public String importAction() {
+		TransactionDao td = new TransactionDao();
+
+		for (TransactionModel model : unFormat(readFile())) {
+			td.transCreate(model);
+		}
+
+		transList = null;
+		totalMoney = null;
+
+		return "index.xhtml?faces-redirect=true";
 	}
 
 	public TransactionModel getTransaction() {
@@ -163,51 +221,6 @@ public class TransactionBean implements Serializable {
 
 	public void setTotalMoney(BigDecimal totalMoney) {
 		this.totalMoney = totalMoney;
-	}
-
-	public String exportAction() {
-		BufferedWriter bw = null;
-		FileWriter fw = null;
-
-		try {
-			fw = new FileWriter(FILENAME);
-			bw = new BufferedWriter(fw);
-			bw.write(format());
-
-		} catch (IOException e) {
-			e.printStackTrace();
-
-		} finally {
-
-			try {
-
-				if (bw != null)
-					bw.close();
-
-				if (fw != null)
-					fw.close();
-
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-
-		transList = null;
-		totalMoney = null;
-
-		return null;
-	}
-
-	public String importAction() {
-		TransactionDao td = new TransactionDao();
-
-		for (TransactionModel model : unFormat(readFile())) {
-			td.transCreate(model);
-		}
-
-		transList = null;
-		totalMoney = null;
-		return "";
 	}
 
 	private String readFile() {
