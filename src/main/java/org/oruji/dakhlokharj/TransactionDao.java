@@ -30,11 +30,25 @@ public class TransactionDao {
 		EntityManager em = getEntityManager();
 		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findAll").getResultList();
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public List<TransactionModel> transRead(Integer typeSearch, String description) {
+		EntityManager em = getEntityManager();
+		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByTypeDesc")
+				.setParameter("transType", typeSearch).setParameter("transDesc", "%" + description + "%").getResultList();
+	}
 	@SuppressWarnings("unchecked")
 	public List<TransactionModel> transRead(Integer typeSearch) {
 		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByType").setParameter("transType", typeSearch).getResultList();
+		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByType")
+				.setParameter("transType", typeSearch).getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<TransactionModel> transRead(String description) {
+		EntityManager em = getEntityManager();
+		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByDesc")
+				.setParameter("transDesc", "%" + description + "%").getResultList();
 	}
 
 	public TransactionModel transUpdate(TransactionModel trans) {

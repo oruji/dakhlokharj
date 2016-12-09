@@ -89,7 +89,7 @@
 	<br />
 	<br />
 	<h:form>
-		<h:selectOneMenu value="#{transactionBean.typeSearch}" valueChangeListener="#{transactionBean.typeSearchAction()}" onchange="submit()">
+		<h:selectOneMenu value="#{transactionBean.typeSearch}" >
 			<f:selectItem itemValue="0" itemLabel="همه" />
    			<f:selectItem itemValue="1" itemLabel="قبض موبایل امین" />
    			<f:selectItem itemValue="2" itemLabel="قبض موبایل فاطمه" />
@@ -105,7 +105,9 @@
    			<f:selectItem itemValue="12" itemLabel="هدیه" />
    			<f:selectItem itemValue="13" itemLabel="بیمه" />		   			
    			<f:selectItem itemValue="99" itemLabel="دیگر" />
-	   		</h:selectOneMenu>
+   		</h:selectOneMenu>
+   		<h:inputText value="#{transactionBean.description}" />
+	   	<h:commandButton value="search" action="#{transactionBean.searchAction()}"/>
 		<h:dataTable value="#{transactionBean.transList}" var="o">
  			<h:column>
  				<f:facet name="header">تاریخ</f:facet>
