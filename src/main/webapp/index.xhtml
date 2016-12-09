@@ -67,7 +67,9 @@
  				<f:facet name="header">توضیحات</f:facet>
 				<h:inputText value="#{transactionBean.transaction.transDesc}" required="true" />
  			</h:column>
- 			 			<h:column>
+		</h:dataTable>
+		<h:dataTable value="" var="" id="mytable2">
+ 			<h:column>
  				<f:facet name="header">به / شناسه قبض</f:facet>
 				<h:inputText value="#{transactionBean.transaction.transTo}" required="true">
 					<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
