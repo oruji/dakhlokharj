@@ -18,6 +18,7 @@ public class NumberConverter implements Converter {
 
 	@Override
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) {
-		return arg2.toString();
+		NumberPlus num = new NumberPlus(arg2.toString());
+		return num.getEnglishSep();
 	}
 }

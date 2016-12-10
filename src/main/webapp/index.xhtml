@@ -183,10 +183,16 @@
 	   	<h:commandButton value="search" action="#{transactionBean.searchAction()}"/>
 	   	</h:column>
 	   	<h:column>
+	   	<f:facet name="header">دخل</f:facet>
+	   	<h:outputText value="#{transactionBean.totalDakhl}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" />
+	   	</h:column>
+	   		   	<h:column>
+	   	<f:facet name="header">خرج</f:facet>
+	   	<h:outputText value="#{transactionBean.totalKharj}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
+	   	</h:column>
+	   		   	<h:column>
 	   	<f:facet name="header">مبلغ کل</f:facet>
-	   	<h:outputText value="#{transactionBean.totalMoney}" class="bold">
-	   		<f:convertNumber type="currency" locale="en-US" minFractionDigits="0" maxFractionDigits="0" />
-	   	</h:outputText>
+	   	<h:outputText value="#{transactionBean.totalMoney}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
 	   	</h:column>
 	   	<h:column>
 	   	<f:facet name="header">عملیات</f:facet>
@@ -214,14 +220,12 @@
     			<h:outputText value="#{o.transDate}" converter="org.oruji.dakhlokharj.DateConverter" rendered="#{not o.editable}" />
  			</h:column>
  			
- 			<h:column>
+ 			<h:column >
  				<f:facet name="header">مبلغ</f:facet>
  				<h:inputText value="#{o.transCur}" rendered="#{o.editable}" class="myLeft">
- 					<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
+ 					<f:converter converterId="org.oruji.dakhlokharj.NumberConverter"  />
  				</h:inputText>
- 				<h:outputText value="#{o.transCur}" rendered="#{not o.editable}">      
-			    	<f:convertNumber type="currency" locale="en-US" minFractionDigits="0" maxFractionDigits="0" />
-				</h:outputText>
+ 				<h:outputText value="#{o.transCur}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />      
  			</h:column>
  			
  			<h:column>

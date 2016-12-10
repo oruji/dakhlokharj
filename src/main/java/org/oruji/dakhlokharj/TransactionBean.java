@@ -30,6 +30,8 @@ public class TransactionBean implements Serializable {
 	private Date fromDate = null;
 	private Date toDate = null;
 	private BigDecimal totalMoney;
+	private BigDecimal totalDakhl;
+	private BigDecimal totalKharj;
 
 	public String saveAction() {
 		new TransactionDao().transCreate(getTransaction());
@@ -37,6 +39,8 @@ public class TransactionBean implements Serializable {
 		transList = null;
 		transaction = null;
 		totalMoney = null;
+		totalDakhl = null;
+		totalKharj = null;
 
 		return "index.xhtml?faces-redirect=true";
 	}
@@ -47,6 +51,8 @@ public class TransactionBean implements Serializable {
 		transList = null;
 		transaction = null;
 		totalMoney = null;
+		totalDakhl = null;
+		totalKharj = null;
 
 		return "index.xhtml?faces-redirect=true";
 	}
@@ -64,6 +70,8 @@ public class TransactionBean implements Serializable {
 		transList = null;
 		transaction = null;
 		totalMoney = null;
+		totalDakhl = null;
+		totalKharj = null;
 
 		return "index.xhtml?faces-redirect=true";
 	}
@@ -136,6 +144,8 @@ public class TransactionBean implements Serializable {
 	public String searchAction() {
 		transList = null;
 		totalMoney = null;
+		totalDakhl = null;
+		totalKharj = null;
 
 		return "index.xhtml?faces-redirect=true";
 	}
@@ -169,6 +179,8 @@ public class TransactionBean implements Serializable {
 
 		transList = null;
 		totalMoney = null;
+		totalDakhl = null;
+		totalKharj = null;
 
 		return "index.xhtml?faces-redirect=true";
 	}
@@ -185,6 +197,8 @@ public class TransactionBean implements Serializable {
 
 		transList = null;
 		totalMoney = null;
+		totalDakhl = null;
+		totalKharj = null;
 
 		return "index.xhtml?faces-redirect=true";
 	}
@@ -243,14 +257,34 @@ public class TransactionBean implements Serializable {
 
 	public BigDecimal getTotalMoney() {
 		if (totalMoney == null) {
-			long mySum = 0;
-			for (TransactionModel model : getTransList())
-				mySum += model.getTransCur().longValue();
-			totalMoney = new BigDecimal(mySum);
+			totalMoney = getTotalDakhl().add(getTotalKharj());
 		}
 		return totalMoney;
 	}
 
+	public BigDecimal getTotalDakhl() {
+		if (totalDakhl == null) {
+			long mySum = 0;
+			for (TransactionModel model : getTransList()) {
+				if (model.getTransCur().longValue() > 0)
+					mySum += model.getTransCur().longValue();
+			}
+			totalDakhl = new BigDecimal(mySum);
+		}
+		return totalDakhl;
+	}
+	public BigDecimal getTotalKharj() {
+		if (totalKharj == null) {
+			long mySum = 0;
+			for (TransactionModel model : getTransList()) {
+				if (model.getTransCur().longValue() < 0)
+					mySum += model.getTransCur().longValue();
+			}
+			totalKharj = new BigDecimal(mySum);
+		}
+		return totalKharj;
+	}
+	
 	public void setTotalMoney(BigDecimal totalMoney) {
 		this.totalMoney = totalMoney;
 	}
@@ -354,5 +388,14 @@ public class TransactionBean implements Serializable {
 
 	public void setAccSearch(Integer accSearch) {
 		this.accSearch = accSearch;
+	}
+
+	public void setTotalDakhl(BigDecimal totalDakhl) {
+		this.totalDakhl = totalDakhl;
+	}
+
+
+	public void setTotalKharj(BigDecimal totalKharj) {
+		this.totalKharj = totalKharj;
 	}
 }
