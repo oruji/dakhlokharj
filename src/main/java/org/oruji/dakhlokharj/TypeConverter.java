@@ -43,7 +43,9 @@ public class TypeConverter implements Converter {
 		case 12:
 			return "هدیه";
 		case 13:
-			return "بیمه";			
+			return "بیمه";
+		case 14:
+			return "سود";	
 		case 99:
 			return "دیگر";
 		default:
