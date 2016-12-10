@@ -85,23 +85,51 @@ public class TransactionBean implements Serializable {
 			toDate = null;
 		}
 
-		if (typeSearch == 0 && description == "" && fromDate == null)
+		if (typeSearch == 0 && description == "" && fromDate == null && accSearch == 0)
 			setTransList(new TransactionDao().transRead());
-		else if (typeSearch != 0 && description != "" && fromDate != null)
-			setTransList(new TransactionDao().transRead(typeSearch, description, fromDate, toDate));
-		else if (typeSearch != 0 && description == "" && fromDate == null)
+		else if (typeSearch != 0 && description == "" && fromDate == null && accSearch == 0)
 			setTransList(new TransactionDao().transRead(typeSearch));
-		else if (typeSearch != 0 && description != "" && fromDate == null)
-			setTransList(new TransactionDao().transRead(typeSearch, description));
-		else if (typeSearch == 0 && description != "" && fromDate == null)
+		else if (typeSearch == 0 && description != "" && fromDate == null && accSearch == 0)
 			setTransList(new TransactionDao().transRead(description));
-		else if (typeSearch == 0 && description == "" && fromDate != null)
+		// date
+		else if (typeSearch == 0 && description == "" && fromDate != null && accSearch == 0)
 			setTransList(new TransactionDao().transRead(fromDate, toDate));
-		else if (typeSearch != 0 && description == "" && fromDate != null)
+		// acc
+		else if (typeSearch == 0 && description == "" && fromDate == null && accSearch != 0)
+			setTransList(new TransactionDao().transReadAcc(accSearch));
+		// typedesc
+		else if (typeSearch != 0 && description != "" && fromDate == null && accSearch == 0)
+			setTransList(new TransactionDao().transRead(typeSearch, description));
+		// typeDate
+		else if (typeSearch != 0 && description == "" && fromDate != null && accSearch == 0)
 			setTransList(new TransactionDao().transRead(typeSearch, fromDate, toDate));
-		else if (typeSearch == 0 && description != "" && fromDate != null)
+		// typeAcc
+		else if (typeSearch != 0 && description == "" && fromDate == null && accSearch != 0)
+			setTransList(new TransactionDao().transRead(typeSearch, accSearch));
+		// descDate
+		else if (typeSearch == 0 && description != "" && fromDate != null && accSearch == 0)
 			setTransList(new TransactionDao().transRead(description, fromDate, toDate));
-
+		// descAcc
+		else if (typeSearch == 0 && description != "" && fromDate == null && accSearch != 0)
+			setTransList(new TransactionDao().transReadAcc(description, accSearch));
+		// dateAcc
+		else if (typeSearch == 0 && description == "" && fromDate != null && accSearch != 0)
+			setTransList(new TransactionDao().transReadAcc(fromDate, toDate, accSearch));
+		// typeDescAcc
+		else if (typeSearch != 0 && description != "" && fromDate == null && accSearch != 0)
+			setTransList(new TransactionDao().transRead(typeSearch, description, accSearch));
+		// typeAccDate
+		else if (typeSearch != 0 && description == "" && fromDate != null && accSearch != 0)
+			setTransList(new TransactionDao().transRead(typeSearch, accSearch, fromDate, toDate));
+		// descAccDate
+		else if (typeSearch == 0 && description != "" && fromDate != null && accSearch != 0)
+			setTransList(new TransactionDao().transReadAcc(description, accSearch, fromDate, toDate));
+		// typeDescDate
+		else if (typeSearch != 0 && description != "" && fromDate != null && accSearch == 0)
+			setTransList(new TransactionDao().transRead(typeSearch, description, fromDate, toDate));
+		// typeDescDateAcc
+		else if (typeSearch != 0 && description != "" && fromDate != null && accSearch != 0)
+			setTransList(new TransactionDao().transRead(typeSearch, description, fromDate, toDate, accSearch));
 		return "index.xhtml?faces-redirect=true";
 	}
 

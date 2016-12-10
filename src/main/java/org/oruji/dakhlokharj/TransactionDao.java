@@ -97,7 +97,7 @@ public class TransactionDao {
 
 	// descAcc
 	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transReadAcc(Integer accSearch, String description) {
+	public List<TransactionModel> transReadAcc(String description, Integer accSearch) {
 		EntityManager em = getEntityManager();
 		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByDescAcc")
 				.setParameter("transAcc", accSearch).setParameter("transDesc", "%" + description + "%").getResultList();
@@ -105,10 +105,10 @@ public class TransactionDao {
 
 	// dateAcc
 	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transReadAcc(Integer accSearch, Date fromDate, Date toDate) {
+	public List<TransactionModel> transReadAcc(Date fromDate, Date toDate, Integer accSearch) {
 		EntityManager em = getEntityManager();
 		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByDateAcc")
-				.setParameter("transDesc", accSearch).setParameter("fromDate", fromDate).setParameter("toDate", toDate)
+				.setParameter("transAcc", accSearch).setParameter("fromDate", fromDate).setParameter("toDate", toDate)
 				.getResultList();
 	}
 
@@ -123,7 +123,7 @@ public class TransactionDao {
 
 	// typeAccDate
 	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transRead(Integer typeSearch, Date fromDate, Date toDate, Integer accSearch) {
+	public List<TransactionModel> transRead(Integer typeSearch, Integer accSearch, Date fromDate, Date toDate) {
 		EntityManager em = getEntityManager();
 		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByTypeAccDate")
 				.setParameter("transType", typeSearch).setParameter("fromDate", fromDate).setParameter("toDate", toDate)
@@ -132,9 +132,9 @@ public class TransactionDao {
 
 	// descAccDate
 	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transReadAcc(Integer accSearch, String description, Date fromDate, Date toDate) {
+	public List<TransactionModel> transReadAcc(String description, Integer accSearch, Date fromDate, Date toDate) {
 		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByeDescAccDate")
+		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByDescAccDate")
 				.setParameter("transAcc", accSearch).setParameter("transDesc", "%" + description + "%")
 				.setParameter("fromDate", fromDate).setParameter("toDate", toDate).getResultList();
 	}
