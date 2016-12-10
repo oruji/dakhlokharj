@@ -46,8 +46,8 @@
 			<h:column>
  				<f:facet name="header">نوع حساب</f:facet>
 				<h:selectOneMenu value="#{transactionBean.transaction.transAcc}" required="true">
-		   			<f:selectItem itemValue="1" itemLabel="آینده" />
 		   			<f:selectItem itemValue="2" itemLabel="ملت" />
+		   			<f:selectItem itemValue="1" itemLabel="آینده" />
 		   		</h:selectOneMenu>
  			</h:column>
 
@@ -197,6 +197,14 @@
 		<br />
 		<h:dataTable value="#{transactionBean.transList}" var="o">
  			<h:column>
+ 				<f:facet name="header">نوع حساب</f:facet>
+				<h:selectOneMenu value="#{o.transAcc}" rendered="#{o.editable}">
+		   			<f:selectItem itemValue="2" itemLabel="ملت" />
+		   			<f:selectItem itemValue="1" itemLabel="آینده" />
+	   			</h:selectOneMenu>
+	   			<h:outputText value="#{o.transAcc}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.AccConverter" />
+ 			</h:column>
+ 			<h:column>
  				<f:facet name="header">تاریخ</f:facet>
  				<h:inputText value="#{o.transDate}" rendered="#{o.editable}" class="date">
  				<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
@@ -234,15 +242,7 @@
 		   		</h:selectOneMenu>
     			<h:outputText value="#{o.transType}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.TypeConverter" />
  			</h:column>
- 			<h:column>
- 				<f:facet name="header">نوع حساب</f:facet>
-				<h:selectOneMenu value="#{o.transAcc}" rendered="#{o.editable}">
-		   			<f:selectItem itemValue="1" itemLabel="آینده" />
-		   			<f:selectItem itemValue="2" itemLabel="ملت" />
-	   			</h:selectOneMenu>
-	   			<h:outputText value="#{o.transAcc}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.AccConverter" />
- 			</h:column>
-
+ 			
  			<h:column>
  				<f:facet name="header">توضیحات</f:facet>
  				<h:inputText value="#{o.transDesc}" rendered="#{o.editable}" />
