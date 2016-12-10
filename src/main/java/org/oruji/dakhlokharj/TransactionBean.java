@@ -25,6 +25,7 @@ public class TransactionBean implements Serializable {
 	private TransactionModel transaction;
 	private List<TransactionModel> transList = null;
 	private Integer typeSearch = 0;
+	private Integer accSearch = 0;
 	private String description = "";
 	private Date fromDate = null;
 	private Date toDate = null;
@@ -32,7 +33,7 @@ public class TransactionBean implements Serializable {
 
 	public String saveAction() {
 		new TransactionDao().transCreate(getTransaction());
-		
+
 		transList = null;
 		transaction = null;
 		totalMoney = null;
@@ -42,7 +43,7 @@ public class TransactionBean implements Serializable {
 
 	public String deleteAction(TransactionModel bean) {
 		new TransactionDao().transDelete(bean);
-		
+
 		transList = null;
 		transaction = null;
 		totalMoney = null;
@@ -59,7 +60,7 @@ public class TransactionBean implements Serializable {
 	public String saveEditAction(TransactionModel bean) {
 		new TransactionDao().transUpdate(bean);
 		bean.setEditable(false);
-		
+
 		transList = null;
 		transaction = null;
 		totalMoney = null;
@@ -145,6 +146,9 @@ public class TransactionBean implements Serializable {
 	}
 
 	public String importAction() {
+		if (getTransList().size() > 1)
+			return "index.xhtml?faces-redirect=true";
+
 		TransactionDao td = new TransactionDao();
 
 		for (TransactionModel model : unFormat(readFile())) {
@@ -238,7 +242,7 @@ public class TransactionBean implements Serializable {
 			br = new BufferedReader(new FileReader(FILENAME));
 
 			while ((sCurrentLine = br.readLine()) != null) {
-				myStr.append(sCurrentLine);
+				myStr.append(sCurrentLine + "\n");
 			}
 
 			return myStr.toString();
@@ -267,18 +271,19 @@ public class TransactionBean implements Serializable {
 		List<TransactionModel> beanList = new ArrayList<TransactionModel>();
 		try {
 
-			String[] row = readFile().split(";");
+			String[] row = readFile().split("\n");
 
 			for (int i = 0; i < row.length; i++) {
 				TransactionModel model = new TransactionModel();
-				String[] columns = row[i].split(",");
-				model.setTransDate(Jalali.toGregorian(columns[0]).toDate());
-				model.setTransCur(new BigDecimal(columns[1]));
-				model.setTransType(Integer.parseInt(columns[2]));
-				model.setTransDesc(columns[3].replaceAll("\\{col\\}", ",").replaceAll("\\{row\\}", ";"));
-				model.setPayNo(columns[4].replaceAll("\\{col\\}", ",").replaceAll("\\{row\\}", ";"));
-				model.setTransNo(columns[5].replaceAll("\\{col\\}", ",").replaceAll("\\{row\\}", ";"));
-				model.setTransTo(columns[6].replaceAll("\\{col\\}", ",").replaceAll("\\{row\\}", ";"));
+				String[] columns = row[i].split(";");
+				model.setTransAcc(Integer.parseInt(columns[0]));
+				model.setTransDate(Jalali.toGregorian(columns[1]).toDate());
+				model.setTransCur(new BigDecimal(columns[2]));
+				model.setTransType(Integer.parseInt(columns[3]));
+				model.setTransDesc(columns[4].replaceAll("\\{col\\}", ";"));
+				model.setPayNo(columns[5].replaceAll("\\{col\\}", ";"));
+				model.setTransNo(columns[6].replaceAll("\\{col\\}", ";"));
+				model.setTransTo(columns[7].replaceAll("\\{col\\}", ";"));
 
 				beanList.add(model);
 			}
@@ -294,22 +299,32 @@ public class TransactionBean implements Serializable {
 		StringBuilder myStr = new StringBuilder();
 
 		for (TransactionModel model : getTransList()) {
-			myStr.append(Jalali.toJalali(new DateTime(model.getTransDate())));
-			myStr.append(",");
-			myStr.append(model.getTransCur());
-			myStr.append(",");
-			myStr.append(model.getTransType());
-			myStr.append(",");
-			myStr.append(model.getTransDesc().replaceAll(",", "{col}").replaceAll(";", "{row}"));
-			myStr.append(",");
-			myStr.append(model.getPayNo().replaceAll(",", "{col}").replaceAll(";", "{row}"));
-			myStr.append(",");
-			myStr.append(model.getTransNo().replaceAll(",", "{col}").replaceAll(";", "{row}"));
-			myStr.append(",");
-			myStr.append(model.getTransTo().replaceAll(",", "{col}").replaceAll(";", "{row}"));
+			myStr.append(model.getTransAcc());
 			myStr.append(";");
+			myStr.append(Jalali.toJalali(new DateTime(model.getTransDate())));
+			myStr.append(";");
+			myStr.append(model.getTransCur());
+			myStr.append(";");
+			myStr.append(model.getTransType());
+			myStr.append(";");
+			myStr.append(model.getTransDesc().replaceAll(";", "{col}"));
+			myStr.append(";");
+			myStr.append(model.getPayNo().replaceAll(";", "{col}"));
+			myStr.append(";");
+			myStr.append(model.getTransNo().replaceAll(";", "{col}"));
+			myStr.append(";");
+			myStr.append(model.getTransTo().replaceAll(";", "{col}"));
+			myStr.append("\n");
 		}
 
 		return myStr.toString();
+	}
+
+	public Integer getAccSearch() {
+		return accSearch;
+	}
+
+	public void setAccSearch(Integer accSearch) {
+		this.accSearch = accSearch;
 	}
 }

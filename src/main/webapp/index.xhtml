@@ -43,6 +43,14 @@
 				</h:inputText>
  			</h:column>
  			
+			<h:column>
+ 				<f:facet name="header">نوع حساب</f:facet>
+				<h:selectOneMenu value="#{transactionBean.transaction.transAcc}" required="true">
+		   			<f:selectItem itemValue="1" itemLabel="آینده" />
+		   			<f:selectItem itemValue="2" itemLabel="ملت" />
+		   		</h:selectOneMenu>
+ 			</h:column>
+
  			<h:column>
  				<f:facet name="header">نوع برداشت</f:facet>
 				<h:selectOneMenu value="#{transactionBean.transaction.transType}" required="true">
@@ -100,6 +108,14 @@
 	<br />
 	<h:form id="myform2">
 	<h:dataTable id="searchTable" value="" var="">
+		<h:column>
+			<f:facet name="header">نوع حساب</f:facet>
+			<h:selectOneMenu value="#{transactionBean.accSearch}">
+				<f:selectItem itemValue="0" itemLabel="همه" />
+	   			<f:selectItem itemValue="1" itemLabel="آینده" />
+	   			<f:selectItem itemValue="2" itemLabel="ملت" />
+	   		</h:selectOneMenu>
+		</h:column>
 		<h:column>
 		<f:facet name="header">از</f:facet>
 		<h:inputText value="#{transactionBean.fromDate}" id="date_input_22" class="date">
@@ -218,7 +234,15 @@
 		   		</h:selectOneMenu>
     			<h:outputText value="#{o.transType}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.TypeConverter" />
  			</h:column>
- 			
+ 			<h:column>
+ 				<f:facet name="header">نوع حساب</f:facet>
+				<h:selectOneMenu value="#{o.transAcc}" rendered="#{o.editable}">
+		   			<f:selectItem itemValue="1" itemLabel="آینده" />
+		   			<f:selectItem itemValue="2" itemLabel="ملت" />
+	   			</h:selectOneMenu>
+	   			<h:outputText value="#{o.transAcc}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.AccConverter" />
+ 			</h:column>
+
  			<h:column>
  				<f:facet name="header">توضیحات</f:facet>
  				<h:inputText value="#{o.transDesc}" rendered="#{o.editable}" />
