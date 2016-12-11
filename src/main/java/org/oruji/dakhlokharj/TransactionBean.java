@@ -1,11 +1,13 @@
 package org.oruji.dakhlokharj;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -151,30 +153,27 @@ public class TransactionBean implements Serializable {
 	}
 
 	public String exportAction() {
-		BufferedWriter bw = null;
-		FileWriter fw = null;
+		File file = new File(FILENAME);
+		String content = format();
 
-		try {
-			fw = new FileWriter(FILENAME);
-			bw = new BufferedWriter(fw);
-			bw.write(format());
+		try (FileOutputStream fop = new FileOutputStream(file)) {
+
+			// if file doesn't exists, then create it
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+
+			// get the content in bytes
+			byte[] contentInBytes = content.getBytes();
+
+			fop.write(contentInBytes);
+			fop.flush();
+			fop.close();
+
+			System.out.println("Done");
 
 		} catch (IOException e) {
 			e.printStackTrace();
-
-		} finally {
-
-			try {
-
-				if (bw != null)
-					bw.close();
-
-				if (fw != null)
-					fw.close();
-
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
 		}
 
 		transList = null;
@@ -273,6 +272,7 @@ public class TransactionBean implements Serializable {
 		}
 		return totalDakhl;
 	}
+
 	public BigDecimal getTotalKharj() {
 		if (totalKharj == null) {
 			long mySum = 0;
@@ -284,49 +284,38 @@ public class TransactionBean implements Serializable {
 		}
 		return totalKharj;
 	}
-	
+
 	public void setTotalMoney(BigDecimal totalMoney) {
 		this.totalMoney = totalMoney;
 	}
 
 	private String readFile() {
 
-		BufferedReader br = null;
-		FileReader fr = null;
+		StringBuilder myStr = new StringBuilder();
 
 		try {
-			fr = new FileReader(FILENAME);
-			br = new BufferedReader(fr);
+			File fileDir = new File(FILENAME);
 
-			String sCurrentLine;
-			StringBuilder myStr = new StringBuilder();
+			BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(fileDir), "UTF8"));
 
-			br = new BufferedReader(new FileReader(FILENAME));
-
-			while ((sCurrentLine = br.readLine()) != null) {
-				myStr.append(sCurrentLine + "\n");
+			String str;
+			while ((str = in.readLine()) != null) {
+				myStr.append(str + "\n");
 			}
 
-			return myStr.toString();
+			in.close();
+
+		} catch (UnsupportedEncodingException e) {
+			System.out.println(e.getMessage());
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 
-		} finally {
-			try {
-
-				if (br != null)
-					br.close();
-
-				if (fr != null)
-					fr.close();
-
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 
-		return "";
+		return myStr.toString();
 	}
 
 	public List<TransactionModel> unFormat(String myStr) {
@@ -393,7 +382,6 @@ public class TransactionBean implements Serializable {
 	public void setTotalDakhl(BigDecimal totalDakhl) {
 		this.totalDakhl = totalDakhl;
 	}
-
 
 	public void setTotalKharj(BigDecimal totalKharj) {
 		this.totalKharj = totalKharj;
