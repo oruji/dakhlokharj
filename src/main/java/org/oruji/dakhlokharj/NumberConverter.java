@@ -7,6 +7,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+import org.oruji.java.util.NumberPlus;
+
 @FacesConverter("org.oruji.dakhlokharj.NumberConverter")
 public class NumberConverter implements Converter {
 
