@@ -1,13 +1,6 @@
 package org.oruji.dakhlokharj;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.joda.time.DateTime;
+import org.oruji.java.util.FileIO;
 import org.oruji.java.util.Jalali;
 
 @ManagedBean
@@ -154,28 +148,8 @@ public class TransactionBean implements Serializable {
 	}
 
 	public String exportAction() {
-		File file = new File(FILENAME);
 		String content = format();
-
-		try (FileOutputStream fop = new FileOutputStream(file)) {
-
-			// if file doesn't exists, then create it
-			if (!file.exists()) {
-				file.createNewFile();
-			}
-
-			// get the content in bytes
-			byte[] contentInBytes = content.getBytes();
-
-			fop.write(contentInBytes);
-			fop.flush();
-			fop.close();
-
-			System.out.println("Done");
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		FileIO.writeFile(FILENAME, content);
 
 		transList = null;
 		totalMoney = null;
@@ -191,7 +165,7 @@ public class TransactionBean implements Serializable {
 
 		TransactionDao td = new TransactionDao();
 
-		for (TransactionModel model : unFormat(readFile())) {
+		for (TransactionModel model : unFormat(FileIO.readFile(FILENAME))) {
 			td.transCreate(model);
 		}
 
@@ -290,40 +264,11 @@ public class TransactionBean implements Serializable {
 		this.totalMoney = totalMoney;
 	}
 
-	private String readFile() {
-
-		StringBuilder myStr = new StringBuilder();
-
-		try {
-			File fileDir = new File(FILENAME);
-
-			BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(fileDir), "UTF8"));
-
-			String str;
-			while ((str = in.readLine()) != null) {
-				myStr.append(str + "\n");
-			}
-
-			in.close();
-
-		} catch (UnsupportedEncodingException e) {
-			System.out.println(e.getMessage());
-
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		return myStr.toString();
-	}
-
 	public List<TransactionModel> unFormat(String myStr) {
 		List<TransactionModel> beanList = new ArrayList<TransactionModel>();
 		try {
 
-			String[] row = readFile().split("\n");
+			String[] row = FileIO.readFile(FILENAME).split("\n");
 
 			for (int i = 0; i < row.length; i++) {
 				TransactionModel model = new TransactionModel();
