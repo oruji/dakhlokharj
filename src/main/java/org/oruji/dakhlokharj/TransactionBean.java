@@ -299,8 +299,7 @@ public class TransactionBean implements Serializable {
 		for (TransactionModel model : getTransList()) {
 			myStr.append(model.getTransAcc());
 			myStr.append(";");
-			DatePlus dp = new DatePlus(model.getTransDate());
-			myStr.append(dp.getPersian(DATE_FORMAT.YMDHM));
+			myStr.append(new DatePlus(model.getTransDate()).getPersian());
 			myStr.append(";");
 			myStr.append(model.getTransCur());
 			myStr.append(";");

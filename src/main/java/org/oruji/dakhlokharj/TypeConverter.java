@@ -1,14 +1,9 @@
 package org.oruji.dakhlokharj;
 
-import java.util.Date;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-
-import org.oruji.java.util.DatePlus;
-import org.oruji.java.util.DatePlus.DATE_FORMAT;
 
 @FacesConverter("org.oruji.dakhlokharj.TypeConverter")
 public class TypeConverter implements Converter {
@@ -52,9 +47,7 @@ public class TypeConverter implements Converter {
 		case 99:
 			return "دیگر";
 		default:
-			break;
+			return "";
 		}
-		DatePlus dp = new DatePlus((Date) arg2);
-		return dp.getPersian(DATE_FORMAT.YMDHM);
 	}
 }

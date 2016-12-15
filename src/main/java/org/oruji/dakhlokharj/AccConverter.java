@@ -5,9 +5,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import org.oruji.java.util.DatePlus;
-import org.oruji.java.util.DatePlus.DATE_FORMAT;
-
 @FacesConverter("org.oruji.dakhlokharj.AccConverter")
 public class AccConverter implements Converter {
 
@@ -24,8 +21,7 @@ public class AccConverter implements Converter {
 		case 2:
 			return "ملت";
 		default:
-			break;
+			return "";
 		}
-		return new DatePlus().getPersian(DATE_FORMAT.YMDHM);
 	}
 }
