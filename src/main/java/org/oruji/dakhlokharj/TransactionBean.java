@@ -296,7 +296,7 @@ public class TransactionBean implements Serializable {
 	public String format() {
 		StringBuilder myStr = new StringBuilder();
 
-		for (TransactionModel model : getTransList()) {
+		for (TransactionModel model : new TransactionDao().transRead()) {
 			myStr.append(model.getTransAcc());
 			myStr.append(";");
 			myStr.append(new DatePlus(model.getTransDate()).getPersian());

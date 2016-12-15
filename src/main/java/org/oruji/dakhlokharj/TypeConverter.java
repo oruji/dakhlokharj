@@ -44,6 +44,8 @@ public class TypeConverter implements Converter {
 			return "بیمه";
 		case 14:
 			return "سود";
+		case 15:
+			return "حقوق";
 		case 99:
 			return "دیگر";
 		default:
