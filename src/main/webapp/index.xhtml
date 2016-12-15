@@ -15,6 +15,9 @@
 	<h:outputScript library="js" name="oruji.js" />
 </h:head>
 <h:body>
+	<h:panelGroup layout="block" class="myLeft">
+		#{transactionBean.todayDate}
+	</h:panelGroup>
 	<h:form id="myform">
 		<h:dataTable value="" var="" id="mytable">
  			<h:column>

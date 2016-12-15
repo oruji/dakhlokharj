@@ -5,8 +5,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import org.joda.time.DateTime;
-import org.oruji.java.util.Jalali;
+import org.oruji.java.util.DatePlus;
+import org.oruji.java.util.DatePlus.DATE_FORMAT;
 
 @FacesConverter("org.oruji.dakhlokharj.AccConverter")
 public class AccConverter implements Converter {
@@ -26,6 +26,6 @@ public class AccConverter implements Converter {
 		default:
 			break;
 		}
-		return Jalali.toJalali(new DateTime(arg2));
+		return new DatePlus().getPersian(DATE_FORMAT.YMDHM);
 	}
 }

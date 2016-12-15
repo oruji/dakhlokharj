@@ -9,9 +9,9 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import org.joda.time.DateTime;
+import org.oruji.java.util.DatePlus;
+import org.oruji.java.util.DatePlus.DATE_FORMAT;
 import org.oruji.java.util.FileIO;
-import org.oruji.java.util.Jalali;
 
 @ManagedBean
 @SessionScoped
@@ -274,7 +274,8 @@ public class TransactionBean implements Serializable {
 				TransactionModel model = new TransactionModel();
 				String[] columns = row[i].split(";");
 				model.setTransAcc(Integer.parseInt(columns[0]));
-				model.setTransDate(Jalali.toGregorian(columns[1]).toDate());
+				DatePlus dp = new DatePlus(columns[1]);
+				model.setTransDate(dp.getDate());
 				model.setTransCur(new BigDecimal(columns[2]));
 				model.setTransType(Integer.parseInt(columns[3]));
 				model.setTransDesc(columns[4].replaceAll("\\{col\\}", ";"));
@@ -298,7 +299,8 @@ public class TransactionBean implements Serializable {
 		for (TransactionModel model : getTransList()) {
 			myStr.append(model.getTransAcc());
 			myStr.append(";");
-			myStr.append(Jalali.toJalali(new DateTime(model.getTransDate())));
+			DatePlus dp = new DatePlus(model.getTransDate());
+			myStr.append(dp.getPersian(DATE_FORMAT.YMDHM));
 			myStr.append(";");
 			myStr.append(model.getTransCur());
 			myStr.append(";");
@@ -331,5 +333,10 @@ public class TransactionBean implements Serializable {
 
 	public void setTotalKharj(BigDecimal totalKharj) {
 		this.totalKharj = totalKharj;
+	}
+
+	public String getTodayDate() {
+		DatePlus dp = new DatePlus();
+		return dp.getPersian(DATE_FORMAT.YMmDd);
 	}
 }
