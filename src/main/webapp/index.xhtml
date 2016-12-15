@@ -183,7 +183,7 @@
    		</h:column>
    		<h:column>
    		<f:facet name="header">جستجو</f:facet>
-	   	<h:commandButton value="search" action="#{transactionBean.searchAction()}"/>
+	   	<h:commandButton value="search" action="#{transactionBean.searchAction}"/>
 	   	</h:column>
 	   	<h:column>
 	   	<f:facet name="header">دخل</f:facet>
@@ -199,8 +199,8 @@
 	   	</h:column>
 	   	<h:column>
 	   	<f:facet name="header">عملیات</f:facet>
-	   	<h:commandButton value="export" action="#{transactionBean.exportAction()}" onclick="return confirm('Are you sure to EXPORT?!!!')"/>
-	   	<h:commandButton value="import" action="#{transactionBean.importAction()}" onclick="return confirm('Are you sure to IMPORT?!!!')" />
+	   	<h:commandButton value="export" action="#{transactionBean.exportAction}" onclick="return confirm('Are you sure to EXPORT?!!!')"/>
+	   	<h:commandButton value="import" action="#{transactionBean.importAction}" onclick="return confirm('Are you sure to IMPORT?!!!')" />
 	   	</h:column>
    	</h:dataTable>
 	   	
