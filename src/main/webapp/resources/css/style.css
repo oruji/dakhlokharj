@@ -31,3 +31,8 @@ input {
 .myLeft {
 	direction: ltr;
 }
+
+.todayDate {
+	direction: ltr;
+	text-align: right;
+}
