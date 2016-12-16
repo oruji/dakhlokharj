@@ -23,6 +23,7 @@ public class TransactionBean implements Serializable {
 	private List<TransactionModel> transList = null;
 	private Integer typeSearch = 0;
 	private Integer accSearch = 0;
+	private Integer transTypeSearch = 0;
 	private String description = "";
 	private Date fromDate = null;
 	private Date toDate = null;
@@ -135,6 +136,27 @@ public class TransactionBean implements Serializable {
 		// typeDescDateAcc
 		else if (typeSearch != 0 && description != "" && fromDate != null && accSearch != 0)
 			setTransList(new TransactionDao().transRead(typeSearch, description, fromDate, toDate, accSearch));
+
+		// transType
+
+		if (transTypeSearch != 0) {
+			List<TransactionModel> newList = new ArrayList<TransactionModel>();
+
+			switch (transTypeSearch) {
+			case 1:
+				for (int i = 0; i < transList.size(); i++)
+					if (transList.get(i).getTransCur().longValue() > 0)
+						newList.add(transList.get(i));
+				break;
+			case 2:
+				for (int i = 0; i < transList.size(); i++)
+					if (transList.get(i).getTransCur().longValue() < 0)
+						newList.add(transList.get(i));
+				break;
+			}
+			transList = newList;
+		}
+
 		return "index.xhtml?faces-redirect=true";
 	}
 
@@ -324,6 +346,14 @@ public class TransactionBean implements Serializable {
 
 	public void setAccSearch(Integer accSearch) {
 		this.accSearch = accSearch;
+	}
+
+	public Integer getTransTypeSearch() {
+		return transTypeSearch;
+	}
+
+	public void setTransTypeSearch(Integer transTypeSearch) {
+		this.transTypeSearch = transTypeSearch;
 	}
 
 	public void setTotalDakhl(BigDecimal totalDakhl) {

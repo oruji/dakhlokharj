@@ -123,6 +123,14 @@
 	   		</h:selectOneMenu>
 		</h:column>
 		<h:column>
+			<f:facet name="header">نوع تراکنش</f:facet>
+			<h:selectOneMenu value="#{transactionBean.transTypeSearch}">
+				<f:selectItem itemValue="0" itemLabel="همه" />
+	   			<f:selectItem itemValue="1" itemLabel="دخل" />
+	   			<f:selectItem itemValue="2" itemLabel="خرج" />
+	   		</h:selectOneMenu>
+		</h:column>
+		<h:column>
 		<f:facet name="header">از</f:facet>
 		<h:inputText value="#{transactionBean.fromDate}" id="date_input_22" class="date">
 			<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
