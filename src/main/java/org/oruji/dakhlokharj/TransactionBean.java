@@ -33,6 +33,8 @@ public class TransactionBean implements Serializable {
 	private BigDecimal totalDakhl;
 	private BigDecimal totalKharj;
 
+	private HashMap<String, Integer> transactionType;
+
 	public String saveAction() {
 		new TransactionDao().transCreate(getTransaction());
 
@@ -331,6 +333,36 @@ public class TransactionBean implements Serializable {
 
 	public void setTotalKharj(BigDecimal totalKharj) {
 		this.totalKharj = totalKharj;
+	}
+
+	public HashMap<String, Integer> getTransactionType() {
+		if (transactionType == null) {
+			transactionType = new HashMap<String, Integer>();
+			transactionType.put("", 0);			
+			transactionType.put("قبض موبایل امین", 1);
+			transactionType.put("قبض موبایل فاطمه", 2);
+			transactionType.put("قبض برق", 3);
+			transactionType.put("قبض گاز", 4);
+			transactionType.put("قبض تلفن", 5);
+			transactionType.put("قبض آب", 6);
+			transactionType.put("شارژ ساختمان", 7);
+			transactionType.put("دستی", 8);
+			transactionType.put("خرید", 9);
+			transactionType.put("غذا", 10);
+			transactionType.put("میوه", 11);
+			transactionType.put("هدیه", 12);
+			transactionType.put("بیمه", 13);
+			transactionType.put("سود", 14);
+			transactionType.put("حقوق", 15);
+			transactionType.put("یارانه", 16);
+			transactionType.put("دکتر", 17);
+			transactionType.put("دیگر", 99);
+		}
+		return transactionType;
+	}
+
+	public void setTransactionType(HashMap<String, Integer> transactionType) {
+		this.transactionType = transactionType;
 	}
 
 	public String getTodayDate() {

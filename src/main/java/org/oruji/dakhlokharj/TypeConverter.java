@@ -1,5 +1,10 @@
 package org.oruji.dakhlokharj;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -15,43 +20,18 @@ public class TypeConverter implements Converter {
 
 	@Override
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) {
-		switch ((Integer) arg2) {
-		case 1:
-			return "قبض موبایل امین";
-		case 2:
-			return "قبض موبایل فاطمه";
-		case 3:
-			return "قبض برق";
-		case 4:
-			return "قبض گاز";
-		case 5:
-			return "قبض تلفن";
-		case 6:
-			return "قبض آب";
-		case 7:
-			return "شارژ ساختمان";
-		case 8:
-			return "دستی";
-		case 9:
-			return "خرید";
-		case 10:
-			return "غذا";
-		case 11:
-			return "میوه";
-		case 12:
-			return "هدیه";
-		case 13:
-			return "بیمه";
-		case 14:
-			return "سود";
-		case 15:
-			return "حقوق";
-		case 16:
-			return "یارانه";
-		case 99:
-			return "دیگر";
-		default:
-			return "";
+		TransactionBean bean = new TransactionBean();
+		Map<String, Integer> myMap = bean.getTransactionType();
+		Set<Entry<String, Integer>> s = myMap.entrySet();
+		Iterator<Entry<String, Integer>> it = s.iterator();
+
+		while (it.hasNext()) {
+			Map.Entry<String, Integer> m = (Entry<String, Integer>) it.next();
+
+			if (m.getValue() == (Integer) arg2)
+				return m.getKey();
 		}
+
+		return "";
 	}
 }

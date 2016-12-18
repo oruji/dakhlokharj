@@ -57,23 +57,7 @@
 			<h:column>
 				<f:facet name="header">نوع برداشت</f:facet>
 			<h:selectOneMenu value="#{transactionBean.transaction.transType}" required="true">
-	   			<f:selectItem itemValue="1" itemLabel="قبض موبایل امین" />
-	   			<f:selectItem itemValue="2" itemLabel="قبض موبایل فاطمه" />
-	   			<f:selectItem itemValue="3" itemLabel="قبض برق" />
-	   			<f:selectItem itemValue="4" itemLabel="قبض گاز" />
-	   			<f:selectItem itemValue="5" itemLabel="قبض تلفن" />
-	   			<f:selectItem itemValue="6" itemLabel="قبض آب" />
-	   			<f:selectItem itemValue="7" itemLabel="شارژ ساختمان" />
-	   			<f:selectItem itemValue="8" itemLabel="دستی" />
-	   			<f:selectItem itemValue="9" itemLabel="خرید" />
-	   			<f:selectItem itemValue="10" itemLabel="غذا" />
-	   			<f:selectItem itemValue="11" itemLabel="میوه" />
-	   			<f:selectItem itemValue="12" itemLabel="هدیه" />
-	   			<f:selectItem itemValue="13" itemLabel="بیمه" />
-	   			<f:selectItem itemValue="14" itemLabel="سود" />
-	   			<f:selectItem itemValue="15" itemLabel="حقوق" />
-	   			<f:selectItem itemValue="16" itemLabel="یارانه" />
-	   			<f:selectItem itemValue="99" itemLabel="دیگر" />
+				<f:selectItems value="#{transactionBean.transactionType}" />
 	   		</h:selectOneMenu>
 			</h:column>
 			
@@ -167,31 +151,14 @@
 	</script>
 	</h:column>
 	<h:column>
-	<f:facet name="header">نوع</f:facet>
-	<h:selectOneMenu value="#{transactionBean.typeSearch}" >
-		<f:selectItem itemValue="0" itemLabel="همه" />
-  			<f:selectItem itemValue="1" itemLabel="قبض موبایل امین" />
-  			<f:selectItem itemValue="2" itemLabel="قبض موبایل فاطمه" />
-  			<f:selectItem itemValue="3" itemLabel="قبض برق" />
-  			<f:selectItem itemValue="4" itemLabel="قبض گاز" />
-  			<f:selectItem itemValue="5" itemLabel="قبض تلفن" />
-  			<f:selectItem itemValue="6" itemLabel="قبض آب" />
-  			<f:selectItem itemValue="7" itemLabel="شارژ ساختمان" />
-  			<f:selectItem itemValue="8" itemLabel="دستی" />
-  			<f:selectItem itemValue="9" itemLabel="خرید" />
-  			<f:selectItem itemValue="10" itemLabel="غذا" />
-  			<f:selectItem itemValue="11" itemLabel="میوه" />
-  			<f:selectItem itemValue="12" itemLabel="هدیه" />
-  			<f:selectItem itemValue="13" itemLabel="بیمه" />
-  			<f:selectItem itemValue="14" itemLabel="سود" />   			
-  			<f:selectItem itemValue="15" itemLabel="حقوق" />
-  			<f:selectItem itemValue="16" itemLabel="یارانه" />
-  			<f:selectItem itemValue="99" itemLabel="دیگر" />
+		<f:facet name="header">نوع</f:facet>
+		<h:selectOneMenu value="#{transactionBean.typeSearch}" >
+  			<f:selectItems value="#{transactionBean.transactionType}" />
   		</h:selectOneMenu>
   		</h:column>
   		<h:column>
-  		<f:facet name="header">توضیح</f:facet>
-  		<h:inputText value="#{transactionBean.description}" />
+	  		<f:facet name="header">توضیح</f:facet>
+	  		<h:inputText value="#{transactionBean.description}" />
   		</h:column>
   		<h:column>
   		<f:facet name="header">جستجو</f:facet>
@@ -246,23 +213,7 @@
 			<h:column>
 				<f:facet name="header">نوع برداشت</f:facet>
 			<h:selectOneMenu value="#{o.transType}" rendered="#{o.editable}">
-	   			<f:selectItem itemValue="1" itemLabel="قبض موبایل امین" />
-	   			<f:selectItem itemValue="2" itemLabel="قبض موبایل فاطمه" />
-	   			<f:selectItem itemValue="3" itemLabel="قبض برق" />
-	   			<f:selectItem itemValue="4" itemLabel="قبض گاز" />
-	   			<f:selectItem itemValue="5" itemLabel="قبض تلفن" />
-	   			<f:selectItem itemValue="6" itemLabel="قبض آب" />
-	   			<f:selectItem itemValue="7" itemLabel="شارژ ساختمان" />
-	   			<f:selectItem itemValue="8" itemLabel="دستی" />
-	   			<f:selectItem itemValue="9" itemLabel="خرید" />
-	   			<f:selectItem itemValue="10" itemLabel="غذا" />
-	   			<f:selectItem itemValue="11" itemLabel="میوه" />
-	   			<f:selectItem itemValue="12" itemLabel="هدیه" />
-	   			<f:selectItem itemValue="13" itemLabel="بیمه" />	
-	   			<f:selectItem itemValue="14" itemLabel="سود" />  
-	   			<f:selectItem itemValue="15" itemLabel="حقوق" />
-	   			<f:selectItem itemValue="16" itemLabel="یارانه" />
-	   			<f:selectItem itemValue="99" itemLabel="دیگر" />
+	   			<f:selectItems value="#{transactionBean.transactionType}" />
 	   		</h:selectOneMenu>
    			<h:outputText value="#{o.transType}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.TypeConverter" />
 			</h:column>
