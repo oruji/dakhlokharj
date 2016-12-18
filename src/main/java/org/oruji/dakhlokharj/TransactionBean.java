@@ -287,24 +287,24 @@ public class TransactionBean implements Serializable {
 	public String format() {
 		StringBuilder myStr = new StringBuilder();
 
-		// for (TransactionModel model : new TransactionDao().transRead()) {
-		// myStr.append(model.getTransAcc());
-		// myStr.append(";");
-		// myStr.append(new DatePlus(model.getTransDate()).getPersian());
-		// myStr.append(";");
-		// myStr.append(model.getTransCur());
-		// myStr.append(";");
-		// myStr.append(model.getTransType());
-		// myStr.append(";");
-		// myStr.append(model.getTransDesc().replaceAll(";", "{col}"));
-		// myStr.append(";");
-		// myStr.append(model.getPayNo().replaceAll(";", "{col}"));
-		// myStr.append(";");
-		// myStr.append(model.getTransNo().replaceAll(";", "{col}"));
-		// myStr.append(";");
-		// myStr.append(model.getTransTo().replaceAll(";", "{col}"));
-		// myStr.append("\n");
-		// }
+		for (TransactionModel model : new TransactionDao().transRead()) {
+			myStr.append(model.getTransAcc());
+			myStr.append(";");
+			myStr.append(new DatePlus(model.getTransDate()).getPersian());
+			myStr.append(";");
+			myStr.append(model.getTransCur());
+			myStr.append(";");
+			myStr.append(model.getTransType());
+			myStr.append(";");
+			myStr.append(model.getTransDesc().replaceAll(";", "{col}"));
+			myStr.append(";");
+			myStr.append(model.getPayNo().replaceAll(";", "{col}"));
+			myStr.append(";");
+			myStr.append(model.getTransNo().replaceAll(";", "{col}"));
+			myStr.append(";");
+			myStr.append(model.getTransTo().replaceAll(";", "{col}"));
+			myStr.append("\n");
+		}
 
 		return myStr.toString();
 	}
