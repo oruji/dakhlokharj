@@ -17,23 +17,7 @@ import javax.persistence.Transient;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "TransactionModel.findAll", query = "SELECT t from TransactionModel t order by t.transDate desc"),
-		@NamedQuery(name = "TransactionModel.findByType", query = "SELECT t from TransactionModel t where t.transType = :transType order by t.transDate desc"),
-		@NamedQuery(name = "TransactionModel.findByDesc", query = "SELECT t from TransactionModel t where t.transDesc LIKE :transDesc order by t.transDate desc"),
-		@NamedQuery(name = "TransactionModel.findByDate", query = "SELECT t from TransactionModel t where t.transDate between :fromDate and :toDate order by t.transDate desc"),
-		@NamedQuery(name = "TransactionModel.findByAcc", query = "SELECT t from TransactionModel t where t.transAcc = :transAcc order by t.transDate desc"),
-		@NamedQuery(name = "TransactionModel.findByTypeDesc", query = "SELECT t from TransactionModel t where t.transType = :transType and t.transDesc LIKE :transDesc order by t.transDate desc"),
-		@NamedQuery(name = "TransactionModel.findByTypeDate", query = "SELECT t from TransactionModel t where t.transType = :transType and t.transDate between :fromDate and :toDate order by t.transDate desc"),
-		@NamedQuery(name = "TransactionModel.findByTypeAcc", query = "SELECT t from TransactionModel t where t.transType = :transType and t.transAcc = :transAcc order by t.transDate desc"),
-		@NamedQuery(name = "TransactionModel.findByDescDate", query = "SELECT t from TransactionModel t where t.transDesc LIKE :transDesc and t.transDate between :fromDate and :toDate order by t.transDate desc"),
-		@NamedQuery(name = "TransactionModel.findByDescAcc", query = "SELECT t from TransactionModel t where t.transAcc = :transAcc and t.transDesc LIKE :transDesc order by t.transDate desc"),
-		@NamedQuery(name = "TransactionModel.findByDateAcc", query = "SELECT t from TransactionModel t where t.transAcc = :transAcc and t.transDate between :fromDate and :toDate order by t.transDate desc"),
-		@NamedQuery(name = "TransactionModel.findByTypeDescAcc", query = "SELECT t from TransactionModel t where t.transDesc LIKE :transDesc and t.transType = :transType and t.transAcc = :transAcc order by t.transDate desc"),
-		@NamedQuery(name = "TransactionModel.findByTypeAccDate", query = "SELECT t from TransactionModel t where t.transAcc = :transAcc and t.transType = :transType and t.transDate between :fromDate and :toDate order by t.transDate desc"),
-		@NamedQuery(name = "TransactionModel.findByDescAccDate", query = "SELECT t from TransactionModel t where t.transAcc = :transAcc and t.transDesc LIKE :transDesc and t.transDate between :fromDate and :toDate order by t.transDate desc"),
-		@NamedQuery(name = "TransactionModel.findByTypeDescDate", query = "SELECT t from TransactionModel t where t.transDesc LIKE :transDesc and t.transType = :transType and t.transDate between :fromDate and :toDate order by t.transDate desc"),
-		@NamedQuery(name = "TransactionModel.findByTypeDescDateAcc", query = "SELECT t from TransactionModel t where t.transDesc LIKE :transDesc and t.transType = :transType and t.transDate between :fromDate and :toDate and t.transAcc = :transAcc order by t.transDate desc")
-})
+		@NamedQuery(name = "TransactionModel.findAll", query = "SELECT t from TransactionModel t order by t.transDate desc") })
 public class TransactionModel implements Serializable {
 	private static final long serialVersionUID = -4819996652263837857L;
 	@Id

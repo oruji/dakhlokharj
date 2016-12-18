@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -91,54 +93,21 @@ public class TransactionBean implements Serializable {
 			toDate = null;
 		}
 
-		if (typeSearch == 0 && description == "" && fromDate == null && accSearch == 0)
-			setTransList(new TransactionDao().transRead());
-		else if (typeSearch != 0 && description == "" && fromDate == null && accSearch == 0)
-			setTransList(new TransactionDao().transRead(typeSearch));
-		else if (typeSearch == 0 && description != "" && fromDate == null && accSearch == 0)
-			setTransList(new TransactionDao().transRead(description));
-		// date
-		else if (typeSearch == 0 && description == "" && fromDate != null && accSearch == 0)
-			setTransList(new TransactionDao().transRead(fromDate, toDate));
-		// acc
-		else if (typeSearch == 0 && description == "" && fromDate == null && accSearch != 0)
-			setTransList(new TransactionDao().transReadAcc(accSearch));
-		// typedesc
-		else if (typeSearch != 0 && description != "" && fromDate == null && accSearch == 0)
-			setTransList(new TransactionDao().transRead(typeSearch, description));
-		// typeDate
-		else if (typeSearch != 0 && description == "" && fromDate != null && accSearch == 0)
-			setTransList(new TransactionDao().transRead(typeSearch, fromDate, toDate));
-		// typeAcc
-		else if (typeSearch != 0 && description == "" && fromDate == null && accSearch != 0)
-			setTransList(new TransactionDao().transRead(typeSearch, accSearch));
-		// descDate
-		else if (typeSearch == 0 && description != "" && fromDate != null && accSearch == 0)
-			setTransList(new TransactionDao().transRead(description, fromDate, toDate));
-		// descAcc
-		else if (typeSearch == 0 && description != "" && fromDate == null && accSearch != 0)
-			setTransList(new TransactionDao().transReadAcc(description, accSearch));
-		// dateAcc
-		else if (typeSearch == 0 && description == "" && fromDate != null && accSearch != 0)
-			setTransList(new TransactionDao().transReadAcc(fromDate, toDate, accSearch));
-		// typeDescAcc
-		else if (typeSearch != 0 && description != "" && fromDate == null && accSearch != 0)
-			setTransList(new TransactionDao().transRead(typeSearch, description, accSearch));
-		// typeAccDate
-		else if (typeSearch != 0 && description == "" && fromDate != null && accSearch != 0)
-			setTransList(new TransactionDao().transRead(typeSearch, accSearch, fromDate, toDate));
-		// descAccDate
-		else if (typeSearch == 0 && description != "" && fromDate != null && accSearch != 0)
-			setTransList(new TransactionDao().transReadAcc(description, accSearch, fromDate, toDate));
-		// typeDescDate
-		else if (typeSearch != 0 && description != "" && fromDate != null && accSearch == 0)
-			setTransList(new TransactionDao().transRead(typeSearch, description, fromDate, toDate));
-		// typeDescDateAcc
-		else if (typeSearch != 0 && description != "" && fromDate != null && accSearch != 0)
-			setTransList(new TransactionDao().transRead(typeSearch, description, fromDate, toDate, accSearch));
+		Map<String, Object> params = new HashMap<String, Object>();
+
+		params.put("transAcc", accSearch);
+		params.put("transType", typeSearch);
+		params.put("transDesc", description);
+
+		List<Date> dateList = new ArrayList<Date>();
+		dateList.add(fromDate);
+		dateList.add(toDate);
+
+		params.put("transDate", dateList);
+
+		setTransList(new TransactionDao().transRead(params));
 
 		// transType
-
 		if (transTypeSearch != 0) {
 			List<TransactionModel> newList = new ArrayList<TransactionModel>();
 
@@ -318,24 +287,24 @@ public class TransactionBean implements Serializable {
 	public String format() {
 		StringBuilder myStr = new StringBuilder();
 
-		for (TransactionModel model : new TransactionDao().transRead()) {
-			myStr.append(model.getTransAcc());
-			myStr.append(";");
-			myStr.append(new DatePlus(model.getTransDate()).getPersian());
-			myStr.append(";");
-			myStr.append(model.getTransCur());
-			myStr.append(";");
-			myStr.append(model.getTransType());
-			myStr.append(";");
-			myStr.append(model.getTransDesc().replaceAll(";", "{col}"));
-			myStr.append(";");
-			myStr.append(model.getPayNo().replaceAll(";", "{col}"));
-			myStr.append(";");
-			myStr.append(model.getTransNo().replaceAll(";", "{col}"));
-			myStr.append(";");
-			myStr.append(model.getTransTo().replaceAll(";", "{col}"));
-			myStr.append("\n");
-		}
+		// for (TransactionModel model : new TransactionDao().transRead()) {
+		// myStr.append(model.getTransAcc());
+		// myStr.append(";");
+		// myStr.append(new DatePlus(model.getTransDate()).getPersian());
+		// myStr.append(";");
+		// myStr.append(model.getTransCur());
+		// myStr.append(";");
+		// myStr.append(model.getTransType());
+		// myStr.append(";");
+		// myStr.append(model.getTransDesc().replaceAll(";", "{col}"));
+		// myStr.append(";");
+		// myStr.append(model.getPayNo().replaceAll(";", "{col}"));
+		// myStr.append(";");
+		// myStr.append(model.getTransNo().replaceAll(";", "{col}"));
+		// myStr.append(";");
+		// myStr.append(model.getTransTo().replaceAll(";", "{col}"));
+		// myStr.append("\n");
+		// }
 
 		return myStr.toString();
 	}

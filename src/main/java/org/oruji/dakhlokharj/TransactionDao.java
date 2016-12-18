@@ -1,11 +1,16 @@
 package org.oruji.dakhlokharj;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 public class TransactionDao {
 	protected EntityManager getEntityManager() {
@@ -33,128 +38,94 @@ public class TransactionDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transRead(Integer typeSearch) {
+	public List<TransactionModel> transRead(Map<String, Object> params) {
 		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByType")
-				.setParameter("transType", typeSearch).getResultList();
-	}
 
-	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transRead(String description) {
-		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByDesc")
-				.setParameter("transDesc", "%" + description + "%").getResultList();
-	}
+		StringBuilder myStr = new StringBuilder("SELECT t from TransactionModel t");
 
-	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transRead(Date fromDate, Date toDate) {
-		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByDate")
-				.setParameter("fromDate", fromDate).setParameter("toDate", toDate).getResultList();
-	}
+		Set s = params.entrySet();
+		Iterator it = s.iterator();
 
-	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transReadAcc(Integer accSearch) {
-		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByAcc")
-				.setParameter("transAcc", accSearch).getResultList();
-	}
+		myStr.append(" WHERE");
 
-	// typeDesc
-	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transRead(Integer typeSearch, String description) {
-		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByTypeDesc")
-				.setParameter("transType", typeSearch).setParameter("transDesc", "%" + description + "%")
-				.getResultList();
-	}
+		int paramNo = 0;
+		while (it.hasNext()) {
+			Map.Entry m = (Map.Entry) it.next();
 
-	// typeDate
-	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transRead(Integer typeSearch, Date fromDate, Date toDate) {
-		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByTypeDate")
-				.setParameter("transType", typeSearch).setParameter("fromDate", fromDate).setParameter("toDate", toDate)
-				.getResultList();
-	}
+			if (m.getValue() instanceof String) {
+				if ((String) m.getValue() == "")
+					continue;
+				else {
+					myStr.append(" t.");
+					myStr.append(m.getKey() + " LIKE " + ":" + m.getKey());
+					myStr.append(" and");
+					paramNo++;
+				}
 
-	// typeAcc
-	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transRead(Integer typeSearch, Integer accSearch) {
-		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByTypeAcc")
-				.setParameter("transType", typeSearch).setParameter("transAcc", accSearch).getResultList();
-	}
+			} else if (m.getValue() instanceof Integer) {
+				if ((Integer) m.getValue() == 0)
+					continue;
+				else {
+					myStr.append(" t.");
+					myStr.append(m.getKey() + "=" + ":" + m.getKey());
+					myStr.append(" and");
+					paramNo++;
+				}
+			} else if (m.getValue() instanceof List) {
+				List<Date> dateList = new ArrayList<Date>();
+				dateList = (List<Date>) m.getValue();
+				if (dateList.get(0) == null)
+					continue;
 
-	// descDate
-	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transRead(String description, Date fromDate, Date toDate) {
-		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByDescDate")
-				.setParameter("transDesc", "%" + description + "%").setParameter("fromDate", fromDate)
-				.setParameter("toDate", toDate).getResultList();
-	}
+				else {
+					myStr.append(" t.");
+					myStr.append(m.getKey() + " BETWEEN" + " :fromDate AND :toDate");
+					myStr.append(" and");
+					paramNo++;
+				}
+			}
 
-	// descAcc
-	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transReadAcc(String description, Integer accSearch) {
-		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByDescAcc")
-				.setParameter("transAcc", accSearch).setParameter("transDesc", "%" + description + "%").getResultList();
-	}
+		}
 
-	// dateAcc
-	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transReadAcc(Date fromDate, Date toDate, Integer accSearch) {
-		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByDateAcc")
-				.setParameter("transAcc", accSearch).setParameter("fromDate", fromDate).setParameter("toDate", toDate)
-				.getResultList();
-	}
+		if (paramNo == 0)
+			myStr.replace(myStr.length() - 5, myStr.length(), "");
+		else
+			myStr.replace(myStr.length() - 3, myStr.length(), "");
 
-	// typeDescAcc
-	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transRead(Integer typeSearch, String description, Integer accSearch) {
-		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByTypeDescAcc")
-				.setParameter("transType", typeSearch).setParameter("transDesc", "%" + description + "%")
-				.setParameter("transAcc", accSearch).getResultList();
-	}
+		myStr.append(" order by t.transDate desc");
 
-	// typeAccDate
-	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transRead(Integer typeSearch, Integer accSearch, Date fromDate, Date toDate) {
-		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByTypeAccDate")
-				.setParameter("transType", typeSearch).setParameter("fromDate", fromDate).setParameter("toDate", toDate)
-				.setParameter("transAcc", accSearch).getResultList();
-	}
+		Query q = em.createQuery(myStr.toString());
 
-	// descAccDate
-	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transReadAcc(String description, Integer accSearch, Date fromDate, Date toDate) {
-		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByDescAccDate")
-				.setParameter("transAcc", accSearch).setParameter("transDesc", "%" + description + "%")
-				.setParameter("fromDate", fromDate).setParameter("toDate", toDate).getResultList();
-	}
+		Set s2 = params.entrySet();
+		Iterator it2 = s2.iterator();
+		while (it2.hasNext()) {
+			Map.Entry m = (Map.Entry) it2.next();
 
-	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transRead(Integer typeSearch, String description, Date fromDate, Date toDate) {
-		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByTypeDescDate")
-				.setParameter("transType", typeSearch).setParameter("transDesc", "%" + description + "%")
-				.setParameter("fromDate", fromDate).setParameter("toDate", toDate).getResultList();
-	}
+			if (m.getValue() instanceof String) {
+				if ((String) m.getValue() == "")
+					continue;
 
-	@SuppressWarnings("unchecked")
-	public List<TransactionModel> transRead(Integer typeSearch, String description, Date fromDate, Date toDate,
-			Integer accSearch) {
-		EntityManager em = getEntityManager();
-		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findByTypeDescDateAcc")
-				.setParameter("transType", typeSearch).setParameter("transDesc", "%" + description + "%")
-				.setParameter("fromDate", fromDate).setParameter("toDate", toDate).setParameter("transAcc", accSearch)
-				.getResultList();
+				q.setParameter((String) m.getKey(), "%" + (String) m.getValue() + "%");
+
+			} else if (m.getValue() instanceof Integer) {
+				if ((Integer) m.getValue() == 0)
+					continue;
+
+				q.setParameter((String) m.getKey(), (Integer) m.getValue());
+
+			} else if (m.getValue() instanceof List) {
+				List<Date> dateList = new ArrayList<Date>();
+				dateList = (List<Date>) m.getValue();
+
+				if (dateList.get(0) == null)
+					continue;
+
+				q.setParameter("fromDate", dateList.get(0));
+				q.setParameter("toDate", dateList.get(1));
+			}
+		}
+
+		return (List<TransactionModel>) q.getResultList();
 	}
 
 	public TransactionModel transUpdate(TransactionModel trans) {
