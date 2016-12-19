@@ -339,17 +339,9 @@ public class TransactionBean implements Serializable {
 		if (transactionType == null) {
 			transactionType = new HashMap<String, Integer>();
 			transactionType.put("", 0);			
-			transactionType.put("قبض موبایل امین", 1);
-			transactionType.put("قبض موبایل فاطمه", 2);
-			transactionType.put("قبض برق", 3);
-			transactionType.put("قبض گاز", 4);
-			transactionType.put("قبض تلفن", 5);
-			transactionType.put("قبض آب", 6);
 			transactionType.put("شارژ ساختمان", 7);
 			transactionType.put("دستی", 8);
 			transactionType.put("خرید", 9);
-			transactionType.put("غذا", 10);
-			transactionType.put("میوه", 11);
 			transactionType.put("هدیه", 12);
 			transactionType.put("بیمه", 13);
 			transactionType.put("سود", 14);
@@ -357,6 +349,7 @@ public class TransactionBean implements Serializable {
 			transactionType.put("یارانه", 16);
 			transactionType.put("دکتر", 17);
 			transactionType.put("قسط", 18);
+			transactionType.put("قبض", 19);
 			transactionType.put("دیگر", 99);
 		}
 		return transactionType;
