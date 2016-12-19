@@ -356,6 +356,7 @@ public class TransactionBean implements Serializable {
 			transactionType.put("حقوق", 15);
 			transactionType.put("یارانه", 16);
 			transactionType.put("دکتر", 17);
+			transactionType.put("قسط", 18);
 			transactionType.put("دیگر", 99);
 		}
 		return transactionType;
