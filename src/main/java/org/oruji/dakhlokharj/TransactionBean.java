@@ -32,6 +32,9 @@ public class TransactionBean implements Serializable {
 	private BigDecimal totalMoney;
 	private BigDecimal totalDakhl;
 	private BigDecimal totalKharj;
+	private Integer exactDate = 1;
+	private Date monthly;
+	private Date daily;
 
 	private HashMap<String, Integer> transactionType;
 
@@ -43,6 +46,21 @@ public class TransactionBean implements Serializable {
 		totalMoney = null;
 		totalDakhl = null;
 		totalKharj = null;
+
+		return "index.xhtml?faces-redirect=true";
+	}
+
+	public String changeAction() {
+		toDate = null;
+		fromDate = null;
+		monthly = null;
+		daily = null;
+
+		if (exactDate == 3)
+			exactDate = 1;
+
+		else
+			exactDate++;
 
 		return "index.xhtml?faces-redirect=true";
 	}
@@ -93,6 +111,12 @@ public class TransactionBean implements Serializable {
 		if (fromDate == null || toDate == null) {
 			fromDate = null;
 			toDate = null;
+		}
+
+		if (monthly != null) {
+			DatePlus dp = new DatePlus(monthly);
+			fromDate = dp.getFirstDay();
+			toDate = dp.getLastDay();
 		}
 
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -338,7 +362,7 @@ public class TransactionBean implements Serializable {
 	public HashMap<String, Integer> getTransactionType() {
 		if (transactionType == null) {
 			transactionType = new HashMap<String, Integer>();
-			transactionType.put("", 0);			
+			transactionType.put("", 0);
 			transactionType.put("شارژ ساختمان", 7);
 			transactionType.put("دستی", 8);
 			transactionType.put("خرید", 9);
@@ -362,5 +386,29 @@ public class TransactionBean implements Serializable {
 	public String getTodayDate() {
 		DatePlus dp = new DatePlus();
 		return dp.getPersian(DATE_FORMAT.YMmDd);
+	}
+
+	public Integer getExactDate() {
+		return exactDate;
+	}
+
+	public void setExactDate(Integer exactDate) {
+		this.exactDate = exactDate;
+	}
+
+	public Date getMonthly() {
+		return monthly;
+	}
+
+	public void setMonthly(Date monthly) {
+		this.monthly = monthly;
+	}
+
+	public Date getDaily() {
+		return daily;
+	}
+
+	public void setDaily(Date daily) {
+		this.daily = daily;
 	}
 }

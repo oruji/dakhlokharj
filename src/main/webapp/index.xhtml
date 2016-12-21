@@ -94,9 +94,28 @@
 		</h:column>
 	</h:dataTable>
 </h:form>
-<br />
-<br />
+<br /><hr />
 <h:form id="myform2">
+<h:dataTable value="" var="">
+   	<h:column>
+   	<f:facet name="header">دخل</f:facet>
+   	<h:outputText value="#{transactionBean.totalDakhl}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" />
+   	</h:column>
+   	<h:column>
+   	<f:facet name="header">خرج</f:facet>
+   	<h:outputText value="#{transactionBean.totalKharj}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
+   	</h:column>
+   		   	<h:column>
+   	<f:facet name="header">مبلغ کل</f:facet>
+   	<h:outputText value="#{transactionBean.totalMoney}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
+   	</h:column>
+   	<h:column>
+   	<f:facet name="header">عملیات</f:facet>
+   	<h:commandButton value="export" action="#{transactionBean.exportAction}" onclick="return confirm('Are you sure to EXPORT?!!!')"/>
+   	<h:commandButton value="import" action="#{transactionBean.importAction}" onclick="return confirm('Are you sure to IMPORT?!!!')" />
+   	</h:column>
+</h:dataTable>
+<br /><hr />
 <h:dataTable id="searchTable" value="" var="">
 	<h:column>
 		<f:facet name="header">نوع حساب</f:facet>
@@ -114,7 +133,7 @@
    			<f:selectItem itemValue="2" itemLabel="خرج" />
    		</h:selectOneMenu>
 	</h:column>
-	<h:column>
+	<h:column rendered="#{transactionBean.exactDate eq 3}">
 	<f:facet name="header">از</f:facet>
 	<h:inputText value="#{transactionBean.fromDate}" id="date_input_22" class="date">
 		<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
@@ -132,7 +151,7 @@
 		});
 	</script>
 	</h:column>
-	<h:column>
+	<h:column rendered="#{transactionBean.exactDate eq 3}">
 	<f:facet name="header">تا</f:facet>
 	<h:inputText value="#{transactionBean.toDate}" id="date_input_23" class="date">
 		<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
@@ -150,6 +169,48 @@
 		});
 	</script>
 	</h:column>
+	
+	
+	<h:column rendered="#{transactionBean.exactDate eq 1}">
+	
+	<f:facet name="header">ماهانه</f:facet>
+	<h:inputText value="#{transactionBean.monthly}" id="monthly" class="date">
+		<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
+	</h:inputText>
+	<img id="monthly_btn" src="resources/cal.png" style="vertical-align: top;" />
+	<script type="text/javascript">
+		Calendar.setup({
+			inputField: "myform2:searchTable:0:monthly",
+			button: "monthly_btn",
+       		ifFormat: "%Y-%m",
+       		showsTime: false,
+      		dateType: 'jalali',
+			weekNumbers: false
+		});
+	</script>
+	</h:column>
+	
+	
+	<h:column rendered="#{transactionBean.exactDate eq 2}">
+	<f:facet name="header">روزانه</f:facet>
+	<h:inputText value="#{transactionBean.daily}" id="daily" class="date">
+		<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
+	</h:inputText>
+	<img id="daily_btn" src="resources/cal.png" style="vertical-align: top;" />
+	<script type="text/javascript">
+		Calendar.setup({
+			inputField: "myform2:searchTable:0:daily",
+			button: "daily_btn",
+       		ifFormat: "%Y-%m-%d",
+       		showsTime: false,
+      		dateType: 'jalali',
+			weekNumbers: false
+		});
+	</script>
+	</h:column>
+	<h:column>
+		<h:commandButton value="change" action="#{transactionBean.changeAction}" />
+	</h:column>
 	<h:column>
 		<f:facet name="header">نوع</f:facet>
 		<h:selectOneMenu value="#{transactionBean.typeSearch}" >
@@ -164,26 +225,8 @@
   		<f:facet name="header">جستجو</f:facet>
    	<h:commandButton value="search" action="#{transactionBean.searchAction}"/>
    	</h:column>
-   	<h:column>
-   	<f:facet name="header">دخل</f:facet>
-   	<h:outputText value="#{transactionBean.totalDakhl}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" />
-   	</h:column>
-   		   	<h:column>
-   	<f:facet name="header">خرج</f:facet>
-   	<h:outputText value="#{transactionBean.totalKharj}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
-   	</h:column>
-   		   	<h:column>
-   	<f:facet name="header">مبلغ کل</f:facet>
-   	<h:outputText value="#{transactionBean.totalMoney}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
-   	</h:column>
-   	<h:column>
-   	<f:facet name="header">عملیات</f:facet>
-   	<h:commandButton value="export" action="#{transactionBean.exportAction}" onclick="return confirm('Are you sure to EXPORT?!!!')"/>
-   	<h:commandButton value="import" action="#{transactionBean.importAction}" onclick="return confirm('Are you sure to IMPORT?!!!')" />
-   	</h:column>
-  	</h:dataTable>
-   	
-  		<br />
+   	</h:dataTable>
+	<br />
 	<br />
 	<h:dataTable value="#{transactionBean.transList}" var="o">
 			<h:column>

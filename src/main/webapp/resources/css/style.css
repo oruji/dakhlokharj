@@ -21,7 +21,8 @@ input {
 }
 
 .date {
-	width: 120px
+	width: 120px;
+	direction: ltr;
 }
 
 .bold {
@@ -35,4 +36,8 @@ input {
 .todayDate {
 	direction: ltr;
 	text-align: right;
+}
+
+input[type=submit] {
+	width: 60px;
 }
