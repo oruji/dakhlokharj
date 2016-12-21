@@ -117,6 +117,14 @@ public class TransactionBean implements Serializable {
 			DatePlus dp = new DatePlus(monthly);
 			fromDate = dp.getFirstDay();
 			toDate = dp.getLastDay();
+
+		} else if (daily != null) {
+			DatePlus dp = new DatePlus(daily);
+			fromDate = dp.getFirstHour();
+			toDate = dp.getLastHour();
+		} else {
+			fromDate = null;
+			toDate = null;
 		}
 
 		Map<String, Object> params = new HashMap<String, Object>();
