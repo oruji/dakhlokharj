@@ -91,7 +91,7 @@
 			
 			<h:column>
 		    <f:facet name="header">عملیات</f:facet>
-			<h:commandButton value="save" action="#{transactionBean.saveAction}" />
+			<h:commandButton value="ذخیره" action="#{transactionBean.saveAction}" />
 		</h:column>
 	</h:dataTable>
 </h:form>
@@ -112,8 +112,8 @@
    	</h:column>
    	<h:column>
    	<f:facet name="header">عملیات</f:facet>
-   	<h:commandButton value="export" action="#{transactionBean.exportAction}" onclick="return confirm('Are you sure to EXPORT?!!!')"/>
-   	<h:commandButton value="import" action="#{transactionBean.importAction}" onclick="return confirm('Are you sure to IMPORT?!!!')" />
+   	<h:commandButton value="ورودی" action="#{transactionBean.exportAction}" onclick="return confirm('Are you sure to EXPORT?!!!')"/>
+   	<h:commandButton value="خروجی" action="#{transactionBean.importAction}" onclick="return confirm('Are you sure to IMPORT?!!!')" />
    	</h:column>
 </h:dataTable>
 <br /><hr />
@@ -216,7 +216,7 @@
 	</script>
 	</h:column>
 	<h:column>
-		<h:commandButton value="change" action="#{transactionBean.changeAction}" />
+		<h:commandButton value="تغییرتاریخ" action="#{transactionBean.changeAction}" />
 	</h:column>
 	<h:column>
 		<f:facet name="header">نوع</f:facet>
@@ -229,8 +229,8 @@
 	  		<h:inputText value="#{transactionBean.description}" />
   		</h:column>
   		<h:column>
-  		<f:facet name="header">جستجو</f:facet>
-   	<h:commandButton value="search" action="#{transactionBean.searchAction}"/>
+  		<f:facet name="header">عملیات</f:facet>
+   	<h:commandButton value="جستجو" action="#{transactionBean.searchAction}"/>
    	</h:column>
    	</h:dataTable>
 	<br />
@@ -298,10 +298,10 @@
 
 			<h:column>
 		    <f:facet name="header">عملیات</f:facet>
-		    <h:commandButton value="Delete" action="#{transactionBean.deleteAction(o)}" rendered="#{not o.editable}" onclick="return confirm('Are you sure to DELETE?!!!')" />
-		    <h:commandButton value="Edit" action="#{transactionBean.editAction(o)}" rendered="#{not o.editable}" />
-		    <h:commandButton value="Save" action="#{transactionBean.saveEditAction(o)}" rendered="#{o.editable}" onclick="return confirm('Are you sure to EDIT?!!!')" />
-		    <h:commandButton value="Cancel" action="#{transactionBean.cancelAction(o)}" rendered="#{o.editable}" />
+		    <h:commandButton value="خذف" action="#{transactionBean.deleteAction(o)}" rendered="#{not o.editable}" onclick="return confirm('Are you sure to DELETE?!!!')" />
+		    <h:commandButton value="ویرایش" action="#{transactionBean.editAction(o)}" rendered="#{not o.editable}" />
+		    <h:commandButton value="ذخیره" action="#{transactionBean.saveEditAction(o)}" rendered="#{o.editable}" onclick="return confirm('Are you sure to EDIT?!!!')" />
+		    <h:commandButton value="انصراف" action="#{transactionBean.cancelAction(o)}" rendered="#{o.editable}" />
 		</h:column>
 	</h:dataTable>
 </h:form>

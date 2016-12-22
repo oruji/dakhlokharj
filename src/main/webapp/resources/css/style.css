@@ -1,9 +1,12 @@
+* {
+	font-size: 9pt;
+	font-family: tahoma;
+}
+
 body {
 	direction: rtl;
 	color: white;
 	background-color: darkslategrey;
-	font-size: 9pt;
-	font-family: tahoma;
 }
 
 table {
