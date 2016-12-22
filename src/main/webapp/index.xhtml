@@ -30,11 +30,12 @@
 				Calendar.setup({
 					inputField: "myform:mytable:0:date_input_2",   // id of the input field
 					button: "date_btn_2",   // trigger for the calendar (button ID)
-		       		ifFormat: "%Y-%m-%d %H:%M",       // format of the input field
+		       		ifFormat: "%Y/%m/%d %H:%M",       // format of the input field
 		       		showsTime: true,
 		      		dateType: 'jalali',
 		      		timeFormat: "24",
-					weekNumbers: false
+					weekNumbers: false,
+					langNumbers: true
 				});
 			</script>
 		</h:column>
@@ -143,11 +144,12 @@
 		Calendar.setup({
 			inputField: "myform2:searchTable:0:date_input_22",   // id of the input field
 			button: "date_btn_22",   // trigger for the calendar (button ID)
-       		ifFormat: "%Y-%m-%d %H:%M",       // format of the input field
+       		ifFormat: "%Y/%m/%d %H:%M",       // format of the input field
        		showsTime: true,
       		dateType: 'jalali',
       		timeFormat: "24",
-			weekNumbers: false
+			weekNumbers: false,
+			langNumbers: true
 		});
 	</script>
 	</h:column>
@@ -161,11 +163,12 @@
 		Calendar.setup({
 			inputField: "myform2:searchTable:0:date_input_23",   // id of the input field
 			button: "date_btn_23",   // trigger for the calendar (button ID)
-       		ifFormat: "%Y-%m-%d %H:%M",       // format of the input field
+       		ifFormat: "%Y/%m/%d %H:%M",       // format of the input field
        		showsTime: true,
       		dateType: 'jalali',
       		timeFormat: "24",
-			weekNumbers: false
+			weekNumbers: false,
+			langNumbers: true
 		});
 	</script>
 	</h:column>
@@ -183,10 +186,11 @@
 		Calendar.setup({
 			inputField: "myform2:searchTable:0:monthly",
 			button: "monthly_btn",
-       		ifFormat: "%Y-%m",
+       		ifFormat: "%Y/%m",
        		showsTime: false,
       		dateType: 'jalali',
-			weekNumbers: false
+			weekNumbers: false,
+			langNumbers: true
 		});
 	</script>
 	</h:column>
@@ -203,10 +207,11 @@
 		Calendar.setup({
 			inputField: "myform2:searchTable:0:daily",
 			button: "daily_btn",
-       		ifFormat: "%Y-%m-%d",
+       		ifFormat: "%Y/%m/%d",
        		showsTime: false,
       		dateType: 'jalali',
-			weekNumbers: false
+			weekNumbers: false,
+			langNumbers: true
 		});
 	</script>
 	</h:column>
@@ -230,7 +235,7 @@
    	</h:dataTable>
 	<br />
 	<br />
-	<h:dataTable value="#{transactionBean.transList}" var="o">
+	<h:dataTable value="#{transactionBean.transList}" var="o" columnClasses=",date">
 			<h:column>
 				<f:facet name="header">نوع حساب</f:facet>
 			<h:selectOneMenu value="#{o.transAcc}" rendered="#{o.editable}">
@@ -241,10 +246,10 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">تاریخ</f:facet>
-				<h:inputText value="#{o.transDate}" rendered="#{o.editable}" class="date">
-				<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
+				<h:inputText value="#{o.transDate}" rendered="#{o.editable}">
+					<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
 				</h:inputText>
-   			<h:outputText value="#{o.transDate}" converter="org.oruji.dakhlokharj.DateConverter" rendered="#{not o.editable}" />
+   				<h:outputText value="#{o.transDate}" converter="org.oruji.dakhlokharj.DateConverter" rendered="#{not o.editable}" />
 			</h:column>
 			
 			<h:column >

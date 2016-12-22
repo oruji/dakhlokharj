@@ -393,8 +393,7 @@ public class TransactionBean implements Serializable {
 	}
 
 	public String getTodayDate() {
-		DatePlus dp = new DatePlus();
-		return dp.getPersian(DATE_FORMAT.YMmDd);
+		return new DatePlus().getPersian(DATE_FORMAT.YMmDd);
 	}
 
 	public Integer getExactDate() {
