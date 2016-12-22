@@ -108,11 +108,6 @@ public class TransactionBean implements Serializable {
 		if (description.isEmpty() || description == null)
 			description = "";
 
-		if (fromDate == null || toDate == null) {
-			fromDate = null;
-			toDate = null;
-		}
-
 		if (monthly != null) {
 			DatePlus dp = new DatePlus(monthly);
 			fromDate = dp.getFirstDay();
@@ -122,7 +117,8 @@ public class TransactionBean implements Serializable {
 			DatePlus dp = new DatePlus(daily);
 			fromDate = dp.getFirstHour();
 			toDate = dp.getLastHour();
-		} else {
+
+		} else if (fromDate == null || toDate == null) {
 			fromDate = null;
 			toDate = null;
 		}
@@ -158,6 +154,11 @@ public class TransactionBean implements Serializable {
 				break;
 			}
 			transList = newList;
+		}
+
+		if (monthly != null || daily != null) {
+			fromDate = null;
+			toDate = null;
 		}
 
 		return "index.xhtml?faces-redirect=true";

@@ -176,6 +176,7 @@
 	<f:facet name="header">ماهانه</f:facet>
 	<h:inputText value="#{transactionBean.monthly}" id="monthly" class="date">
 		<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
+		<f:attribute name="format" value="YM"/>
 	</h:inputText>
 	<img id="monthly_btn" src="resources/cal.png" style="vertical-align: top;" />
 	<script type="text/javascript">
@@ -195,6 +196,7 @@
 	<f:facet name="header">روزانه</f:facet>
 	<h:inputText value="#{transactionBean.daily}" id="daily" class="date">
 		<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
+		<f:attribute name="format" value="YMD"/>
 	</h:inputText>
 	<img id="daily_btn" src="resources/cal.png" style="vertical-align: top;" />
 	<script type="text/javascript">
