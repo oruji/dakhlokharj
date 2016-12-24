@@ -18,55 +18,55 @@
 <h:panelGroup layout="block" class="todayDate">
 	#{transactionBean.todayDate}
 </h:panelGroup>
-<h:form id="myform">
-	<h:dataTable value="" var="" id="mytable">
-		<h:column>
-			<f:facet name="header">تاریخ</f:facet>
-			<h:inputText value="#{transactionBean.transaction.transDate}" id="date_input_2" required="true" class="date">
-				<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
-			</h:inputText>
-			<img id="date_btn_2" src="resources/cal.png" style="vertical-align: top;" />
-			<script type="text/javascript">
-				Calendar.setup({
-					inputField: "myform:mytable:0:date_input_2",   // id of the input field
-					button: "date_btn_2",   // trigger for the calendar (button ID)
-		       		ifFormat: "%Y/%m/%d %H:%M",       // format of the input field
-		       		showsTime: true,
-		      		dateType: 'jalali',
-		      		timeFormat: "24",
-					weekNumbers: false,
-					langNumbers: true
-				});
-			</script>
-		</h:column>
-			
-		<h:column>
-				<f:facet name="header">مبلغ</f:facet>
-			<h:inputText value="#{transactionBean.transaction.transCur}" required="true" class="myLeft">
-				<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
-			</h:inputText>
-		</h:column>
-			
-		<h:column>
-				<f:facet name="header">نوع حساب</f:facet>
-			<h:selectOneMenu value="#{transactionBean.transaction.transAcc}" required="true">
-	   			<f:selectItem itemValue="2" itemLabel="ملت" />
-	   			<f:selectItem itemValue="1" itemLabel="آینده" />
-	   		</h:selectOneMenu>
-			</h:column>
+<h:form id="saveForm">
+<h:dataTable value="" var="" id="mytable">
+	<h:column>
+		<f:facet name="header">تاریخ</f:facet>
+		<h:inputText value="#{transactionBean.transaction.transDate}" id="date_input_2" required="true" class="date">
+			<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
+		</h:inputText>
+		<img id="date_btn_2" src="resources/cal.png" style="vertical-align: top;" />
+		<script type="text/javascript">
+		Calendar.setup({
+			inputField: "saveForm:mytable:0:date_input_2",   // id of the input field
+			button: "date_btn_2",   // trigger for the calendar (button ID)
+		     		ifFormat: "%Y/%m/%d %H:%M",       // format of the input field
+		     		showsTime: true,
+		    		dateType: 'jalali',
+		    		timeFormat: "24",
+			weekNumbers: false,
+			langNumbers: true
+		});
+		</script>
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">مبلغ</f:facet>
+		<h:inputText value="#{transactionBean.transaction.transCur}" required="true" class="myLeft">
+			<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
+		</h:inputText>
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">نوع حساب</f:facet>
+		<h:selectOneMenu value="#{transactionBean.transaction.transAcc}" required="true">
+  			<f:selectItem itemValue="2" itemLabel="ملت" />
+  			<f:selectItem itemValue="1" itemLabel="آینده" />
+  		</h:selectOneMenu>
+	</h:column>
 
-			<h:column>
-				<f:facet name="header">نوع برداشت</f:facet>
-			<h:selectOneMenu value="#{transactionBean.transaction.transType}" required="true">
-				<f:selectItems value="#{transactionBean.transactionType}" />
-	   		</h:selectOneMenu>
-			</h:column>
-			
-			<h:column>
-				<f:facet name="header">توضیحات</f:facet>
-			<h:inputText value="#{transactionBean.transaction.transDesc}" required="true" />
-			</h:column>
-	</h:dataTable>
+	<h:column>
+		<f:facet name="header">نوع برداشت</f:facet>
+	<h:selectOneMenu value="#{transactionBean.transaction.transType}" required="true">
+		<f:selectItems value="#{transactionBean.transactionType}" />
+  		</h:selectOneMenu>
+	</h:column>
+		
+	<h:column>
+		<f:facet name="header">توضیحات</f:facet>
+		<h:inputText value="#{transactionBean.transaction.transDesc}" required="true" />
+	</h:column>
+</h:dataTable>
 	<h:dataTable value="" var="" id="mytable2">
 			<h:column>
 				<f:facet name="header">به / شناسه قبض</f:facet>
@@ -91,32 +91,34 @@
 			
 			<h:column>
 		    <f:facet name="header">عملیات</f:facet>
-			<h:commandButton value="ذخیره" action="#{transactionBean.saveAction}" />
+			<h:commandButton id="save" value="ذخیره" action="#{transactionBean.saveAction}" />
 		</h:column>
 	</h:dataTable>
 </h:form>
 <br /><hr />
-<h:form id="myform2">
+<h:form id="ioForm">
 <h:dataTable value="" var="">
    	<h:column>
-   	<f:facet name="header">دخل</f:facet>
-   	<h:outputText value="#{transactionBean.totalDakhl}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" />
+	   	<f:facet name="header">دخل</f:facet>
+	   	<h:outputText value="#{transactionBean.totalDakhl}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" />
    	</h:column>
    	<h:column>
-   	<f:facet name="header">خرج</f:facet>
-   	<h:outputText value="#{transactionBean.totalKharj}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
-   	</h:column>
-   		   	<h:column>
-   	<f:facet name="header">مبلغ کل</f:facet>
-   	<h:outputText value="#{transactionBean.totalMoney}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
+	   	<f:facet name="header">خرج</f:facet>
+	   	<h:outputText value="#{transactionBean.totalKharj}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
    	</h:column>
    	<h:column>
-   	<f:facet name="header">عملیات</f:facet>
-   	<h:commandButton value="خروجی" action="#{transactionBean.exportAction}" onclick="return confirm('Are you sure to EXPORT?!!!')"/>
-   	<h:commandButton value="ورودی" action="#{transactionBean.importAction}" onclick="return confirm('Are you sure to IMPORT?!!!')" />
+	   	<f:facet name="header">مبلغ کل</f:facet>
+	   	<h:outputText value="#{transactionBean.totalMoney}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
+	   	</h:column>
+	   	<h:column>
+	   	<f:facet name="header">عملیات</f:facet>
+	   	<h:commandButton value="خروجی" action="#{transactionBean.exportAction}" onclick="return confirm('Are you sure to EXPORT?!!!')"/>
+	   	<h:commandButton value="ورودی" action="#{transactionBean.importAction}" onclick="return confirm('Are you sure to IMPORT?!!!')" />
    	</h:column>
 </h:dataTable>
+</h:form>
 <br /><hr />
+<h:form id="searchForm">
 <h:dataTable id="searchTable" value="" var="">
 	<h:column>
 		<f:facet name="header">نوع حساب</f:facet>
@@ -135,85 +137,80 @@
    		</h:selectOneMenu>
 	</h:column>
 	<h:column rendered="#{transactionBean.exactDate eq 3}">
-	<f:facet name="header">از</f:facet>
-	<h:inputText value="#{transactionBean.fromDate}" id="date_input_22" class="date">
-		<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
-	</h:inputText>
-	<img id="date_btn_22" src="resources/cal.png" style="vertical-align: top;" />
-	<script type="text/javascript">
-		Calendar.setup({
-			inputField: "myform2:searchTable:0:date_input_22",   // id of the input field
-			button: "date_btn_22",   // trigger for the calendar (button ID)
-       		ifFormat: "%Y/%m/%d %H:%M",       // format of the input field
-       		showsTime: true,
-      		dateType: 'jalali',
-      		timeFormat: "24",
-			weekNumbers: false,
-			langNumbers: true
-		});
-	</script>
+		<f:facet name="header">از</f:facet>
+		<h:inputText value="#{transactionBean.fromDate}" id="date_input_22" class="date">
+			<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
+		</h:inputText>
+		<img id="date_btn_22" src="resources/cal.png" style="vertical-align: top;" />
+		<script type="text/javascript">
+			Calendar.setup({
+				inputField: "searchForm:searchTable:0:date_input_22",   // id of the input field
+				button: "date_btn_22",   // trigger for the calendar (button ID)
+	       		ifFormat: "%Y/%m/%d %H:%M",       // format of the input field
+	       		showsTime: true,
+	      		dateType: 'jalali',
+	      		timeFormat: "24",
+				weekNumbers: false,
+				langNumbers: true
+			});
+		</script>
 	</h:column>
 	<h:column rendered="#{transactionBean.exactDate eq 3}">
-	<f:facet name="header">تا</f:facet>
-	<h:inputText value="#{transactionBean.toDate}" id="date_input_23" class="date">
-		<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
-	</h:inputText>
-	<img id="date_btn_23" src="resources/cal.png" style="vertical-align: top;" />
-	<script type="text/javascript">
-		Calendar.setup({
-			inputField: "myform2:searchTable:0:date_input_23",   // id of the input field
-			button: "date_btn_23",   // trigger for the calendar (button ID)
-       		ifFormat: "%Y/%m/%d %H:%M",       // format of the input field
-       		showsTime: true,
-      		dateType: 'jalali',
-      		timeFormat: "24",
-			weekNumbers: false,
-			langNumbers: true
-		});
-	</script>
+		<f:facet name="header">تا</f:facet>
+		<h:inputText value="#{transactionBean.toDate}" id="date_input_23" class="date">
+			<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
+		</h:inputText>
+		<img id="date_btn_23" src="resources/cal.png" style="vertical-align: top;" />
+		<script type="text/javascript">
+			Calendar.setup({
+				inputField: "searchForm:searchTable:0:date_input_23",   // id of the input field
+				button: "date_btn_23",   // trigger for the calendar (button ID)
+	       		ifFormat: "%Y/%m/%d %H:%M",       // format of the input field
+	       		showsTime: true,
+	      		dateType: 'jalali',
+	      		timeFormat: "24",
+				weekNumbers: false,
+				langNumbers: true
+			});
+		</script>
 	</h:column>
-	
-	
 	<h:column rendered="#{transactionBean.exactDate eq 1}">
-	
-	<f:facet name="header">ماهانه</f:facet>
-	<h:inputText value="#{transactionBean.monthly}" id="monthly" class="date">
-		<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
-		<f:attribute name="format" value="YM"/>
-	</h:inputText>
-	<img id="monthly_btn" src="resources/cal.png" style="vertical-align: top;" />
-	<script type="text/javascript">
-		Calendar.setup({
-			inputField: "myform2:searchTable:0:monthly",
-			button: "monthly_btn",
-       		ifFormat: "%Y/%m",
-       		showsTime: false,
-      		dateType: 'jalali',
-			weekNumbers: false,
-			langNumbers: true
-		});
-	</script>
+		<f:facet name="header">ماهانه</f:facet>
+		<h:inputText value="#{transactionBean.monthly}" id="monthly" class="date">
+			<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
+			<f:attribute name="format" value="YM"/>
+		</h:inputText>
+		<img id="monthly_btn" src="resources/cal.png" style="vertical-align: top;" />
+		<script type="text/javascript">
+			Calendar.setup({
+				inputField: "searchForm:searchTable:0:monthly",
+				button: "monthly_btn",
+	       		ifFormat: "%Y/%m",
+	       		showsTime: false,
+	      		dateType: 'jalali',
+				weekNumbers: false,
+				langNumbers: true
+			});
+		</script>
 	</h:column>
-	
-	
 	<h:column rendered="#{transactionBean.exactDate eq 2}">
-	<f:facet name="header">روزانه</f:facet>
-	<h:inputText value="#{transactionBean.daily}" id="daily" class="date">
-		<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
-		<f:attribute name="format" value="YMD"/>
-	</h:inputText>
-	<img id="daily_btn" src="resources/cal.png" style="vertical-align: top;" />
-	<script type="text/javascript">
-		Calendar.setup({
-			inputField: "myform2:searchTable:0:daily",
-			button: "daily_btn",
-       		ifFormat: "%Y/%m/%d",
-       		showsTime: false,
-      		dateType: 'jalali',
-			weekNumbers: false,
-			langNumbers: true
-		});
-	</script>
+		<f:facet name="header">روزانه</f:facet>
+		<h:inputText value="#{transactionBean.daily}" id="daily" class="date">
+			<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
+			<f:attribute name="format" value="YMD"/>
+		</h:inputText>
+		<img id="daily_btn" src="resources/cal.png" style="vertical-align: top;" />
+		<script type="text/javascript">
+			Calendar.setup({
+				inputField: "searchForm:searchTable:0:daily",
+				button: "daily_btn",
+	       		ifFormat: "%Y/%m/%d",
+	       		showsTime: false,
+	      		dateType: 'jalali',
+				weekNumbers: false,
+				langNumbers: true
+			});
+		</script>
 	</h:column>
 	<h:column>
 		<h:commandButton value="تغییرتاریخ" action="#{transactionBean.changeAction}" />
@@ -230,80 +227,81 @@
   		</h:column>
   		<h:column>
   		<f:facet name="header">عملیات</f:facet>
-   	<h:commandButton value="جستجو" action="#{transactionBean.searchAction}"/>
+   	<h:commandButton id="search" value="جستجو" action="#{transactionBean.searchAction}"/>
    	</h:column>
-   	</h:dataTable>
-	<br />
-	<br />
-	<h:dataTable value="#{transactionBean.transList}" var="o" columnClasses=",date" rowClasses="oddRow,evenRow">
-			<h:column>
-				<f:facet name="header">نوع حساب</f:facet>
-			<h:selectOneMenu value="#{o.transAcc}" rendered="#{o.editable}">
-	   			<f:selectItem itemValue="2" itemLabel="ملت" />
-	   			<f:selectItem itemValue="1" itemLabel="آینده" />
-   			</h:selectOneMenu>
-   			<h:outputText value="#{o.transAcc}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.AccConverter" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">تاریخ</f:facet>
-				<h:inputText value="#{o.transDate}" rendered="#{o.editable}">
-					<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
-				</h:inputText>
-   				<h:outputText value="#{o.transDate}" converter="org.oruji.dakhlokharj.DateConverter" rendered="#{not o.editable}" />
-			</h:column>
+</h:dataTable>
+</h:form>
+<br /><br />
+<h:form id="listForm">
+<h:dataTable value="#{transactionBean.transList}" var="o" columnClasses=",date" rowClasses="oddRow,evenRow">
+	<h:column>
+		<f:facet name="header">نوع حساب</f:facet>
+		<h:selectOneMenu value="#{o.transAcc}" rendered="#{o.editable}">
+			<f:selectItem itemValue="2" itemLabel="ملت" />
+			<f:selectItem itemValue="1" itemLabel="آینده" />
+		</h:selectOneMenu>
+		<h:outputText value="#{o.transAcc}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.AccConverter" />
+	</h:column>
+	<h:column>
+		<f:facet name="header">تاریخ</f:facet>
+		<h:inputText value="#{o.transDate}" rendered="#{o.editable}">
+			<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
+		</h:inputText>
+		<h:outputText value="#{o.transDate}" converter="org.oruji.dakhlokharj.DateConverter" rendered="#{not o.editable}" />
+	</h:column>
+	
+	<h:column >
+		<f:facet name="header">مبلغ</f:facet>
+		<h:inputText value="#{o.transCur}" rendered="#{o.editable}" class="myLeft">
+			<f:converter converterId="org.oruji.dakhlokharj.NumberConverter"  />
+		</h:inputText>
+		<h:outputText value="#{o.transCur}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />      
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">نوع برداشت</f:facet>
+	<h:selectOneMenu value="#{o.transType}" rendered="#{o.editable}">
+  			<f:selectItems value="#{transactionBean.transactionType}" />
+  		</h:selectOneMenu>
+ 			<h:outputText value="#{o.transType}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.TypeConverter" />
+	</h:column>
 			
-			<h:column >
-				<f:facet name="header">مبلغ</f:facet>
-				<h:inputText value="#{o.transCur}" rendered="#{o.editable}" class="myLeft">
-					<f:converter converterId="org.oruji.dakhlokharj.NumberConverter"  />
-				</h:inputText>
-				<h:outputText value="#{o.transCur}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />      
-			</h:column>
-			
-			<h:column>
-				<f:facet name="header">نوع برداشت</f:facet>
-			<h:selectOneMenu value="#{o.transType}" rendered="#{o.editable}">
-	   			<f:selectItems value="#{transactionBean.transactionType}" />
-	   		</h:selectOneMenu>
-   			<h:outputText value="#{o.transType}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.TypeConverter" />
-			</h:column>
-			
-			<h:column>
-				<f:facet name="header">توضیحات</f:facet>
-				<h:inputText value="#{o.transDesc}" rendered="#{o.editable}" />
-   			<h:outputText value="#{o.transDesc}" rendered="#{not o.editable}" />
-			</h:column>
+	<h:column>
+		<f:facet name="header">توضیحات</f:facet>
+		<h:inputText value="#{o.transDesc}" rendered="#{o.editable}" />
+		<h:outputText value="#{o.transDesc}" rendered="#{not o.editable}" />
+	</h:column>
 
-			<h:column>
-				<f:facet name="header">به / شناسه قبض</f:facet>
-				<h:inputText value="#{o.transTo}" rendered="#{o.editable}" class="myLeft">
-					<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
-				</h:inputText>
-   			<h:outputText value="#{o.transTo}" rendered="#{not o.editable}" />
-			</h:column>
+	<h:column>
+		<f:facet name="header">به / شناسه قبض</f:facet>
+		<h:inputText value="#{o.transTo}" rendered="#{o.editable}" class="myLeft">
+			<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
+		</h:inputText>
+		<h:outputText value="#{o.transTo}" rendered="#{not o.editable}" />
+	</h:column>
 
-			<h:column>
-				<f:facet name="header">شناسه پرداخت</f:facet>
-				<h:inputText value="#{o.payNo}" rendered="#{o.editable}" class="myLeft"/>
-   			<h:outputText value="#{o.payNo}" rendered="#{not o.editable}" />
-			</h:column>
+	<h:column>
+		<f:facet name="header">شناسه پرداخت</f:facet>
+		<h:inputText value="#{o.payNo}" rendered="#{o.editable}" class="myLeft"/>
+		<h:outputText value="#{o.payNo}" rendered="#{not o.editable}" />
+	</h:column>
 
-			<h:column>
-				<f:facet name="header">شماره تراکنش</f:facet>
-				<h:inputText value="#{o.transNo}" rendered="#{o.editable}" class="myLeft">
-					<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
-				</h:inputText>
-   			<h:outputText value="#{o.transNo}" rendered="#{not o.editable}" />
-			</h:column>
+	<h:column>
+		<f:facet name="header">شماره تراکنش</f:facet>
+		<h:inputText value="#{o.transNo}" rendered="#{o.editable}" class="myLeft">
+			<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
+		</h:inputText>
+		<h:outputText value="#{o.transNo}" rendered="#{not o.editable}" />
+	</h:column>
 
-			<h:column>
-		    <f:facet name="header">عملیات</f:facet>
-		    <h:commandButton value="خذف" action="#{transactionBean.deleteAction(o)}" rendered="#{not o.editable}" onclick="return confirm('Are you sure to DELETE?!!!')" />
-		    <h:commandButton value="ویرایش" action="#{transactionBean.editAction(o)}" rendered="#{not o.editable}" />
-		    <h:commandButton value="ذخیره" action="#{transactionBean.saveEditAction(o)}" rendered="#{o.editable}" onclick="return confirm('Are you sure to EDIT?!!!')" />
-		    <h:commandButton value="انصراف" action="#{transactionBean.cancelAction(o)}" rendered="#{o.editable}" />
-		</h:column>
-	</h:dataTable>
+	<h:column>
+	    <f:facet name="header">عملیات</f:facet>
+	    <h:commandButton value="خذف" action="#{transactionBean.deleteAction(o)}" rendered="#{not o.editable}" onclick="return confirm('Are you sure to DELETE?!!!')" />
+	    <h:commandButton value="ویرایش" action="#{transactionBean.editAction(o)}" rendered="#{not o.editable}" />
+	    <h:commandButton value="ذخیره" action="#{transactionBean.saveEditAction(o)}" rendered="#{o.editable}" onclick="return confirm('Are you sure to EDIT?!!!')" />
+	    <h:commandButton value="انصراف" action="#{transactionBean.cancelAction(o)}" rendered="#{o.editable}" />
+	</h:column>
+</h:dataTable>
 </h:form>
 </h:body>
 </html>
