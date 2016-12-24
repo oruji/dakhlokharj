@@ -44,3 +44,11 @@ input {
 input[type=submit] {
 	width: 60px;
 }
+
+.oddRow {
+	background-color: hsla(186, 9%, 37%, 0.77);
+}
+
+.evenRow {
+	
+}

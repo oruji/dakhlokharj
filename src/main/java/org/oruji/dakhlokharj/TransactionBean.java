@@ -372,6 +372,7 @@ public class TransactionBean implements Serializable {
 		if (transactionType == null) {
 			transactionType = new HashMap<String, Integer>();
 			transactionType.put("", 0);
+			transactionType.put("خدمات", 1);
 			transactionType.put("شارژ ساختمان", 7);
 			transactionType.put("دستی", 8);
 			transactionType.put("خرید", 9);

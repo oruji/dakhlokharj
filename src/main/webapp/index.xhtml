@@ -235,7 +235,7 @@
    	</h:dataTable>
 	<br />
 	<br />
-	<h:dataTable value="#{transactionBean.transList}" var="o" columnClasses=",date">
+	<h:dataTable value="#{transactionBean.transList}" var="o" columnClasses=",date" rowClasses="oddRow,evenRow">
 			<h:column>
 				<f:facet name="header">نوع حساب</f:facet>
 			<h:selectOneMenu value="#{o.transAcc}" rendered="#{o.editable}">
