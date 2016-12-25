@@ -40,11 +40,11 @@ public class TransactionBean implements Serializable {
 
 	public String saveAction() {
 
-		if (getTransaction().getTransType() == 1 || getTransaction().getTransType() == 7
-				|| getTransaction().getTransType() == 8 || getTransaction().getTransType() == 9
-				|| getTransaction().getTransType() == 12 || getTransaction().getTransType() == 13
-				|| getTransaction().getTransType() == 17 || getTransaction().getTransType() == 18
-				|| getTransaction().getTransType() == 19)
+		if (getTransaction().getTransType() == 1 || getTransaction().getTransType() == 3
+				|| getTransaction().getTransType() == 7 || getTransaction().getTransType() == 8
+				|| getTransaction().getTransType() == 9 || getTransaction().getTransType() == 12
+				|| getTransaction().getTransType() == 13 || getTransaction().getTransType() == 17
+				|| getTransaction().getTransType() == 18 || getTransaction().getTransType() == 19)
 			getTransaction().setTransCur(getTransaction().getTransCur().negate());
 
 		new TransactionDao().transCreate(getTransaction());
@@ -382,6 +382,8 @@ public class TransactionBean implements Serializable {
 			transactionType.put("", 0);
 			transactionType.put("خدمات", 1);
 			transactionType.put("وام", 2);
+			transactionType.put("بدهی", 3);
+			transactionType.put("طلب", 4);
 			transactionType.put("شارژ ساختمان", 7);
 			transactionType.put("دستی دادن", 8);
 			transactionType.put("خرید", 9);
