@@ -20,7 +20,7 @@ th {
 }
 
 input {
-	width: 100px
+	width: 100%;
 }
 
 .date {
@@ -45,10 +45,43 @@ input[type=submit] {
 	width: 60px;
 }
 
+.listTable {
+	width: 90%;
+}
+
 .oddRow {
-	
+	background-color: rgba(196, 255, 255, 0.14);
 }
 
 .evenRow {
-	background-color: rgba(196, 255, 255, 0.14);
+	
+}
+
+.firstColumn {
+	width: 5%;
+}
+
+.dateColumn {
+	width: 14%;
+	direction: ltr;
+}
+
+.descColumn {
+	width: 22%;
+}
+
+.curColumn {
+	width: 9%;
+}
+
+.typeColumn {
+	width: 8%;
+}
+
+.noColumn {
+	width: 10%;
+}
+
+.acctionColumn {
+	width: 22%;
 }

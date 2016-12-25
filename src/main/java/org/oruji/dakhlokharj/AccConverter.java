@@ -1,5 +1,10 @@
 package org.oruji.dakhlokharj;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -15,13 +20,18 @@ public class AccConverter implements Converter {
 
 	@Override
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) {
-		switch ((Integer) arg2) {
-		case 1:
-			return "آینده";
-		case 2:
-			return "ملت";
-		default:
-			return "";
+		TransactionBean bean = new TransactionBean();
+		Map<String, Integer> myMap = bean.getBankType();
+		Set<Entry<String, Integer>> s = myMap.entrySet();
+		Iterator<Entry<String, Integer>> it = s.iterator();
+
+		while (it.hasNext()) {
+			Map.Entry<String, Integer> m = (Entry<String, Integer>) it.next();
+
+			if (m.getValue() == (Integer) arg2)
+				return m.getKey();
 		}
+
+		return "";
 	}
 }

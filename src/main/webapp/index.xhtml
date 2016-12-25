@@ -15,14 +15,14 @@
 	<h:outputScript library="js" name="oruji.js" />
 </h:head>
 <h:body>
-<h:panelGroup layout="block" class="todayDate">
+<h:panelGroup layout="block" styleClass="todayDate">
 	#{transactionBean.todayDate}
 </h:panelGroup>
 <h:form id="saveForm">
 <h:dataTable value="" var="" id="mytable">
 	<h:column>
 		<f:facet name="header">تاریخ</f:facet>
-		<h:inputText value="#{transactionBean.transaction.transDate}" id="date_input_2" required="true" class="date">
+		<h:inputText value="#{transactionBean.transaction.transDate}" id="date_input_2" required="true" styleClass="date">
 			<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
 		</h:inputText>
 		<img id="date_btn_2" src="resources/cal.png" style="vertical-align: top;" />
@@ -42,7 +42,7 @@
 	
 	<h:column>
 		<f:facet name="header">مبلغ</f:facet>
-		<h:inputText value="#{transactionBean.transaction.transCur}" required="true" class="myLeft">
+		<h:inputText value="#{transactionBean.transaction.transCur}" required="true" styleClass="myLeft">
 			<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
 		</h:inputText>
 	</h:column>
@@ -50,8 +50,7 @@
 	<h:column>
 		<f:facet name="header">نوع حساب</f:facet>
 		<h:selectOneMenu value="#{transactionBean.transaction.transAcc}" required="true">
-  			<f:selectItem itemValue="2" itemLabel="ملت" />
-  			<f:selectItem itemValue="1" itemLabel="آینده" />
+  			<f:selectItems value="#{transactionBean.bankType}" />
   		</h:selectOneMenu>
 	</h:column>
 
@@ -70,21 +69,21 @@
 	<h:dataTable value="" var="" id="mytable2">
 			<h:column>
 				<f:facet name="header">به / شناسه قبض</f:facet>
-			<h:inputText value="#{transactionBean.transaction.transTo}" required="true" class="myLeft">
+			<h:inputText value="#{transactionBean.transaction.transTo}" required="true" styleClass="myLeft">
 				<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
 			</h:inputText>
 			</h:column>
 
 			<h:column>
 				<f:facet name="header">شناسه پرداخت</f:facet>
-			<h:inputText value="#{transactionBean.transaction.payNo}" required="true" class="myLeft">
+			<h:inputText value="#{transactionBean.transaction.payNo}" required="true" styleClass="myLeft">
 				<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
 			</h:inputText>
 			</h:column>
 
 			<h:column>
 				<f:facet name="header">شماره تراکنش</f:facet>
-			<h:inputText value="#{transactionBean.transaction.transNo}" required="true" class="myLeft">
+			<h:inputText value="#{transactionBean.transaction.transNo}" required="true" styleClass="myLeft">
 				<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
 			</h:inputText>
 			</h:column>
@@ -100,15 +99,15 @@
 <h:dataTable value="" var="">
    	<h:column>
 	   	<f:facet name="header">دخل</f:facet>
-	   	<h:outputText value="#{transactionBean.totalDakhl}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" />
+	   	<h:outputText value="#{transactionBean.totalDakhl}" styleClass="bold" converter="org.oruji.dakhlokharj.NumberConverter" />
    	</h:column>
    	<h:column>
 	   	<f:facet name="header">خرج</f:facet>
-	   	<h:outputText value="#{transactionBean.totalKharj}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
+	   	<h:outputText value="#{transactionBean.totalKharj}" styleClass="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
    	</h:column>
    	<h:column>
 	   	<f:facet name="header">مبلغ کل</f:facet>
-	   	<h:outputText value="#{transactionBean.totalMoney}" class="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
+	   	<h:outputText value="#{transactionBean.totalMoney}" styleClass="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
 	   	</h:column>
 	   	<h:column>
 	   	<f:facet name="header">عملیات</f:facet>
@@ -123,9 +122,7 @@
 	<h:column>
 		<f:facet name="header">نوع حساب</f:facet>
 		<h:selectOneMenu value="#{transactionBean.accSearch}">
-			<f:selectItem itemValue="0" itemLabel="" />
-   			<f:selectItem itemValue="1" itemLabel="آینده" />
-   			<f:selectItem itemValue="2" itemLabel="ملت" />
+			<f:selectItems value="#{transactionBean.bankType}" />
    		</h:selectOneMenu>
 	</h:column>
 	<h:column>
@@ -138,7 +135,7 @@
 	</h:column>
 	<h:column rendered="#{transactionBean.exactDate eq 3}">
 		<f:facet name="header">از</f:facet>
-		<h:inputText value="#{transactionBean.fromDate}" id="date_input_22" class="date">
+		<h:inputText value="#{transactionBean.fromDate}" id="date_input_22" styleClass="date">
 			<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
 		</h:inputText>
 		<img id="date_btn_22" src="resources/cal.png" style="vertical-align: top;" />
@@ -157,7 +154,7 @@
 	</h:column>
 	<h:column rendered="#{transactionBean.exactDate eq 3}">
 		<f:facet name="header">تا</f:facet>
-		<h:inputText value="#{transactionBean.toDate}" id="date_input_23" class="date">
+		<h:inputText value="#{transactionBean.toDate}" id="date_input_23" styleClass="date">
 			<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
 		</h:inputText>
 		<img id="date_btn_23" src="resources/cal.png" style="vertical-align: top;" />
@@ -176,7 +173,7 @@
 	</h:column>
 	<h:column rendered="#{transactionBean.exactDate eq 1}">
 		<f:facet name="header">ماهانه</f:facet>
-		<h:inputText value="#{transactionBean.monthly}" id="monthly" class="date">
+		<h:inputText value="#{transactionBean.monthly}" id="monthly" styleClass="date">
 			<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
 			<f:attribute name="format" value="YM"/>
 		</h:inputText>
@@ -195,7 +192,7 @@
 	</h:column>
 	<h:column rendered="#{transactionBean.exactDate eq 2}">
 		<f:facet name="header">روزانه</f:facet>
-		<h:inputText value="#{transactionBean.daily}" id="daily" class="date">
+		<h:inputText value="#{transactionBean.daily}" id="daily" styleClass="date">
 			<f:converter converterId="org.oruji.dakhlokharj.DateConverter" />
 			<f:attribute name="format" value="YMD"/>
 		</h:inputText>
@@ -233,12 +230,11 @@
 </h:form>
 <br /><br />
 <h:form id="listForm">
-<h:dataTable value="#{transactionBean.transList}" var="o" columnClasses=",date" rowClasses="oddRow,evenRow">
+<h:dataTable value="#{transactionBean.transList}" var="o" columnClasses="firstColumn,dateColumn,curColumn,typeColumn,descColumn,noColumn,noColumn,noColumn,acctionColumn" rowClasses="oddRow,evenRow" styleClass="listTable">
 	<h:column>
 		<f:facet name="header">نوع حساب</f:facet>
 		<h:selectOneMenu value="#{o.transAcc}" rendered="#{o.editable}">
-			<f:selectItem itemValue="2" itemLabel="ملت" />
-			<f:selectItem itemValue="1" itemLabel="آینده" />
+			<f:selectItems value="#{transactionBean.bankType}" />
 		</h:selectOneMenu>
 		<h:outputText value="#{o.transAcc}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.AccConverter" />
 	</h:column>
@@ -252,7 +248,7 @@
 	
 	<h:column >
 		<f:facet name="header">مبلغ</f:facet>
-		<h:inputText value="#{o.transCur}" rendered="#{o.editable}" class="myLeft">
+		<h:inputText value="#{o.transCur}" rendered="#{o.editable}" styleClass="myLeft">
 			<f:converter converterId="org.oruji.dakhlokharj.NumberConverter"  />
 		</h:inputText>
 		<h:outputText value="#{o.transCur}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />      
@@ -260,12 +256,12 @@
 	
 	<h:column>
 		<f:facet name="header">نوع برداشت</f:facet>
-	<h:selectOneMenu value="#{o.transType}" rendered="#{o.editable}">
+		<h:selectOneMenu value="#{o.transType}" rendered="#{o.editable}">
   			<f:selectItems value="#{transactionBean.transactionType}" />
   		</h:selectOneMenu>
- 			<h:outputText value="#{o.transType}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.TypeConverter" />
+		<h:outputText value="#{o.transType}" rendered="#{not o.editable}" converter="org.oruji.dakhlokharj.TypeConverter" />
 	</h:column>
-			
+
 	<h:column>
 		<f:facet name="header">توضیحات</f:facet>
 		<h:inputText value="#{o.transDesc}" rendered="#{o.editable}" />
@@ -274,7 +270,7 @@
 
 	<h:column>
 		<f:facet name="header">به / شناسه قبض</f:facet>
-		<h:inputText value="#{o.transTo}" rendered="#{o.editable}" class="myLeft">
+		<h:inputText value="#{o.transTo}" rendered="#{o.editable}" styleClass="myLeft">
 			<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
 		</h:inputText>
 		<h:outputText value="#{o.transTo}" rendered="#{not o.editable}" />
@@ -282,13 +278,13 @@
 
 	<h:column>
 		<f:facet name="header">شناسه پرداخت</f:facet>
-		<h:inputText value="#{o.payNo}" rendered="#{o.editable}" class="myLeft"/>
+		<h:inputText value="#{o.payNo}" rendered="#{o.editable}" styleClass="myLeft"/>
 		<h:outputText value="#{o.payNo}" rendered="#{not o.editable}" />
 	</h:column>
 
 	<h:column>
 		<f:facet name="header">شماره تراکنش</f:facet>
-		<h:inputText value="#{o.transNo}" rendered="#{o.editable}" class="myLeft">
+		<h:inputText value="#{o.transNo}" rendered="#{o.editable}" styleClass="myLeft">
 			<f:converter converterId="org.oruji.dakhlokharj.NumberConverter" />
 		</h:inputText>
 		<h:outputText value="#{o.transNo}" rendered="#{not o.editable}" />
@@ -296,10 +292,10 @@
 
 	<h:column>
 	    <f:facet name="header">عملیات</f:facet>
-	    <h:commandButton value="خذف" action="#{transactionBean.deleteAction(o)}" rendered="#{not o.editable}" onclick="return confirm('Are you sure to DELETE?!!!')" />
 	    <h:commandButton value="ویرایش" action="#{transactionBean.editAction(o)}" rendered="#{not o.editable}" />
-	    <h:commandButton value="ذخیره" action="#{transactionBean.saveEditAction(o)}" rendered="#{o.editable}" onclick="return confirm('Are you sure to EDIT?!!!')" />
+	    <h:commandButton value="خذف" action="#{transactionBean.deleteAction(o)}" rendered="#{not o.editable}" onclick="return confirm('Are you sure to DELETE?!!!')" />
 	    <h:commandButton value="انصراف" action="#{transactionBean.cancelAction(o)}" rendered="#{o.editable}" />
+	    <h:commandButton value="ذخیره" action="#{transactionBean.saveEditAction(o)}" rendered="#{o.editable}" onclick="return confirm('Are you sure to EDIT?!!!')" />
 	</h:column>
 </h:dataTable>
 </h:form>

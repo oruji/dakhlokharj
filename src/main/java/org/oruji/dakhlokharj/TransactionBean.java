@@ -37,6 +37,7 @@ public class TransactionBean implements Serializable {
 	private Date daily;
 
 	private HashMap<String, Integer> transactionType;
+	private HashMap<String, Integer> bankType;
 
 	public String saveAction() {
 
@@ -406,6 +407,22 @@ public class TransactionBean implements Serializable {
 
 	public void setTransactionType(HashMap<String, Integer> transactionType) {
 		this.transactionType = transactionType;
+	}
+	
+	public HashMap<String, Integer> getBankType() {
+		if (bankType == null) {
+			bankType = new HashMap<String, Integer>();
+			bankType.put("", 0);
+			bankType.put("آینده", 1);
+			bankType.put("ملت", 2);
+			bankType.put("رفاه", 3);
+		}
+
+		return bankType;
+	}
+
+	public void setBankType(HashMap<String, Integer> bankType) {
+		this.bankType = bankType;
 	}
 
 	public String getTodayDate() {
