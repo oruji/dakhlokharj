@@ -17,7 +17,8 @@ import javax.persistence.Transient;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "TransactionModel.findAll", query = "SELECT t from TransactionModel t order by t.transDate desc") })
+		@NamedQuery(name = "TransactionModel.findAll", query = "SELECT t from TransactionModel t order by t.transDate desc"),
+		@NamedQuery(name = "TransactionModel.totalAcc", query = "SELECT SUM(t.transCur) FROM TransactionModel t WHERE t.transAcc = :accType") })
 public class TransactionModel implements Serializable {
 	private static final long serialVersionUID = -4819996652263837857L;
 	@Id

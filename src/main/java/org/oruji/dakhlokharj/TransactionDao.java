@@ -1,5 +1,6 @@
 package org.oruji.dakhlokharj;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -36,6 +37,12 @@ public class TransactionDao {
 	public List<TransactionModel> transRead() {
 		EntityManager em = getEntityManager();
 		return (List<TransactionModel>) em.createNamedQuery("TransactionModel.findAll").getResultList();
+	}
+
+	public BigDecimal getTotalAcc(Integer accType) {
+		EntityManager em = getEntityManager();
+		return (BigDecimal) em.createNamedQuery("TransactionModel.totalAcc").setParameter("accType", accType)
+				.getResultList().get(0);
 	}
 
 	@SuppressWarnings("unchecked")

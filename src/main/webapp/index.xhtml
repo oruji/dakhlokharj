@@ -108,7 +108,23 @@
    	<h:column>
 	   	<f:facet name="header">مبلغ کل</f:facet>
 	   	<h:outputText value="#{transactionBean.totalMoney}" styleClass="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
-	   	</h:column>
+  	</h:column>
+	   	
+   	<h:column>
+	   	<f:facet name="header">آینده</f:facet>
+	   	<h:outputText value="#{transactionBean.totalAyande}" styleClass="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
+	</h:column>
+	   	
+   	<h:column>
+	   	<f:facet name="header">ملت</f:facet>
+	   	<h:outputText value="#{transactionBean.totalMellat}" styleClass="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
+	</h:column>
+	
+   	<h:column>
+	   	<f:facet name="header">رفاه</f:facet>
+	   	<h:outputText value="#{transactionBean.totalRefah}" styleClass="bold" converter="org.oruji.dakhlokharj.NumberConverter" dir="ltr" />
+	</h:column>
+	   	
 	   	<h:column>
 	   	<f:facet name="header">عملیات</f:facet>
 	   	<h:commandButton value="خروجی" action="#{transactionBean.exportAction}" onclick="return confirm('Are you sure to EXPORT?!!!')"/>

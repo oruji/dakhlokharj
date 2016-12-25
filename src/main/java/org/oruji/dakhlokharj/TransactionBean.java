@@ -36,6 +36,10 @@ public class TransactionBean implements Serializable {
 	private Date monthly;
 	private Date daily;
 
+	private BigDecimal totalAyande;
+	private BigDecimal totalMellat;
+	private BigDecimal totalRefah;
+
 	private HashMap<String, Integer> transactionType;
 	private HashMap<String, Integer> bankType;
 
@@ -45,16 +49,13 @@ public class TransactionBean implements Serializable {
 				|| getTransaction().getTransType() == 7 || getTransaction().getTransType() == 8
 				|| getTransaction().getTransType() == 9 || getTransaction().getTransType() == 12
 				|| getTransaction().getTransType() == 13 || getTransaction().getTransType() == 17
-				|| getTransaction().getTransType() == 18 || getTransaction().getTransType() == 19)
+				|| getTransaction().getTransType() == 18 || getTransaction().getTransType() == 19
+				|| getTransaction().getTransType() == 20)
 			getTransaction().setTransCur(getTransaction().getTransCur().negate());
 
 		new TransactionDao().transCreate(getTransaction());
 
-		transList = null;
-		transaction = null;
-		totalMoney = null;
-		totalDakhl = null;
-		totalKharj = null;
+		refreshData();
 
 		return "index.xhtml?faces-redirect=true";
 	}
@@ -77,11 +78,7 @@ public class TransactionBean implements Serializable {
 	public String deleteAction(TransactionModel bean) {
 		new TransactionDao().transDelete(bean);
 
-		transList = null;
-		transaction = null;
-		totalMoney = null;
-		totalDakhl = null;
-		totalKharj = null;
+		refreshData();
 
 		return "index.xhtml?faces-redirect=true";
 	}
@@ -96,11 +93,7 @@ public class TransactionBean implements Serializable {
 		new TransactionDao().transUpdate(bean);
 		bean.setEditable(false);
 
-		transList = null;
-		transaction = null;
-		totalMoney = null;
-		totalDakhl = null;
-		totalKharj = null;
+		refreshData();
 
 		return "index.xhtml?faces-redirect=true";
 	}
@@ -174,10 +167,7 @@ public class TransactionBean implements Serializable {
 	}
 
 	public String searchAction() {
-		transList = null;
-		totalMoney = null;
-		totalDakhl = null;
-		totalKharj = null;
+		refreshData();
 
 		return "index.xhtml?faces-redirect=true";
 	}
@@ -186,10 +176,7 @@ public class TransactionBean implements Serializable {
 		String content = format();
 		FileIO.writeFile(FILENAME, content);
 
-		transList = null;
-		totalMoney = null;
-		totalDakhl = null;
-		totalKharj = null;
+		refreshData();
 
 		return "index.xhtml?faces-redirect=true";
 	}
@@ -204,10 +191,7 @@ public class TransactionBean implements Serializable {
 			td.transCreate(model);
 		}
 
-		transList = null;
-		totalMoney = null;
-		totalDakhl = null;
-		totalKharj = null;
+		refreshData();
 
 		return "index.xhtml?faces-redirect=true";
 	}
@@ -391,6 +375,7 @@ public class TransactionBean implements Serializable {
 			transactionType.put("دستی", 8);
 			transactionType.put("خرید", 9);
 			transactionType.put("فروش", 10);
+			transactionType.put("واریز", 11);
 			transactionType.put("هدیه دادن", 12);
 			transactionType.put("بیمه", 13);
 			transactionType.put("سود", 14);
@@ -399,6 +384,7 @@ public class TransactionBean implements Serializable {
 			transactionType.put("دکتر", 17);
 			transactionType.put("قسط", 18);
 			transactionType.put("قبض", 19);
+			transactionType.put("برداشت", 20);
 			transactionType.put("دیگر", 99);
 		}
 
@@ -408,7 +394,7 @@ public class TransactionBean implements Serializable {
 	public void setTransactionType(HashMap<String, Integer> transactionType) {
 		this.transactionType = transactionType;
 	}
-	
+
 	public HashMap<String, Integer> getBankType() {
 		if (bankType == null) {
 			bankType = new HashMap<String, Integer>();
@@ -451,5 +437,46 @@ public class TransactionBean implements Serializable {
 
 	public void setDaily(Date daily) {
 		this.daily = daily;
+	}
+
+	public BigDecimal getTotalAyande() {
+		if (totalAyande == null)
+			totalAyande = new TransactionDao().getTotalAcc(1);
+		return totalAyande;
+	}
+
+	public void setTotalAyande(BigDecimal totalAyande) {
+		this.totalAyande = totalAyande;
+	}
+
+	public BigDecimal getTotalMellat() {
+		if (totalMellat == null)
+			totalMellat = new TransactionDao().getTotalAcc(2);
+		return totalMellat;
+	}
+
+	public void setTotalMellat(BigDecimal totalMellat) {
+		this.totalMellat = totalMellat;
+	}
+
+	public BigDecimal getTotalRefah() {
+		if (totalRefah == null)
+			totalRefah = new TransactionDao().getTotalAcc(3);
+		return totalRefah;
+	}
+
+	public void setTotalRefah(BigDecimal totalRefah) {
+		this.totalRefah = totalRefah;
+	}
+
+	private void refreshData() {
+		transList = null;
+		transaction = null;
+		totalMoney = null;
+		totalDakhl = null;
+		totalKharj = null;
+		totalAyande = null;
+		totalMellat = null;
+		totalRefah = null;
 	}
 }
