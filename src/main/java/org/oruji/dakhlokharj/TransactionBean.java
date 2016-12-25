@@ -39,6 +39,14 @@ public class TransactionBean implements Serializable {
 	private HashMap<String, Integer> transactionType;
 
 	public String saveAction() {
+
+		if (getTransaction().getTransType() == 1 || getTransaction().getTransType() == 7
+				|| getTransaction().getTransType() == 8 || getTransaction().getTransType() == 9
+				|| getTransaction().getTransType() == 12 || getTransaction().getTransType() == 13
+				|| getTransaction().getTransType() == 17 || getTransaction().getTransType() == 18
+				|| getTransaction().getTransType() == 19)
+			getTransaction().setTransCur(getTransaction().getTransCur().negate());
+
 		new TransactionDao().transCreate(getTransaction());
 
 		transList = null;
@@ -373,10 +381,11 @@ public class TransactionBean implements Serializable {
 			transactionType = new HashMap<String, Integer>();
 			transactionType.put("", 0);
 			transactionType.put("خدمات", 1);
+			transactionType.put("وام", 2);
 			transactionType.put("شارژ ساختمان", 7);
-			transactionType.put("دستی", 8);
+			transactionType.put("دستی دادن", 8);
 			transactionType.put("خرید", 9);
-			transactionType.put("هدیه", 12);
+			transactionType.put("هدیه دادن", 12);
 			transactionType.put("بیمه", 13);
 			transactionType.put("سود", 14);
 			transactionType.put("حقوق", 15);
