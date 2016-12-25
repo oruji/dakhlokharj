@@ -384,9 +384,12 @@ public class TransactionBean implements Serializable {
 			transactionType.put("وام", 2);
 			transactionType.put("بدهی", 3);
 			transactionType.put("طلب", 4);
+			transactionType.put("قرض", 5);
+			transactionType.put("هدیه گرفتن", 6);
 			transactionType.put("شارژ ساختمان", 7);
-			transactionType.put("دستی دادن", 8);
+			transactionType.put("دستی", 8);
 			transactionType.put("خرید", 9);
+			transactionType.put("فروش", 10);
 			transactionType.put("هدیه دادن", 12);
 			transactionType.put("بیمه", 13);
 			transactionType.put("سود", 14);
@@ -397,6 +400,7 @@ public class TransactionBean implements Serializable {
 			transactionType.put("قبض", 19);
 			transactionType.put("دیگر", 99);
 		}
+
 		return transactionType;
 	}
 
