@@ -54,6 +54,7 @@ public class TransactionBean implements Serializable {
 
 			if (getTransaction().getTransCur().compareTo(BigDecimal.ZERO) > 0)
 				getTransaction().setTransCur(getTransaction().getTransCur().negate());
+
 		} else
 			getTransaction().setTransCur(getTransaction().getTransCur().abs());
 
@@ -446,6 +447,7 @@ public class TransactionBean implements Serializable {
 	public BigDecimal getTotalAyande() {
 		if (totalAyande == null)
 			totalAyande = new TransactionDao().getTotalAcc(1);
+
 		return totalAyande;
 	}
 
@@ -456,6 +458,7 @@ public class TransactionBean implements Serializable {
 	public BigDecimal getTotalMellat() {
 		if (totalMellat == null)
 			totalMellat = new TransactionDao().getTotalAcc(2);
+
 		return totalMellat;
 	}
 
@@ -466,6 +469,7 @@ public class TransactionBean implements Serializable {
 	public BigDecimal getTotalRefah() {
 		if (totalRefah == null)
 			totalRefah = new TransactionDao().getTotalAcc(3);
+
 		return totalRefah;
 	}
 
