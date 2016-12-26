@@ -50,8 +50,12 @@ public class TransactionBean implements Serializable {
 				|| getTransaction().getTransType() == 9 || getTransaction().getTransType() == 12
 				|| getTransaction().getTransType() == 13 || getTransaction().getTransType() == 17
 				|| getTransaction().getTransType() == 18 || getTransaction().getTransType() == 19
-				|| getTransaction().getTransType() == 20)
-			getTransaction().setTransCur(getTransaction().getTransCur().negate());
+				|| getTransaction().getTransType() == 20) {
+
+			if (getTransaction().getTransCur().compareTo(BigDecimal.ZERO) > 0)
+				getTransaction().setTransCur(getTransaction().getTransCur().negate());
+		} else
+			getTransaction().setTransCur(getTransaction().getTransCur().abs());
 
 		new TransactionDao().transCreate(getTransaction());
 
