@@ -50,7 +50,7 @@ public class TransactionBean implements Serializable {
 				|| getTransaction().getTransType() == 9 || getTransaction().getTransType() == 12
 				|| getTransaction().getTransType() == 13 || getTransaction().getTransType() == 17
 				|| getTransaction().getTransType() == 18 || getTransaction().getTransType() == 19
-				|| getTransaction().getTransType() == 20) {
+				|| getTransaction().getTransType() == 20 || getTransaction().getTransType() == 22) {
 
 			if (getTransaction().getTransCur().compareTo(BigDecimal.ZERO) > 0)
 				getTransaction().setTransCur(getTransaction().getTransCur().negate());
@@ -390,6 +390,8 @@ public class TransactionBean implements Serializable {
 			transactionType.put("قسط", 18);
 			transactionType.put("قبض", 19);
 			transactionType.put("برداشت", 20);
+			transactionType.put("کسری", 21);
+			transactionType.put("افزونگی", 22);
 			transactionType.put("دیگر", 99);
 		}
 
