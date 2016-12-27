@@ -94,6 +94,14 @@ public class TransactionBean implements Serializable {
 		return "index.xhtml?faces-redirect=true";
 	}
 
+	public String copyAction(TransactionModel bean) {
+		// TransactionModel tm = new TransactionModel();
+		bean.setId(null);
+		setTransaction(bean);
+
+		return "index.xhtml?faces-redirect=true";
+	}
+
 	public String saveEditAction(TransactionModel bean) {
 		new TransactionDao().transUpdate(bean);
 		bean.setEditable(false);

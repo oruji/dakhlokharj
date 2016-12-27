@@ -67,7 +67,7 @@ input[type=submit] {
 }
 
 .descColumn {
-	width: 22%;
+	width: 20%;
 }
 
 .curColumn {
@@ -83,5 +83,9 @@ input[type=submit] {
 }
 
 .acctionColumn {
-	width: 22%;
+	width: 24%;
+}
+
+.bottunSmall {
+	width: 23px !important;
 }

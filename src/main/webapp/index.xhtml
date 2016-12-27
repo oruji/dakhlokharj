@@ -312,6 +312,7 @@
 
 	<h:column>
 	    <f:facet name="header">عملیات</f:facet>
+	    <h:commandButton value="ک" action="#{transactionBean.copyAction(o)}" rendered="#{not o.editable}" onclick="return confirm('Are you sure to COPY?!!!')" styleClass="bottunSmall" />
 	    <h:commandButton value="ویرایش" action="#{transactionBean.editAction(o)}" rendered="#{not o.editable}" />
 	    <h:commandButton value="خذف" action="#{transactionBean.deleteAction(o)}" rendered="#{not o.editable}" onclick="return confirm('Are you sure to DELETE?!!!')" />
 	    <h:commandButton value="انصراف" action="#{transactionBean.cancelAction(o)}" rendered="#{o.editable}" />
