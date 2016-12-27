@@ -151,12 +151,12 @@ public class TransactionBean implements Serializable {
 			switch (transTypeSearch) {
 			case 1:
 				for (int i = 0; i < transList.size(); i++)
-					if (transList.get(i).getTransCur().longValue() > 0)
+					if (transList.get(i).getTransCur().longValue() > 0 && transList.get(i).getTransType() != 11)
 						newList.add(transList.get(i));
 				break;
 			case 2:
 				for (int i = 0; i < transList.size(); i++)
-					if (transList.get(i).getTransCur().longValue() < 0)
+					if (transList.get(i).getTransCur().longValue() < 0 && transList.get(i).getTransType() != 20)
 						newList.add(transList.get(i));
 				break;
 			}
@@ -264,7 +264,7 @@ public class TransactionBean implements Serializable {
 		if (totalDakhl == null) {
 			long mySum = 0;
 			for (TransactionModel model : getTransList()) {
-				if (model.getTransCur().longValue() > 0)
+				if (model.getTransCur().longValue() > 0 && model.getTransType() != 11)
 					mySum += model.getTransCur().longValue();
 			}
 			totalDakhl = new BigDecimal(mySum);
@@ -276,7 +276,7 @@ public class TransactionBean implements Serializable {
 		if (totalKharj == null) {
 			long mySum = 0;
 			for (TransactionModel model : getTransList()) {
-				if (model.getTransCur().longValue() < 0)
+				if (model.getTransCur().longValue() < 0 && model.getTransType() != 20)
 					mySum += model.getTransCur().longValue();
 			}
 			totalKharj = new BigDecimal(mySum);

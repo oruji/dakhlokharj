@@ -72,7 +72,12 @@ public class TransactionDao {
 					continue;
 
 				myStr.append(" t.");
-				myStr.append(m.getKey() + "=" + ":" + m.getKey());
+
+				if (m.getKey() == "transAcc" && (Integer) m.getValue() == 4)
+					myStr.append(m.getKey() + " IN (:" + m.getKey() + ", 2)");
+
+				else
+					myStr.append(m.getKey() + "=" + ":" + m.getKey());
 
 			} else if (m.getValue() instanceof List) {
 				List<Date> dateList = new ArrayList<Date>();
@@ -115,7 +120,11 @@ public class TransactionDao {
 				if ((Integer) m.getValue() == 0)
 					continue;
 
-				q.setParameter((String) m.getKey(), (Integer) m.getValue());
+				if (m.getKey() == "transAcc" && (Integer) m.getValue() == 4)
+					q.setParameter((String) m.getKey(), (Integer) m.getValue() - 1);
+
+				else
+					q.setParameter((String) m.getKey(), (Integer) m.getValue());
 
 			} else if (m.getValue() instanceof List) {
 				List<Date> dateList = new ArrayList<Date>();

@@ -138,7 +138,11 @@
 	<h:column>
 		<f:facet name="header">نوع حساب</f:facet>
 		<h:selectOneMenu value="#{transactionBean.accSearch}">
-			<f:selectItems value="#{transactionBean.bankType}" />
+			<f:selectItem itemValue="0" itemLabel="" />
+   			<f:selectItem itemValue="1" itemLabel="آینده" />
+   			<f:selectItem itemValue="2" itemLabel="ملت" />
+   			<f:selectItem itemValue="3" itemLabel="رفاه" />
+   			<f:selectItem itemValue="4" itemLabel="ملت و رفاه" />
    		</h:selectOneMenu>
 	</h:column>
 	<h:column>
