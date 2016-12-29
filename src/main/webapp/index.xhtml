@@ -55,7 +55,7 @@
 	</h:column>
 
 	<h:column>
-		<f:facet name="header">نوع برداشت</f:facet>
+		<f:facet name="header">نوع</f:facet>
 	<h:selectOneMenu value="#{transactionBean.transaction.transType}" required="true">
 		<f:selectItems value="#{transactionBean.transactionType}" />
   		</h:selectOneMenu>
@@ -275,7 +275,7 @@
 	</h:column>
 	
 	<h:column>
-		<f:facet name="header">نوع برداشت</f:facet>
+		<f:facet name="header">نوع</f:facet>
 		<h:selectOneMenu value="#{o.transType}" rendered="#{o.editable}">
   			<f:selectItems value="#{transactionBean.transactionType}" />
   		</h:selectOneMenu>

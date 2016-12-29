@@ -44,13 +44,9 @@ public class TransactionBean implements Serializable {
 	private HashMap<String, Integer> bankType;
 
 	public String saveAction() {
-
-		if (getTransaction().getTransType() == 1 || getTransaction().getTransType() == 3
-				|| getTransaction().getTransType() == 7 || getTransaction().getTransType() == 8
-				|| getTransaction().getTransType() == 9 || getTransaction().getTransType() == 12
-				|| getTransaction().getTransType() == 13 || getTransaction().getTransType() == 17
-				|| getTransaction().getTransType() == 18 || getTransaction().getTransType() == 19
-				|| getTransaction().getTransType() == 20 || getTransaction().getTransType() == 22) {
+		Integer tType = new Integer(getTransaction().getTransType());
+		if (tType == 1 || tType == 3 || tType == 8 || tType == 9 || tType == 12 || tType == 13 || tType == 18
+				|| tType == 19 || tType == 20 || tType == 22) {
 
 			if (getTransaction().getTransCur().compareTo(BigDecimal.ZERO) > 0)
 				getTransaction().setTransCur(getTransaction().getTransCur().negate());
@@ -384,7 +380,6 @@ public class TransactionBean implements Serializable {
 			transactionType.put("طلب", 4);
 			transactionType.put("قرض", 5);
 			transactionType.put("هدیه گرفتن", 6);
-			transactionType.put("شارژ ساختمان", 7);
 			transactionType.put("دستی", 8);
 			transactionType.put("خرید", 9);
 			transactionType.put("فروش", 10);
@@ -394,7 +389,6 @@ public class TransactionBean implements Serializable {
 			transactionType.put("سود", 14);
 			transactionType.put("حقوق", 15);
 			transactionType.put("یارانه", 16);
-			transactionType.put("دکتر", 17);
 			transactionType.put("قسط", 18);
 			transactionType.put("قبض", 19);
 			transactionType.put("برداشت", 20);
